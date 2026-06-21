@@ -252,6 +252,14 @@ img { max-width: 100%; display: block; }
   background: #fff; border: 1px solid var(--line); border-radius: 16px;
   padding: 30px 30px 26px; position: relative; overflow: hidden;
 }
+.research-card-inner { display: flex; gap: 24px; align-items: flex-start; }
+.research-photo { flex: 0 0 130px; border-radius: 12px; overflow: hidden; aspect-ratio: 4/5; }
+.research-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.research-content { flex: 1; min-width: 0; }
+@media (max-width: 560px) {
+  .research-card-inner { flex-direction: column; }
+  .research-photo { flex: 0 0 auto; width: 130px; }
+}
 .research-ribbon {
   display: inline-flex; align-items: center; gap: 7px;
   background: var(--gold-pale); color: #6B5320;
@@ -272,12 +280,24 @@ img { max-width: 100%; display: block; }
 }
 .research-meta-chip svg { width: 13px; height: 13px; stroke: var(--leaf); flex-shrink: 0; }
 .research-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+.research-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 20px; font-size: 13.5px; font-weight: 600; color: var(--forest);
+  text-decoration: none; border-bottom: 1px solid var(--leaf-bright); padding-bottom: 2px;
+  transition: color .15s, border-color .15s;
+}
+.research-link svg { width: 14px; height: 14px; stroke: var(--leaf); transition: stroke .15s; }
+.research-link:hover { color: var(--leaf); }
+.research-link:hover svg { stroke: var(--leaf); }
 
 .research-side {
   background: var(--forest); border-radius: 16px; padding: 28px 26px;
   display: flex; flex-direction: column; gap: 20px;
 }
 .research-stat { display: flex; align-items: center; gap: 14px; }
+.research-stat-link { text-decoration: none; border-radius: 10px; padding: 4px; margin: -4px; transition: background .15s; }
+.research-stat-link:hover { background: rgba(247,244,236,.06); }
+.research-stat-link:hover .research-stat-num { text-decoration: underline; }
 .research-stat-icon {
   width: 42px; height: 42px; border-radius: 10px; background: rgba(47,174,118,.18);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
@@ -289,6 +309,28 @@ img { max-width: 100%; display: block; }
 
 /* ===== SERVICES ===== */
 .services-section { background: var(--cream); padding: 100px 0; }
+
+/* ===== CASE STUDY (preview) ===== */
+.case-section { background: var(--forest-deep); padding: 100px 0; position: relative; overflow: hidden; }
+.case-section .section-tag { color: var(--gold); }
+.case-section .section-h2 { color: var(--cream); }
+.case-section .section-sub { color: rgba(247,244,236,.6); }
+.case-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 44px; align-items: center; margin-top: 48px; }
+.case-photo-frame { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; }
+.case-photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.case-client-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,162,75,.14); border: 1px solid rgba(201,162,75,.4);
+  color: var(--gold); font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: .05em; padding: 6px 14px; border-radius: 100px; margin-bottom: 18px;
+}
+.case-title { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--cream); line-height: 1.4; margin-bottom: 14px; }
+.case-desc { font-size: 14.5px; color: rgba(247,244,236,.65); line-height: 1.8; margin-bottom: 26px; }
+.case-stat-row { display: flex; gap: 28px; flex-wrap: wrap; }
+.case-stat { border-left: 2px solid var(--gold); padding-left: 14px; }
+.case-stat-num { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--leaf-bright); line-height: 1.3; }
+.case-stat-lbl { font-size: 12px; color: rgba(247,244,236,.5); margin-top: 2px; }
+@media (max-width: 880px) { .case-grid { grid-template-columns: 1fr; } .case-photo-frame { aspect-ratio: 16/10; } }
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
 .svc-card {
   background: #fff; border: 1px solid var(--line); border-radius: 16px;
@@ -392,12 +434,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
     </div>
     <div class="hero-img-col">
       <div class="hero-photo-frame">
-        <img src="assets/hero-factory.png" alt="สรวิศ สุวรรณรงค์ ถือ Carbon Dashboard ในโรงงานอุตสาหกรรม">
+        <img src="assets/photos/hero-cert-ceremony.jpg" alt="สรวิศ สุวรรณรงค์ ส่งมอบใบรับรอง Carbon Footprint of Circular Economy จาก TGO ให้ บริษัท เพชรสยาม (ประเทศไทย) จำกัด">
       </div>
       <div class="hero-card">
         <div class="hero-card-row">
-          <span class="hero-card-num">1,248</span>
-          <span class="hero-card-lbl">tCO₂e<br>Total Emissions</span>
+          <span class="hero-card-num">เพชรสยาม</span>
+          <span class="hero-card-lbl">Carbon Footprint of<br>Circular Economy · TGO</span>
         </div>
       </div>
     </div>
@@ -546,7 +588,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
       </div>
     </div>
     <div class="cred-photo reveal">
-      <img src="assets/cred-portrait.png" alt="สรวิศ สุวรรณรงค์ ถือใบรับรอง TGO Carbon Footprint">
+      <img src="assets/photos/cred-portrait.jpg" alt="สรวิศ สุวรรณรงค์ ถือใบรับรอง TGO Carbon Footprint">
       <div class="cred-photo-tag">ประสบการณ์โรงงานอุตสาหกรรมมากกว่า 30 ปี · 9 ใบรับรองวิชาชีพ</div>
     </div>
   </div>
@@ -622,6 +664,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 
     <div class="research-grid">
       <div class="research-card reveal">
+        <div class="research-card-inner">
+        <div class="research-photo">
+          <img src="assets/photos/research-award.jpg" alt="สรวิศ สุวรรณรงค์ รับรางวัลบทความวิจัยดีเด่น ที่งานประชุมวิชาการ IE Network 2025">
+        </div>
+        <div class="research-content">
         <span class="research-ribbon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
           รางวัลบทความวิจัยดีเด่น
@@ -640,16 +687,22 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
           </div>
         </div>
         <p class="research-desc">ได้รับรางวัลบทความวิจัยดีเด่นจากการนำเสนอผลงานในที่ประชุมวิชาการข่ายงานวิศวกรรมอุตสาหการ ซึ่งเป็นเวทีวิชาการระดับประเทศด้านวิศวกรรมอุตสาหการ</p>
+        <a class="research-link" href="https://ir.stou.ac.th/bitstream/123456789/14086/1/2669600237.pdf" target="_blank" rel="noopener noreferrer">
+          อ่านบทความฉบับเต็ม (PDF)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+        </a>
+        </div>
+        </div>
       </div>
 
       <div class="research-side reveal">
-        <div class="research-stat">
+        <a class="research-stat research-stat-link" href="https://ir.stou.ac.th/bitstream/123456789/14086/1/2669600237.pdf" target="_blank" rel="noopener noreferrer">
           <div class="research-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
           <div>
             <div class="research-stat-num">ตีพิมพ์แล้ว</div>
             <div class="research-stat-lbl">วารสารข่ายงานวิศวกรรมอุตสาหการไทย<br>ปีที่ 11 ฉบับที่ 2 (ก.ค.–ธ.ค. 2568)</div>
           </div>
-        </div>
+        </a>
         <div class="research-divider"></div>
         <div class="research-stat">
           <div class="research-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
@@ -664,6 +717,39 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
           <div>
             <div class="research-stat-num">ม.ศิลปากร</div>
             <div class="research-stat-lbl">รับรองโดยภาควิชาวิศวกรรมอุตสาหการและการจัดการ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY (preview — ยังไม่ตัดสินใจ ลบส่วนนี้ได้ถ้าไม่ต้องการ) -->
+<section class="case-section">
+  <div class="wrap">
+    <span class="section-tag reveal">ผลงานจริงกับลูกค้า</span>
+    <h2 class="section-h2 reveal">จากที่ปรึกษา สู่ใบรับรองที่จับต้องได้</h2>
+    <p class="section-sub reveal">ไม่ใช่แค่วางระบบให้ดูดี แต่พาลูกค้าไปจนถึงวันที่ได้รับใบรับรองจริงจากหน่วยงานระดับประเทศ</p>
+
+    <div class="case-grid reveal">
+      <div class="case-photo-frame">
+        <img src="assets/photos/hero-cert-ceremony.jpg" alt="พิธีมอบใบรับรอง Carbon Footprint of Circular Economy ให้บริษัท เพชรสยาม (ประเทศไทย) จำกัด">
+      </div>
+      <div>
+        <span class="case-client-tag">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+          บริษัท เพชรสยาม (ประเทศไทย) จำกัด
+        </span>
+        <h3 class="case-title">ผู้ผลิตถังพลาสติก คว้าฉลากคาร์บอน Circular Economy จาก TGO</h3>
+        <p class="case-desc">วางระบบประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตามกรอบ ISO 14067 ควบคู่กับการวิเคราะห์วัฏจักรชีวิต (LCA) จนนำไปสู่การได้รับเครื่องหมายรับรองฉลากคาร์บอน Carbon Footprint of Circular Economy อย่างเป็นทางการจากองค์การบริหารจัดการก๊าซเรือนกระจก (TGO)</p>
+        <div class="case-stat-row">
+          <div class="case-stat">
+            <div class="case-stat-num">ISO 14067</div>
+            <div class="case-stat-lbl">กรอบมาตรฐานที่ใช้ประเมิน</div>
+          </div>
+          <div class="case-stat">
+            <div class="case-stat-num">รับรองโดย TGO</div>
+            <div class="case-stat-lbl">หน่วยงานระดับประเทศ</div>
           </div>
         </div>
       </div>
