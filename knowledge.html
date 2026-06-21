@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คลังความรู้ — FutureGreen Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #0D3D2B;
+  --forest-deep: #0A1410;
+  --leaf: #1F8A5C;
+  --leaf-bright: #2FAE76;
+  --cream: #F7F4EC;
+  --cream-warm: #EFEADB;
+  --gold: #C9A24B;
+  --gold-pale: #F2E6C8;
+  --ink: #111C17;
+  --ink-soft: #4A5C53;
+  --line: rgba(13,61,43,.14);
+  --line-light: rgba(247,244,236,.18);
+  --font-display: 'Fraunces', serif;
+  --font-body: 'IBM Plex Sans Thai', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream); color: var(--ink); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(247,244,236,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding: 16px 0; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--forest); text-decoration: none; }
+.nav-brand svg { width: 26px; height: 26px; }
+.nav-back { font-family: var(--font-body); font-weight: 500; font-size: 13.5px; color: var(--ink-soft); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .15s; }
+.nav-back:hover { color: var(--forest); }
+.nav-back svg { width: 15px; height: 15px; }
+
+/* HEADER */
+.kb-header { position: relative; padding: 150px 0 76px; background: var(--forest-deep); overflow: hidden; }
+.kb-grain { position: absolute; inset: 0; background: radial-gradient(circle at 85% 10%, rgba(31,138,92,.28), transparent 55%), radial-gradient(circle at 8% 90%, rgba(201,162,75,.14), transparent 50%); pointer-events: none; }
+.kb-header-inner { position: relative; z-index: 1; max-width: 720px; }
+.eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(47,174,118,.15); border: 1px solid rgba(47,174,118,.4); color: var(--leaf-bright); font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+.eyebrow-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--leaf-bright); }
+.kb-h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 4.4vw, 50px); line-height: 1.15; color: var(--cream); letter-spacing: -.01em; margin-bottom: 18px; }
+.kb-h1 em { font-style: normal; color: var(--leaf-bright); }
+.kb-sub { font-size: 15.5px; color: rgba(247,244,236,.68); line-height: 1.75; max-width: 580px; }
+.kb-note { margin-top: 22px; display: flex; align-items: flex-start; gap: 10px; font-size: 12.5px; color: rgba(247,244,236,.5); line-height: 1.6; }
+.kb-note svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; stroke: var(--gold); }
+
+/* FILTERS */
+.filter-section { background: var(--cream-warm); padding: 30px 0; border-bottom: 1px solid var(--line); position: sticky; top: 65px; z-index: 30; }
+.filter-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .03em; background: #fff; border: 1px solid var(--line); color: var(--ink-soft); padding: 9px 18px; border-radius: 100px; cursor: pointer; transition: all .15s; }
+.chip:hover { border-color: var(--leaf); color: var(--forest); }
+.chip.active { background: var(--forest); border-color: var(--forest); color: var(--cream); }
+
+/* GRID */
+.kb-section { padding: 64px 0 110px; }
+.kb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.kcard { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column; }
+.kcard.hidden { display: none; }
+.kcard:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(13,61,43,.1); }
+.kcard-thumb { position: relative; width: 100%; height: 280px; background: var(--cream-warm); border: none; padding: 0; cursor: zoom-in; display: block; overflow: hidden; }
+.kcard-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 14px; transition: transform .35s; }
+.kcard:hover .kcard-thumb img { transform: scale(1.035); }
+.kcard-zoom { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(10,20,16,.78)); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; opacity: 0; transition: opacity .2s; }
+.kcard:hover .kcard-zoom { opacity: 1; }
+.kcard-zoom span { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--cream); background: rgba(47,174,118,.9); padding: 8px 16px; border-radius: 100px; }
+.kcard-zoom svg { width: 13px; height: 13px; }
+.kcard-body { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; }
+.kcard-tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .05em; color: #6B5320; background: var(--gold-pale); padding: 4px 11px; border-radius: 100px; display: inline-block; margin-bottom: 12px; align-self: flex-start; }
+.kcard-title { font-family: var(--font-display); font-weight: 600; font-size: 17.5px; color: var(--forest); line-height: 1.4; margin-bottom: 8px; }
+.kcard-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.65; flex: 1; }
+
+/* LIGHTBOX */
+.lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(8,16,13,.94); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; padding: 28px; }
+.lightbox.open { display: flex; }
+.lb-content { position: relative; max-width: 980px; width: 100%; max-height: 92vh; display: flex; flex-direction: column; align-items: center; }
+.lb-img-wrap { background: var(--cream-warm); border-radius: 12px; overflow: hidden; max-height: 74vh; display: flex; align-items: center; justify-content: center; }
+.lb-img-wrap img { max-height: 74vh; width: auto; object-fit: contain; }
+.lb-caption { width: 100%; margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.lb-tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .05em; color: var(--gold); display: block; margin-bottom: 6px; }
+.lb-title { font-family: var(--font-display); font-weight: 600; font-size: 17px; color: var(--cream); }
+.lb-download { font-weight: 600; font-size: 13.5px; background: var(--leaf-bright); color: var(--forest-deep); padding: 12px 22px; border-radius: 100px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: background .15s; }
+.lb-download:hover { background: #4BC791; }
+.lb-close, .lb-nav { position: absolute; background: rgba(247,244,236,.1); border: 1px solid rgba(247,244,236,.25); color: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+.lb-close { top: -52px; right: 0; width: 38px; height: 38px; border-radius: 50%; font-size: 19px; }
+.lb-close:hover, .lb-nav:hover { background: rgba(247,244,236,.2); }
+.lb-nav { top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; font-size: 22px; }
+.lb-prev { left: -10px; }
+.lb-next { right: -10px; }
+.lb-count { position: absolute; top: -52px; left: 0; font-family: var(--font-mono); font-size: 12px; color: rgba(247,244,236,.55); line-height: 38px; }
+
+/* FOOTER */
+.footer { background: var(--forest-deep); padding: 30px 0; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(247,244,236,.55); }
+.footer-brand svg { width: 16px; height: 16px; stroke: var(--leaf-bright); }
+
+@media (max-width: 880px) {
+  .kb-grid { grid-template-columns: repeat(2, 1fr); }
+  .filter-section { top: 60px; }
+}
+@media (max-width: 600px) {
+  .kb-grid { grid-template-columns: 1fr; }
+  .kb-header { padding: 130px 0 56px; }
+  .lb-nav { display: none; }
+  .lb-close { top: -46px; }
+  .lb-count { top: -46px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 0 20A10 10 0 0 1 12 2"/><path d="M12 6v6l4 2"/></svg>
+      FutureGreen
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      กลับหน้าหลัก
+    </a>
+  </div>
+</nav>
+
+<header class="kb-header">
+  <div class="kb-grain"></div>
+  <div class="wrap kb-header-inner">
+    <span class="eyebrow-pill">FutureGreen Consulting · คลังความรู้</span>
+    <h1 class="kb-h1">สาระองค์ความรู้ที่<em>เข้าใจง่าย</em><br>เอาไปใช้ได้จริง</h1>
+    <p class="kb-sub">อินโฟกราฟิกสรุปประเด็น ISO เวอร์ชันใหม่ 2026, Carbon Footprint (CFO/CFP) และแนวทางที่ปรึกษา ที่ใช้สื่อสารกับลูกค้าโรงงานจริง — คลิกที่ภาพเพื่อดูฉบับเต็มและดาวน์โหลด</p>
+    <div class="kb-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+      <span>ภาพทั้งหมดเป็นผลงานลิขสิทธิ์ของ FutureGreen Consulting / สรวิศ สุวรรณรงค์ — ดาวน์โหลดไปใช้อ้างอิงหรือแชร์ต่อได้ โปรดให้เครดิตเมื่อนำไปเผยแพร่</span>
+    </div>
+  </div>
+</header>
+
+<section class="filter-section">
+  <div class="wrap filter-row" id="filterRow">
+    <button class="chip active" data-filter="all">ทั้งหมด</button>
+    <button class="chip" data-filter="iso2026">ISO เวอร์ชันใหม่ 2026</button>
+    <button class="chip" data-filter="carbon">Carbon Footprint (CFO/CFP)</button>
+    <button class="chip" data-filter="consulting">เกี่ยวกับที่ปรึกษา</button>
+  </div>
+</section>
+
+<section class="kb-section">
+  <div class="wrap">
+    <div class="kb-grid" id="kbGrid"></div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <div class="lb-content">
+    <span class="lb-count" id="lbCount"></span>
+    <button class="lb-close" id="lbClose" aria-label="ปิด">×</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="ก่อนหน้า">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="ถัดไป">›</button>
+    <div class="lb-img-wrap"><img id="lbImage" src="" alt=""></div>
+    <div class="lb-caption">
+      <div>
+        <span class="lb-tag" id="lbTag"></span>
+        <span class="lb-title" id="lbTitle"></span>
+      </div>
+      <a class="lb-download" id="lbDownload" download>
+        ดาวน์โหลดภาพ
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 0 20A10 10 0 0 1 12 2"/><path d="M12 6v6l4 2"/></svg>
+      FutureGreen Consulting · Sustainable · Profitable · Future-Ready
+    </div>
+    <div class="footer-brand">083-768-2935 · the_sor@icloud.com</div>
+  </div>
+</footer>
+
+<script>
+const items = [
+  {
+    thumb: 'assets/knowledge/thumbs/01-iso-9001-14001-2026-poster.jpg',
+    full: 'assets/knowledge/01-iso-9001-14001-2026-poster.png',
+    tag: 'ISO TRANSITION 2026',
+    category: 'iso2026',
+    title: 'คู่ค้าเริ่มถามหาใบรับรอง ISO 9001 & 14001 เวอร์ชันใหม่ (2026) แล้วหรือยัง?',
+    desc: 'สรุป Pain Point ที่องค์กรส่วนใหญ่กังวล และ 5 สเต็ปการเปลี่ยนผ่านสู่เวอร์ชันใหม่อย่างราบรื่น'
+  },
+  {
+    thumb: 'assets/knowledge/thumbs/02-why-choose-us-credentials.jpg',
+    full: 'assets/knowledge/02-why-choose-us-credentials.png',
+    tag: 'เครดิตที่ปรึกษา',
+    category: 'consulting',
+    title: 'ทำไมต้องเลือกที่ปรึกษาคนนี้',
+    desc: 'ประสบการณ์ที่ปรึกษาระบบมาตรฐานสากล 10+ ปี ผู้ตรวจประเมิน ISO 9001/14001 Lead Auditor และประสบการณ์ในโรงงานอุตสาหกรรมกว่า 25 ปี'
+  },
+  {
+    thumb: 'assets/knowledge/thumbs/03-business-model-canvas.jpg',
+    full: 'assets/knowledge/03-business-model-canvas.png',
+    tag: 'BUSINESS MODEL',
+    category: 'consulting',
+    title: 'Business Model Canvas — FutureGreen Consulting',
+    desc: 'ภาพรวมโมเดลธุรกิจที่ปรึกษา ครบทั้ง Value Proposition, Key Activities, ลูกค้าเป้าหมาย และโครงสร้างรายได้'
+  },
+  {
+    thumb: 'assets/knowledge/thumbs/04-iso-9001-2026-overview.jpg',
+    full: 'assets/knowledge/04-iso-9001-2026-overview.png',
+    tag: 'ISO 9001:2026',
+    category: 'iso2026',
+    title: 'ISO 9001:2026 ทำไมถึงต้องเปลี่ยนผ่าน เปลี่ยนแปลงอะไรบ้าง',
+    desc: 'สรุปประเด็นเปลี่ยนแปลงสำคัญ Insight & Pain Point ขององค์กร พร้อมแนวทางเปลี่ยนผ่านอย่างมีประสิทธิภาพ 5 ขั้นตอน'
+  },
+  {
+    thumb: 'assets/knowledge/thumbs/05-iso-9001-vs-14001-2026.jpg',
+    full: 'assets/knowledge/05-iso-9001-vs-14001-2026.png',
+    tag: 'ISO 9001 vs 14001',
+    category: 'iso2026',
+    title: 'เตรียมองค์กรให้พร้อมสู่มาตรฐานเวอร์ชันใหม่ 2026',
+    desc: 'เปรียบเทียบ ISO 9001:2026 (QMS) กับ ISO 14001:2026 (EMS) ทั้งสาระสำคัญ Insight และ Pain Point ของแต่ละมาตรฐาน'
+  },
+  {
+    thumb: 'assets/knowledge/thumbs/06-cfo-vs-cfp.jpg',
+    full: 'assets/knowledge/06-cfo-vs-cfp.png',
+    tag: 'CARBON FOOTPRINT',
+    category: 'carbon',
+    title: 'CFO vs CFP ต่างกันอย่างไร ทำไมต้องทำ ทำไมต้องขอรับรอง',
+    desc: 'ความแตกต่างระหว่าง Carbon Footprint for Organization และ Carbon Footprint for Product พร้อมเหตุผลที่ต้องทำและขอรับรอง'
+  },
+  {
+    thumb: 'assets/knowledge/thumbs/07-cfo-cfp-vs-iso-14064-14067.jpg',
+    full: 'assets/knowledge/07-cfo-cfp-vs-iso-14064-14067.png',
+    tag: 'CFO/CFP & ISO',
+    category: 'carbon',
+    title: 'เปรียบเทียบให้ชัด เข้าใจให้ตรง: CFO & ISO 14064-1 / CFP & ISO 14067',
+    desc: 'ไขข้อสงสัยว่า CFO/CFP สัมพันธ์กับมาตรฐาน ISO 14064-1 และ ISO 14067 อย่างไร และทำไมมี ISO 14001 แล้วยังต้องทำ CFO/CFP'
+  }
+];
+
+const grid = document.getElementById('kbGrid');
+items.forEach((item, i) => {
+  const card = document.createElement('article');
+  card.className = 'kcard';
+  card.dataset.category = item.category;
+  card.innerHTML = `
+    <button class="kcard-thumb" data-index="${i}" aria-label="ดูภาพเต็ม: ${item.title}">
+      <img src="${item.thumb}" alt="${item.title}" loading="lazy">
+      <span class="kcard-zoom"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M11 8v6M8 11h6"/></svg>ดูเต็มภาพ + ดาวน์โหลด</span></span>
+    </button>
+    <div class="kcard-body">
+      <span class="kcard-tag">${item.tag}</span>
+      <h3 class="kcard-title">${item.title}</h3>
+      <p class="kcard-desc">${item.desc}</p>
+    </div>`;
+  grid.appendChild(card);
+});
+
+// Filters
+const chips = document.querySelectorAll('.chip');
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    const f = chip.dataset.filter;
+    document.querySelectorAll('.kcard').forEach(card => {
+      card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
+    });
+  });
+});
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lbImage = document.getElementById('lbImage');
+const lbTag = document.getElementById('lbTag');
+const lbTitle = document.getElementById('lbTitle');
+const lbDownload = document.getElementById('lbDownload');
+const lbCount = document.getElementById('lbCount');
+let current = 0;
+
+function openLightbox(i) {
+  current = i;
+  renderLightbox();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderLightbox() {
+  const item = items[current];
+  lbImage.src = item.full;
+  lbImage.alt = item.title;
+  lbTag.textContent = item.tag;
+  lbTitle.textContent = item.title;
+  lbDownload.href = item.full;
+  lbDownload.download = item.full.split('/').pop();
+  lbCount.textContent = (current + 1) + ' / ' + items.length;
+}
+function showPrev() { current = (current - 1 + items.length) % items.length; renderLightbox(); }
+function showNext() { current = (current + 1) % items.length; renderLightbox(); }
+
+document.querySelectorAll('.kcard-thumb').forEach(btn => {
+  btn.addEventListener('click', () => openLightbox(parseInt(btn.dataset.index)));
+});
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', showPrev);
+document.getElementById('lbNext').addEventListener('click', showNext);
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') showPrev();
+  if (e.key === 'ArrowRight') showNext();
+});
+</script>
+</body>
+</html>
