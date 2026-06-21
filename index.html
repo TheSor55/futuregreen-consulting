@@ -310,27 +310,26 @@ img { max-width: 100%; display: block; }
 /* ===== SERVICES ===== */
 .services-section { background: var(--cream); padding: 100px 0; }
 
-/* ===== CASE STUDY (preview) ===== */
+/* ===== PROOF GALLERY (client case + training) ===== */
 .case-section { background: var(--forest-deep); padding: 100px 0; position: relative; overflow: hidden; }
 .case-section .section-tag { color: var(--gold); }
 .case-section .section-h2 { color: var(--cream); }
 .case-section .section-sub { color: rgba(247,244,236,.6); }
-.case-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 44px; align-items: center; margin-top: 48px; }
-.case-photo-frame { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; }
-.case-photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-.case-client-tag {
+.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+.proof-card { background: rgba(247,244,236,.04); border: 1px solid rgba(247,244,236,.12); border-radius: 16px; overflow: hidden; transition: border-color .2s, transform .2s; }
+.proof-card:hover { border-color: rgba(47,174,118,.4); transform: translateY(-2px); }
+.proof-photo { aspect-ratio: 4/3; overflow: hidden; }
+.proof-photo img { width: 100%; height: 100%; object-fit: cover; }
+.proof-body { padding: 22px 24px 26px; }
+.proof-tag {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(201,162,75,.14); border: 1px solid rgba(201,162,75,.4);
-  color: var(--gold); font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-  letter-spacing: .05em; padding: 6px 14px; border-radius: 100px; margin-bottom: 18px;
+  color: var(--gold); font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: .05em; padding: 5px 13px; border-radius: 100px; margin-bottom: 14px;
 }
-.case-title { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--cream); line-height: 1.4; margin-bottom: 14px; }
-.case-desc { font-size: 14.5px; color: rgba(247,244,236,.65); line-height: 1.8; margin-bottom: 26px; }
-.case-stat-row { display: flex; gap: 28px; flex-wrap: wrap; }
-.case-stat { border-left: 2px solid var(--gold); padding-left: 14px; }
-.case-stat-num { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--leaf-bright); line-height: 1.3; }
-.case-stat-lbl { font-size: 12px; color: rgba(247,244,236,.5); margin-top: 2px; }
-@media (max-width: 880px) { .case-grid { grid-template-columns: 1fr; } .case-photo-frame { aspect-ratio: 16/10; } }
+.proof-title { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--cream); line-height: 1.4; margin-bottom: 8px; }
+.proof-desc { font-size: 13px; color: rgba(247,244,236,.6); line-height: 1.7; }
+@media (max-width: 760px) { .proof-grid { grid-template-columns: 1fr; } }
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
 .svc-card {
   background: #fff; border: 1px solid var(--line); border-radius: 16px;
@@ -341,6 +340,49 @@ img { max-width: 100%; display: block; }
 .svc-icon svg { width: 24px; height: 24px; stroke: var(--leaf-bright); }
 .svc-title { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--forest); margin-bottom: 10px; }
 .svc-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; }
+
+/* ===== SMART FACTORY DASHBOARD DEMO ===== */
+.demo-section { background: var(--cream); padding: 100px 0; }
+.demo-frame-wrap { margin-top: 48px; border-radius: 22px; overflow: hidden; box-shadow: 0 40px 80px -20px rgba(13,61,43,.25); border: 1px solid rgba(13,61,43,.1); }
+.demo-titlebar { background: #050810; padding: 12px 18px; display: flex; align-items: center; gap: 8px; }
+.demo-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.15); }
+.demo-app { background: #0A0E1A; display: flex; min-height: 480px; font-family: var(--font-body); }
+.demo-sidebar { flex: 0 0 200px; background: #0D1326; padding: 22px 16px; border-right: 1px solid rgba(255,255,255,.06); }
+.demo-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+.demo-brand-icon { width: 30px; height: 30px; border-radius: 8px; background: #2563EB; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #fff; flex-shrink: 0; }
+.demo-brand-text { line-height: 1.3; }
+.demo-brand-title { font-size: 13.5px; font-weight: 600; color: #fff; }
+.demo-brand-sub { font-size: 10.5px; color: rgba(255,255,255,.4); }
+.demo-nav-item { font-size: 12.5px; color: rgba(255,255,255,.5); padding: 9px 12px; border-radius: 8px; margin-bottom: 2px; }
+.demo-nav-item.active { background: rgba(37,99,235,.18); color: #fff; font-weight: 500; }
+.demo-main { flex: 1; padding: 22px 24px; overflow: hidden; }
+.demo-kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+.demo-kpi { background: #131B2E; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 14px 16px; }
+.demo-kpi-lbl { font-size: 11.5px; color: rgba(255,255,255,.55); margin-bottom: 6px; }
+.demo-kpi-num { font-size: 19px; font-weight: 700; color: #fff; }
+.demo-kpi-sub { font-size: 10.5px; color: rgba(255,255,255,.35); margin-top: 3px; }
+.demo-panel-row { display: grid; grid-template-columns: 1.05fr .95fr; gap: 16px; }
+.demo-panel { background: #131B2E; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 16px 18px; }
+.demo-panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.demo-panel-title { font-size: 13px; font-weight: 600; color: #fff; }
+.demo-panel-tag { font-size: 10px; color: rgba(255,255,255,.4); }
+.demo-metric-row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,.03); border-radius: 8px; padding: 9px 12px; margin-bottom: 8px; font-size: 12px; }
+.demo-metric-lbl { color: rgba(255,255,255,.6); }
+.demo-metric-val { color: #fff; font-weight: 600; }
+.demo-carbon-box { border: 1px solid rgba(74,222,128,.35); background: rgba(74,222,128,.05); border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+.demo-carbon-lbl { font-size: 11.5px; color: rgba(255,255,255,.5); margin-bottom: 6px; }
+.demo-carbon-num { font-size: 26px; font-weight: 700; color: #4ADE80; }
+.demo-carbon-unit { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 2px; }
+.demo-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 10.5px; color: rgba(255,255,255,.55); margin-top: 12px; }
+.demo-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.demo-caption { text-align: center; margin-top: 22px; font-size: 12.5px; color: var(--ink-soft); }
+@media (max-width: 760px) {
+  .demo-app { flex-direction: column; }
+  .demo-sidebar { flex: 0 0 auto; display: flex; align-items: center; gap: 14px; padding: 14px 16px; }
+  .demo-nav-item { display: none; }
+  .demo-kpi-row { grid-template-columns: 1fr; }
+  .demo-panel-row { grid-template-columns: 1fr; }
+}
 
 /* ===== INDUSTRY ICONS ===== */
 .industry-section { background: var(--cream-warm); padding: 64px 0; }
@@ -724,33 +766,33 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
   </div>
 </section>
 
-<!-- CASE STUDY (preview — ยังไม่ตัดสินใจ ลบส่วนนี้ได้ถ้าไม่ต้องการ) -->
+<!-- PROOF GALLERY: client case + training -->
 <section class="case-section">
   <div class="wrap">
-    <span class="section-tag reveal">ผลงานจริงกับลูกค้า</span>
+    <span class="section-tag reveal">ผลงานจริง ไม่ใช่แค่คำพูด</span>
     <h2 class="section-h2 reveal">จากที่ปรึกษา สู่ใบรับรองที่จับต้องได้</h2>
-    <p class="section-sub reveal">ไม่ใช่แค่วางระบบให้ดูดี แต่พาลูกค้าไปจนถึงวันที่ได้รับใบรับรองจริงจากหน่วยงานระดับประเทศ</p>
+    <p class="section-sub reveal">ไม่ใช่แค่วางระบบให้ดูดี แต่ลงพื้นที่จริง อบรมทีมงานจริง พาลูกค้าไปจนถึงวันที่ได้รับใบรับรองจากหน่วยงานระดับประเทศ</p>
 
-    <div class="case-grid reveal">
-      <div class="case-photo-frame">
-        <img src="assets/photos/hero-cert-ceremony.jpg" alt="พิธีมอบใบรับรอง Carbon Footprint of Circular Economy ให้บริษัท เพชรสยาม (ประเทศไทย) จำกัด">
+    <div class="proof-grid reveal">
+      <div class="proof-card">
+        <div class="proof-photo">
+          <img src="assets/photos/hero-cert-ceremony.jpg" alt="พิธีมอบใบรับรอง Carbon Footprint of Circular Economy ให้บริษัท เพชรสยาม (ประเทศไทย) จำกัด">
+        </div>
+        <div class="proof-body">
+          <span class="proof-tag">บริษัท เพชรสยาม (ประเทศไทย) จำกัด</span>
+          <h3 class="proof-title">คว้าฉลากคาร์บอน Circular Economy จาก TGO</h3>
+          <p class="proof-desc">วางระบบประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตามกรอบ ISO 14067 ควบคู่กับ LCA จนได้รับเครื่องหมายรับรองฉลากคาร์บอนอย่างเป็นทางการจาก TGO</p>
+        </div>
       </div>
-      <div>
-        <span class="case-client-tag">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-          บริษัท เพชรสยาม (ประเทศไทย) จำกัด
-        </span>
-        <h3 class="case-title">ผู้ผลิตถังพลาสติก คว้าฉลากคาร์บอน Circular Economy จาก TGO</h3>
-        <p class="case-desc">วางระบบประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตามกรอบ ISO 14067 ควบคู่กับการวิเคราะห์วัฏจักรชีวิต (LCA) จนนำไปสู่การได้รับเครื่องหมายรับรองฉลากคาร์บอน Carbon Footprint of Circular Economy อย่างเป็นทางการจากองค์การบริหารจัดการก๊าซเรือนกระจก (TGO)</p>
-        <div class="case-stat-row">
-          <div class="case-stat">
-            <div class="case-stat-num">ISO 14067</div>
-            <div class="case-stat-lbl">กรอบมาตรฐานที่ใช้ประเมิน</div>
-          </div>
-          <div class="case-stat">
-            <div class="case-stat-num">รับรองโดย TGO</div>
-            <div class="case-stat-lbl">หน่วยงานระดับประเทศ</div>
-          </div>
+
+      <div class="proof-card">
+        <div class="proof-photo">
+          <img src="assets/photos/speaker-training.jpg" alt="สรวิศ สุวรรณรงค์ เป็นวิทยากรอบรมให้ทีมงานโรงงานลูกค้า">
+        </div>
+        <div class="proof-body">
+          <span class="proof-tag">วิทยากรอบรมในโรงงานจริง</span>
+          <h3 class="proof-title">ไม่ใช่แค่ที่ปรึกษา แต่ลงมืออบรมเองทุกครั้ง</h3>
+          <p class="proof-desc">บรรยายและฝึกอบรม ISO / ESG / Carbon Footprint ให้ทีมงานหน้างานนำไปปฏิบัติได้จริง ไม่ใช่แค่ส่งเอกสารให้อ่านเอง</p>
         </div>
       </div>
     </div>
@@ -781,6 +823,99 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <div class="svc-desc">จัดฝึกอบรม ISO, Awareness และ ESG ทั้งแบบ In-house และ Online เพื่อปูพื้นฐานบุคลากรให้ขับเคลื่อนระบบต่อเองได้</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- SMART FACTORY DASHBOARD DEMO -->
+<section class="demo-section">
+  <div class="wrap">
+    <span class="section-tag reveal">เบื้องหลังบริการ Smart Industry</span>
+    <h2 class="section-h2 reveal">ระบบที่อยู่หลังคำว่า "Smart Factory"</h2>
+    <p class="section-sub reveal">ตัวอย่างแนวคิด Dashboard ที่ใช้ติดตามพลังงานและคาร์บอนแบบเรียลไทม์ — ดึงข้อมูลจากมิเตอร์ไฟฟ้าและเครื่องจักรหลัก มาแสดงผลในที่เดียว</p>
+
+    <div class="demo-frame-wrap reveal">
+      <div class="demo-titlebar">
+        <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
+      </div>
+      <div class="demo-app">
+        <div class="demo-sidebar">
+          <div class="demo-brand">
+            <div class="demo-brand-icon">AI</div>
+            <div class="demo-brand-text">
+              <div class="demo-brand-title">Industrial AI</div>
+              <div class="demo-brand-sub">Factory Intelligence</div>
+            </div>
+          </div>
+          <div class="demo-nav-item active">Overview</div>
+          <div class="demo-nav-item">Smart Factory</div>
+          <div class="demo-nav-item">Energy</div>
+          <div class="demo-nav-item">Carbon</div>
+          <div class="demo-nav-item">AI Copilot</div>
+          <div class="demo-nav-item">SaaS Architecture</div>
+        </div>
+        <div class="demo-main">
+          <div class="demo-kpi-row">
+            <div class="demo-kpi">
+              <div class="demo-kpi-lbl">Air Compressor</div>
+              <div class="demo-kpi-num">84%</div>
+              <div class="demo-kpi-sub">Utility Load</div>
+            </div>
+            <div class="demo-kpi">
+              <div class="demo-kpi-lbl">Chiller</div>
+              <div class="demo-kpi-num">61%</div>
+              <div class="demo-kpi-sub">Cooling Load</div>
+            </div>
+            <div class="demo-kpi">
+              <div class="demo-kpi-lbl">Power Meter</div>
+              <div class="demo-kpi-num">138 kW</div>
+              <div class="demo-kpi-sub">Live Demand</div>
+            </div>
+          </div>
+
+          <div class="demo-panel-row">
+            <div class="demo-panel">
+              <div class="demo-panel-head">
+                <span class="demo-panel-title">Energy Dashboard</span>
+                <span class="demo-panel-tag">kWh / Cost / Load</span>
+              </div>
+              <div class="demo-metric-row"><span class="demo-metric-lbl">Energy Cost</span><span class="demo-metric-val">3,444 บาท</span></div>
+              <div class="demo-metric-row"><span class="demo-metric-lbl">Output Loss Estimate</span><span class="demo-metric-val">27 pcs</span></div>
+              <div class="demo-metric-row"><span class="demo-metric-lbl">Live Power</span><span class="demo-metric-val">102.5 kW</span></div>
+              <svg viewBox="0 0 300 90" style="width:100%;height:auto;margin-top:8px;">
+                <polyline points="10,55 65,30 120,46 175,12 230,35 285,33" fill="none" stroke="#3B82F6" stroke-width="2"/>
+                <circle cx="10" cy="55" r="3" fill="#3B82F6"/><circle cx="65" cy="30" r="3" fill="#3B82F6"/>
+                <circle cx="120" cy="46" r="3" fill="#3B82F6"/><circle cx="175" cy="12" r="3" fill="#3B82F6"/>
+                <circle cx="230" cy="35" r="3" fill="#3B82F6"/><circle cx="285" cy="33" r="3" fill="#3B82F6"/>
+              </svg>
+            </div>
+
+            <div class="demo-panel">
+              <div class="demo-panel-head">
+                <span class="demo-panel-title">Carbon Dashboard</span>
+                <span class="demo-panel-tag">Scope 2 estimate</span>
+              </div>
+              <div class="demo-carbon-box">
+                <div class="demo-carbon-lbl">Total Carbon Emission</div>
+                <div class="demo-carbon-num">409.92</div>
+                <div class="demo-carbon-unit">kgCO₂e</div>
+              </div>
+              <svg viewBox="0 0 100 100" style="width:90px;height:90px;display:block;margin:0 auto;">
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#1E293B" stroke-width="14"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#3B82F6" stroke-width="14" stroke-dasharray="143 95" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#EC4899" stroke-width="14" stroke-dasharray="60 178" stroke-dashoffset="-143" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#F59E0B" stroke-width="14" stroke-dasharray="36 202" stroke-dashoffset="-203" transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="demo-legend">
+                <span><span class="demo-legend-dot" style="background:#3B82F6;"></span>Production</span>
+                <span><span class="demo-legend-dot" style="background:#EC4899;"></span>Utility</span>
+                <span><span class="demo-legend-dot" style="background:#F59E0B;"></span>Idle Loss</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="demo-caption reveal">* ตัวอย่างแนวคิดระบบ (concept demo) ใช้ข้อมูลจำลองเพื่อสาธิตการแสดงผล ไม่ใช่ข้อมูลจากโรงงานลูกค้าจริง</p>
   </div>
 </section>
 
