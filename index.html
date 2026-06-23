@@ -2,9 +2,9 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FutureGreen Consulting — รู้ว่าต้องเริ่มจากไหน ภายใน 1 วัน</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title id="pageTitle">FutureGreen Consulting — รู้ว่าต้องเริ่มจากไหน ภายใน 1 วัน</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Noto+Serif+Thai:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --forest: #0D3D2B;
@@ -19,17 +19,18 @@
   --ink-soft: #4A5C53;
   --line: rgba(13,61,43,.14);
   --line-light: rgba(247,244,236,.18);
-  --font-display: 'Fraunces', serif;
+  --font-display: 'Fraunces', 'Noto Serif Thai', serif;
   --font-body: 'IBM Plex Sans Thai', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--font-body);
   background: var(--cream);
   color: var(--ink);
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 img { max-width: 100%; display: block; }
 .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
@@ -37,29 +38,47 @@ img { max-width: 100%; display: block; }
 /* ===== NAV ===== */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-  background: rgba(247,244,236,.88); backdrop-filter: blur(10px);
+  background: rgba(247,244,236,.88);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
-  padding: 16px 0;
+  padding: calc(16px + env(safe-area-inset-top)) 0 16px;
   transition: padding .25s, background .25s;
 }
-.nav.scrolled { padding: 10px 0; background: rgba(247,244,236,.97); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; }
-.nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--forest); }
-.nav-brand svg { width: 26px; height: 26px; }
-.nav-right { display: flex; align-items: center; gap: 22px; }
+.nav.scrolled { padding: calc(10px + env(safe-area-inset-top)) 0 10px; background: rgba(247,244,236,.97); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--forest); flex-shrink: 0; }
+.nav-brand svg { width: 26px; height: 26px; flex-shrink: 0; }
+.nav-right { display: flex; align-items: center; gap: 18px; }
 .nav-link {
   font-family: var(--font-body); font-weight: 500; font-size: 13.5px;
-  color: var(--ink-soft); text-decoration: none; transition: color .15s;
+  color: var(--ink-soft); text-decoration: none; transition: color .15s; white-space: nowrap;
 }
 .nav-link:hover { color: var(--forest); }
 .nav-cta {
   font-family: var(--font-body); font-weight: 600; font-size: 13px;
   background: var(--forest); color: var(--cream);
   padding: 10px 22px; border-radius: 100px; text-decoration: none;
-  transition: background .2s;
+  transition: background .2s; white-space: nowrap;
 }
 .nav-cta:hover { background: var(--leaf); }
-@media (max-width: 600px) { .nav-link { display: none; } }
+.nav-cta-short { display: none; }
+@media (max-width: 600px) { .nav-link { display: none; } .nav-right { gap: 12px; } }
+@media (max-width: 420px) {
+  .nav-brand { font-size: 16px; gap: 7px; }
+  .nav-brand svg { width: 21px; height: 21px; }
+  .nav-cta { padding: 9px 15px; font-size: 12px; }
+  .nav-cta-full { display: none; }
+  .nav-cta-short { display: inline; }
+}
+
+/* ===== LANGUAGE TOGGLE — shared component/style with knowledge.html ===== */
+.lang-toggle { position: relative; display: flex; background: rgba(13,61,43,.07); border: 1px solid var(--line); border-radius: 100px; padding: 3px; flex-shrink: 0; }
+.lang-toggle-bg { position: absolute; top: 3px; left: 3px; width: calc(50% - 3px); height: calc(100% - 6px); background: var(--forest); border-radius: 100px; transition: transform .28s cubic-bezier(.3,.8,.3,1); z-index: 0; }
+.lang-toggle[data-active="en"] .lang-toggle-bg { transform: translateX(100%); }
+.lang-btn { position: relative; z-index: 1; font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; letter-spacing: .04em; padding: 6px 14px; border-radius: 100px; background: transparent; border: none; color: var(--ink-soft); cursor: pointer; transition: color .25s; }
+.lang-btn.active { color: var(--cream); }
+@media (max-width: 420px) { .lang-btn { padding: 5px 11px; font-size: 10.5px; } }
+@media (prefers-reduced-motion: reduce) { .lang-toggle-bg { transition: none; } }
 
 /* ===== HERO ===== */
 .hero {
@@ -88,7 +107,7 @@ img { max-width: 100%; display: block; }
 .eyebrow-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--leaf-bright); }
 .hero-h1 {
   font-family: var(--font-display); font-weight: 600;
-  font-size: clamp(38px, 5.2vw, 64px); line-height: 1.08;
+  font-size: clamp(34px, 5.2vw, 64px); line-height: 1.1;
   color: var(--cream); letter-spacing: -.01em;
 }
 .hero-h1 em {
@@ -122,6 +141,18 @@ img { max-width: 100%; display: block; }
   transition: border-color .15s, background .15s;
 }
 .btn-secondary:hover { border-color: var(--cream); background: rgba(247,244,236,.06); }
+.btn-line {
+  font-weight: 600; font-size: 14.5px;
+  background: #06C755; color: #fff;
+  padding: 15px 26px; border-radius: 100px; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: transform .15s, background .15s;
+}
+.btn-line:hover { background: #05B34C; transform: translateY(-1px); }
+.btn-line img { width: 20px; height: 20px; border-radius: 5px; flex-shrink: 0; }
+.qr-aid { display: flex; align-items: center; justify-content: center; gap: 12px; margin: -10px 0 40px; position: relative; }
+.qr-aid img { width: 64px; height: 64px; border-radius: 10px; border: 1px solid rgba(247,244,236,.2); background: #fff; padding: 4px; flex-shrink: 0; }
+.qr-aid span { font-size: 12.5px; color: rgba(247,244,236,.55); text-align: left; max-width: 220px; line-height: 1.4; }
 
 .hero-img-col { position: relative; }
 .hero-photo-frame {
@@ -135,12 +166,18 @@ img { max-width: 100%; display: block; }
 }
 .hero-card {
   position: absolute; bottom: 18px; left: 18px; right: 18px; z-index: 2;
-  background: rgba(13,61,43,.92); backdrop-filter: blur(6px);
-  border: 1px solid rgba(47,174,118,.3); border-radius: 12px; padding: 14px 16px;
+  background: rgba(13,61,43,.92);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border: 1px solid rgba(47,174,118,.3); border-radius: 14px; padding: 16px 18px;
 }
-.hero-card-row { display: flex; align-items: baseline; justify-content: space-between; }
-.hero-card-num { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--leaf-bright); }
-.hero-card-lbl { font-size: 11px; color: rgba(247,244,236,.65); font-family: var(--font-mono); text-align: right; line-height: 1.4; }
+.hero-card-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold-pale); color: #6B5320;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: .06em;
+  padding: 4px 11px; border-radius: 100px; margin-bottom: 10px;
+}
+.hero-card-name { font-family: var(--font-display); font-weight: 600; font-size: 15.5px; color: var(--cream); line-height: 1.35; margin-bottom: 4px; }
+.hero-card-sub { font-family: var(--font-mono); font-size: 10.5px; color: rgba(247,244,236,.55); letter-spacing: .02em; }
 
 /* ===== PAIN STRIP ===== */
 .pain-section { background: var(--cream); padding: 88px 0 70px; }
@@ -215,7 +252,8 @@ img { max-width: 100%; display: block; }
 .cred-photo img { width: 100%; height: 100%; object-fit: cover; }
 .cred-photo-tag {
   position: absolute; bottom: 14px; left: 14px; right: 14px;
-  background: rgba(13,61,43,.9); backdrop-filter: blur(4px);
+  background: rgba(13,61,43,.9);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   border-radius: 10px; padding: 10px 14px;
   font-size: 12px; color: var(--cream); font-family: var(--font-mono);
 }
@@ -399,11 +437,12 @@ img { max-width: 100%; display: block; }
 .cta-sub { font-size: 15.5px; color: rgba(247,244,236,.65); max-width: 460px; margin: 0 auto 36px; line-height: 1.6; position: relative; }
 .cta-buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; position: relative; margin-bottom: 48px; }
 .contact-row { display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; position: relative; }
-.contact-item { display: flex; align-items: center; gap: 10px; color: rgba(247,244,236,.75); font-size: 13.5px; }
+.contact-item { display: flex; align-items: center; gap: 10px; color: rgba(247,244,236,.75); font-size: 13.5px; text-decoration: none; transition: color .15s; padding: 4px; }
+.contact-item:hover { color: var(--leaf-bright); }
 .contact-item svg { width: 16px; height: 16px; stroke: var(--leaf-bright); flex-shrink: 0; }
 
 /* ===== FOOTER ===== */
-.footer { background: var(--forest-deep); padding: 36px 0; }
+.footer { background: var(--forest-deep); padding: 36px 0; padding-bottom: calc(36px + env(safe-area-inset-bottom)); }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
 .footer-brand { display: flex; align-items: center; gap: 8px; color: rgba(247,244,236,.5); font-size: 13px; }
 .footer-links { display: flex; gap: 22px; }
@@ -429,15 +468,22 @@ img { max-width: 100%; display: block; }
   .cred-grid { grid-template-columns: 1fr; }
   .cred-photo { max-width: 320px; margin: 0 auto; }
   .journey-rail { padding-left: 28px; }
-  .services-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
   .research-grid { grid-template-columns: 1fr; }
   .industry-row { justify-content: center; }
   .wrap { padding: 0 20px; }
 }
+@media (max-width: 600px) {
+  .services-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 540px) {
   .pain-grid { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: 1fr 1fr; }
-  .hero-h1 { font-size: 34px; }
+  .hero-h1 { font-size: 32px; }
+}
+@media (max-width: 380px) {
+  .qr-aid { flex-direction: column; text-align: center; }
+  .qr-aid span { max-width: none; text-align: center; }
 }
 
 /* Focus visibility */
@@ -454,8 +500,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
       FutureGreen
     </div>
     <div class="nav-right">
-      <a href="knowledge.html" class="nav-link">คลังความรู้</a>
-      <a href="#contact" class="nav-cta">ปรึกษาฟรี 30 นาที</a>
+      <a href="knowledge.html" class="nav-link" data-th="คลังความรู้" data-en="Knowledge Hub">คลังความรู้</a>
+      <div class="lang-toggle" id="langToggle" data-active="th">
+        <div class="lang-toggle-bg"></div>
+        <button class="lang-btn active" data-lang="th">TH</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="#contact" class="nav-cta">
+        <span class="nav-cta-full" data-th="ปรึกษาฟรี 30 นาที" data-en="Free 30-min Consult">ปรึกษาฟรี 30 นาที</span>
+        <span class="nav-cta-short" data-th="ปรึกษาฟรี" data-en="Free Consult">ปรึกษาฟรี</span>
+      </a>
     </div>
   </div>
 </nav>
@@ -466,12 +520,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
   <div class="wrap hero-grid">
     <div>
       <span class="eyebrow-pill">FutureGreen Consulting</span>
-      <h1 class="hero-h1">ที่ปรึกษาเพื่อความยั่งยืน<br>สำหรับ <em>SME โรงงานไทย</em></h1>
-      <p class="hero-quote">"รู้ว่าต้องเริ่มจากไหน ภายใน 1 วัน"</p>
-      <p class="hero-sub">ไม่ใช่แค่ทำรายงาน แต่ช่วยให้คุณแข่งขันได้ในยุค ESG — สแกนโรงงาน วางระบบ และลงมือทำ ISO / CFO / CFP ให้ครบในที่เดียว</p>
+      <h1 class="hero-h1" id="heroH1">ที่ปรึกษาเพื่อความยั่งยืน<br>สำหรับ <em>SME โรงงานไทย</em></h1>
+      <p class="hero-quote" data-th="&quot;รู้ว่าต้องเริ่มจากไหน ภายใน 1 วัน&quot;" data-en="&quot;Know where to start, within 1 day&quot;">"รู้ว่าต้องเริ่มจากไหน ภายใน 1 วัน"</p>
+      <p class="hero-sub" data-th="ไม่ใช่แค่ทำรายงาน แต่ช่วยให้คุณแข่งขันได้ในยุค ESG — สแกนโรงงาน วางระบบ และลงมือทำ ISO / CFO / CFP ให้ครบในที่เดียว" data-en="Not just reports — we help you compete in the ESG era. We scan the factory, build the system, and execute ISO / CFO / CFP, all in one place.">ไม่ใช่แค่ทำรายงาน แต่ช่วยให้คุณแข่งขันได้ในยุค ESG — สแกนโรงงาน วางระบบ และลงมือทำ ISO / CFO / CFP ให้ครบในที่เดียว</p>
       <div class="hero-ctas">
-        <a href="#contact" class="btn-primary">ทักมาปรึกษาฟรี <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="#journey" class="btn-secondary">ดูประสบการณ์มากกว่า 30 ปี</a>
+        <a href="https://line.me/ti/p/jIhRgUuo30" target="_blank" rel="noopener noreferrer" class="btn-line">
+          <img src="assets/photos/line-icon.png" alt="" width="20" height="20">
+          <span data-th="ทักมาปรึกษาฟรี" data-en="Add LINE, free consult">ทักมาปรึกษาฟรี</span>
+        </a>
+        <a href="#journey" class="btn-secondary" data-th="ดูประสบการณ์มากกว่า 30 ปี" data-en="See 30+ years of experience">ดูประสบการณ์มากกว่า 30 ปี</a>
       </div>
     </div>
     <div class="hero-img-col">
@@ -479,10 +536,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <img src="assets/photos/hero-cert-ceremony.jpg" alt="สรวิศ สุวรรณรงค์ ส่งมอบใบรับรอง Carbon Footprint of Circular Economy จาก TGO ให้ บริษัท เพชรสยาม (ประเทศไทย) จำกัด">
       </div>
       <div class="hero-card">
-        <div class="hero-card-row">
-          <span class="hero-card-num">บริษัท เพชรสยาม ประเทศไทย จำกัด</span>
-          <span class="hero-card-lbl">Carbon Footprint of<br>Circular Economy · TGO</span>
-        </div>
+        <span class="hero-card-badge" data-th="ใบรับรองล่าสุด" data-en="LATEST CERTIFICATION">ใบรับรองล่าสุด</span>
+        <div class="hero-card-name" data-th="บริษัท เพชรสยาม (ประเทศไทย) จำกัด" data-en="Petchsiam (Thailand) Co., Ltd.">บริษัท เพชรสยาม (ประเทศไทย) จำกัด</div>
+        <div class="hero-card-sub">Carbon Footprint of Circular Economy · TGO</div>
       </div>
     </div>
   </div>
@@ -491,26 +547,26 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <!-- PAIN POINTS -->
 <section class="pain-section">
   <div class="wrap">
-    <span class="section-tag reveal">ปัญหาที่เจ้าของโรงงานเจอจริง</span>
-    <h2 class="section-h2 reveal">SME ไม่ได้ขาดข้อมูล — ขาดจุดเริ่มต้นที่ชัดเจน</h2>
-    <p class="section-sub reveal">ลูกค้าถามหา carbon data แต่ในมือยังไม่มีอะไรเลย นี่คือสิ่งที่โรงงานส่วนใหญ่เผชิญตอนนี้</p>
+    <span class="section-tag reveal" data-th="ปัญหาที่เจ้าของโรงงานเจอจริง" data-en="Real problems factory owners face">ปัญหาที่เจ้าของโรงงานเจอจริง</span>
+    <h2 class="section-h2 reveal" data-th="SME ไม่ได้ขาดข้อมูล — ขาดจุดเริ่มต้นที่ชัดเจน" data-en="SMEs aren't short on information — they're short on a clear starting point">SME ไม่ได้ขาดข้อมูล — ขาดจุดเริ่มต้นที่ชัดเจน</h2>
+    <p class="section-sub reveal" data-th="ลูกค้าถามหา carbon data แต่ในมือยังไม่มีอะไรเลย นี่คือสิ่งที่โรงงานส่วนใหญ่เผชิญตอนนี้" data-en="Clients are already asking for carbon data, and there's nothing on hand yet — this is what most factories are facing right now.">ลูกค้าถามหา carbon data แต่ในมือยังไม่มีอะไรเลย นี่คือสิ่งที่โรงงานส่วนใหญ่เผชิญตอนนี้</p>
 
     <div class="pain-grid reveal">
       <div class="pain-card">
         <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></div>
-        <p class="pain-text">ลูกค้าเริ่มถาม Carbon Data แต่ยังไม่มีข้อมูล</p>
+        <p class="pain-text" data-th="ลูกค้าเริ่มถาม Carbon Data แต่ยังไม่มีข้อมูล" data-en="Clients are asking for carbon data, and there's none on hand">ลูกค้าเริ่มถาม Carbon Data แต่ยังไม่มีข้อมูล</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg></div>
-        <p class="pain-text">ไม่รู้จะเริ่ม ISO หรือ CFP ก่อน</p>
+        <p class="pain-text" data-th="ไม่รู้จะเริ่ม ISO หรือ CFP ก่อน" data-en="Not sure whether to start with ISO or CFP first">ไม่รู้จะเริ่ม ISO หรือ CFP ก่อน</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
-        <p class="pain-text">ไม่มีคนทำระบบ ไม่มีทีมเฉพาะทาง</p>
+        <p class="pain-text" data-th="ไม่มีคนทำระบบ ไม่มีทีมเฉพาะทาง" data-en="No one to build the system, no specialist team">ไม่มีคนทำระบบ ไม่มีทีมเฉพาะทาง</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="6" y1="8" x2="18" y2="14"/></svg></div>
-        <p class="pain-text">ไม่มีทีม IT ทำ Dashboard ไม่ได้</p>
+        <p class="pain-text" data-th="ไม่มีทีม IT ทำ Dashboard ไม่ได้" data-en="No IT team, so no dashboard">ไม่มีทีม IT ทำ Dashboard ไม่ได้</p>
       </div>
     </div>
   </div>
@@ -519,9 +575,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <!-- PROCESS -->
 <section class="process-section" id="process">
   <div class="wrap">
-    <span class="section-tag reveal">FutureGreen ช่วยคุณได้</span>
-    <h2 class="section-h2 reveal">5 ขั้นตอน จากศูนย์ถึง Smart Factory</h2>
-    <p class="section-sub reveal">เช็กจุดเริ่มต้นภายใน 1 วัน แล้วก้าวไปด้วยกันทีละขั้น ไม่กระโดดข้าม ไม่ทำเกินจำเป็น</p>
+    <span class="section-tag reveal" data-th="FutureGreen ช่วยคุณได้" data-en="How FutureGreen helps">FutureGreen ช่วยคุณได้</span>
+    <h2 class="section-h2 reveal" data-th="5 ขั้นตอน จากศูนย์ถึง Smart Factory" data-en="5 Steps From Zero to Smart Factory">5 ขั้นตอน จากศูนย์ถึง Smart Factory</h2>
+    <p class="section-sub reveal" data-th="เช็กจุดเริ่มต้นภายใน 1 วัน แล้วก้าวไปด้วยกันทีละขั้น ไม่กระโดดข้าม ไม่ทำเกินจำเป็น" data-en="Find your starting point within a day, then move forward step by step — no skipping ahead, no doing more than necessary.">เช็กจุดเริ่มต้นภายใน 1 วัน แล้วก้าวไปด้วยกันทีละขั้น ไม่กระโดดข้าม ไม่ทำเกินจำเป็น</p>
 
     <div class="process-rail reveal" id="processRail">
       <div class="process-line"></div>
@@ -531,31 +587,31 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
           <div class="pstep-dot"></div>
           <div class="pstep-num">01</div>
           <div class="pstep-title">Carbon Readiness Check</div>
-          <div class="pstep-desc">เช็กจุดเริ่มต้นภายใน 1 วัน ฟรี ไม่มีข้อผูกมัด</div>
+          <div class="pstep-desc" data-th="เช็กจุดเริ่มต้นภายใน 1 วัน ฟรี ไม่มีข้อผูกมัด" data-en="Check your starting point within 1 day — free, no obligation.">เช็กจุดเริ่มต้นภายใน 1 วัน ฟรี ไม่มีข้อผูกมัด</div>
         </div>
         <div class="pstep" data-step="1">
           <div class="pstep-dot"></div>
           <div class="pstep-num">02</div>
           <div class="pstep-title">ISO 14001</div>
-          <div class="pstep-desc">วางระบบสิ่งแวดล้อมอย่างเป็นระบบ ตามมาตรฐานสากล</div>
+          <div class="pstep-desc" data-th="วางระบบสิ่งแวดล้อมอย่างเป็นระบบ ตามมาตรฐานสากล" data-en="Build a structured environmental management system to international standard.">วางระบบสิ่งแวดล้อมอย่างเป็นระบบ ตามมาตรฐานสากล</div>
         </div>
         <div class="pstep" data-step="2">
           <div class="pstep-dot"></div>
           <div class="pstep-num">03</div>
           <div class="pstep-title">CFO / CFP</div>
-          <div class="pstep-desc">คำนวณคาร์บอนอย่างถูกต้อง ตามมาตรฐาน TGO หรือ ISO14064-ISO14067</div>
+          <div class="pstep-desc" data-th="คำนวณคาร์บอนอย่างถูกต้อง ตามมาตรฐาน TGO หรือ ISO14064-ISO14067" data-en="Calculate carbon accurately, per TGO or ISO 14064 / ISO 14067 standards.">คำนวณคาร์บอนอย่างถูกต้อง ตามมาตรฐาน TGO หรือ ISO14064-ISO14067</div>
         </div>
         <div class="pstep" data-step="3">
           <div class="pstep-dot"></div>
           <div class="pstep-num">04</div>
           <div class="pstep-title">Dashboard</div>
-          <div class="pstep-desc">เห็นข้อมูลแบบเรียลไทม์ ตัดสินใจได้จริง ไม่ต้องรอเอกสาร</div>
+          <div class="pstep-desc" data-th="เห็นข้อมูลแบบเรียลไทม์ ตัดสินใจได้จริง ไม่ต้องรอเอกสาร" data-en="See real-time data and make decisions without waiting on paperwork.">เห็นข้อมูลแบบเรียลไทม์ ตัดสินใจได้จริง ไม่ต้องรอเอกสาร</div>
         </div>
         <div class="pstep" data-step="4">
           <div class="pstep-dot"></div>
           <div class="pstep-num">05</div>
           <div class="pstep-title">Smart Factory &amp; ESG</div>
-          <div class="pstep-desc">ยกระดับโรงงานสู่ความยั่งยืน พร้อมแข่งขันในตลาดโลก</div>
+          <div class="pstep-desc" data-th="ยกระดับโรงงานสู่ความยั่งยืน พร้อมแข่งขันในตลาดโลก" data-en="Elevate the factory toward sustainability, ready to compete globally.">ยกระดับโรงงานสู่ความยั่งยืน พร้อมแข่งขันในตลาดโลก</div>
         </div>
       </div>
     </div>
@@ -566,9 +622,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <section class="cred-section">
   <div class="wrap cred-grid">
     <div>
-      <span class="section-tag reveal">โดย สรวิศ สุวรรณรงค์</span>
-      <h2 class="section-h2 reveal">ใบรับรองที่ยืนยันได้จริง ไม่ใช่แค่คำพูด</h2>
-      <p class="section-sub reveal" style="margin-bottom:32px;">Certified Practitioner จาก BSI และ TGO — มาตรฐานที่คู่ค้าระดับโลกยอมรับ</p>
+      <span class="section-tag reveal" data-th="โดย สรวิศ สุวรรณรงค์" data-en="By Sorawit Suwannarong">โดย สรวิศ สุวรรณรงค์</span>
+      <h2 class="section-h2 reveal" data-th="ใบรับรองที่ยืนยันได้จริง ไม่ใช่แค่คำพูด" data-en="Credentials you can verify — not just claims">ใบรับรองที่ยืนยันได้จริง ไม่ใช่แค่คำพูด</h2>
+      <p class="section-sub reveal" style="margin-bottom:32px;" data-th="Certified Practitioner จาก BSI และ TGO — มาตรฐานที่คู่ค้าระดับโลกยอมรับ" data-en="Certified Practitioner with BSI and TGO — standards recognized by global trading partners.">Certified Practitioner จาก BSI และ TGO — มาตรฐานที่คู่ค้าระดับโลกยอมรับ</p>
 
       <div class="cred-list reveal">
         <div class="cred-item">
@@ -595,7 +651,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <div class="cred-item">
           <div class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
           <div>
-            <div class="cred-name">Carbon Footprint for Organization (CFO) — อบก. TGO</div>
+            <div class="cred-name" data-th="Carbon Footprint for Organization (CFO) — อบก. TGO" data-en="Carbon Footprint for Organization (CFO) — TGO">Carbon Footprint for Organization (CFO) — อบก. TGO</div>
             <div class="cred-reg">Certificate of Achievement</div>
           </div>
         </div>
@@ -603,35 +659,35 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
           <div class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
           <div>
             <div class="cred-name">Life Cycle Assessment (LCA) — NSTDA × Thammasat</div>
-            <div class="cred-reg">21 ชั่วโมง · เม.ย. 2569</div>
+            <div class="cred-reg" data-th="21 ชั่วโมง · เม.ย. 2569" data-en="21 hours · Apr 2026">21 ชั่วโมง · เม.ย. 2569</div>
           </div>
         </div>
         <div class="cred-item">
           <div class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
           <div>
-            <div class="cred-name">ผู้รับผิดชอบ &amp; ผู้จัดการพลังงานอาวุโส ระดับ 7</div>
-            <div class="cred-reg">ครบทั้งโรงงานและอาคาร · 4 ใบรับรอง — TPQI</div>
+            <div class="cred-name" data-th="ผู้รับผิดชอบ &amp; ผู้จัดการพลังงานอาวุโส ระดับ 7" data-en="Energy Manager &amp; Senior Energy Manager — Level 7">ผู้รับผิดชอบ &amp; ผู้จัดการพลังงานอาวุโส ระดับ 7</div>
+            <div class="cred-reg" data-th="ครบทั้งโรงงานและอาคาร · 4 ใบรับรอง — TPQI" data-en="Covers both factories and buildings · 4 certificates — TPQI">ครบทั้งโรงงานและอาคาร · 4 ใบรับรอง — TPQI</div>
           </div>
         </div>
         <div class="cred-item">
           <div class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg></div>
           <div>
-            <div class="cred-name">ที่ปรึกษาอุตสาหกรรม — กรมส่งเสริมอุตสาหกรรม (DIPROM)</div>
-            <div class="cred-reg">ขึ้นทะเบียน 2568–2571</div>
+            <div class="cred-name" data-th="ที่ปรึกษาอุตสาหกรรม — กรมส่งเสริมอุตสาหกรรม (DIPROM)" data-en="Industrial Consultant — Department of Industrial Promotion (DIPROM)">ที่ปรึกษาอุตสาหกรรม — กรมส่งเสริมอุตสาหกรรม (DIPROM)</div>
+            <div class="cred-reg" data-th="ขึ้นทะเบียน 2568–2571" data-en="Registered 2025–2028">ขึ้นทะเบียน 2568–2571</div>
           </div>
         </div>
         <div class="cred-item">
           <div class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
           <div>
-            <div class="cred-name">วิทยาศาสตรมหาบัณฑิต — เทคโนโลยีการจัดการทางวิศวกรรม</div>
-            <div class="cred-reg">มหาวิทยาลัยสุโขทัยธรรมาธิราช</div>
+            <div class="cred-name" data-th="วิทยาศาสตรมหาบัณฑิต — เทคโนโลยีการจัดการทางวิศวกรรม" data-en="M.S. in Engineering Technology Management">วิทยาศาสตรมหาบัณฑิต — เทคโนโลยีการจัดการทางวิศวกรรม</div>
+            <div class="cred-reg" data-th="มหาวิทยาลัยสุโขทัยธรรมาธิราช" data-en="Sukhothai Thammathirat Open University">มหาวิทยาลัยสุโขทัยธรรมาธิราช</div>
           </div>
         </div>
       </div>
     </div>
     <div class="cred-photo reveal">
       <img src="assets/photos/cred-portrait.jpg" alt="สรวิศ สุวรรณรงค์ ถือใบรับรอง TGO Carbon Footprint">
-      <div class="cred-photo-tag">ประสบการณ์โรงงานอุตสาหกรรมมากกว่า 30 ปี · 9 ใบรับรองวิชาชีพ</div>
+      <div class="cred-photo-tag" data-th="ประสบการณ์โรงงานอุตสาหกรรมมากกว่า 30 ปี · 9 ใบรับรองวิชาชีพ" data-en="30+ years of manufacturing-industry experience · 9 professional certifications">ประสบการณ์โรงงานอุตสาหกรรมมากกว่า 30 ปี · 9 ใบรับรองวิชาชีพ</div>
     </div>
   </div>
 </section>
@@ -640,8 +696,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <section class="journey-section" id="journey">
   <div class="wrap">
     <span class="section-tag reveal">From Refinery to ESG</span>
-    <h2 class="section-h2 reveal">30 ปี บนเส้นทางอุตสาหกรรม</h2>
-    <p class="section-sub reveal">จากช่างเทคนิคโรงกลั่นน้ำมัน สู่ที่ปรึกษาการเปลี่ยนผ่านองค์กร — ประสบการณ์จริงที่สอนไม่ได้ในห้องเรียน</p>
+    <h2 class="section-h2 reveal" data-th="30 ปี บนเส้นทางอุตสาหกรรม" data-en="30 Years on the Industrial Path">30 ปี บนเส้นทางอุตสาหกรรม</h2>
+    <p class="section-sub reveal" data-th="จากช่างเทคนิคโรงกลั่นน้ำมัน สู่ที่ปรึกษาการเปลี่ยนผ่านองค์กร — ประสบการณ์จริงที่สอนไม่ได้ในห้องเรียน" data-en="From oil-refinery technician to organizational-transformation consultant — real experience no classroom can teach.">จากช่างเทคนิคโรงกลั่นน้ำมัน สู่ที่ปรึกษาการเปลี่ยนผ่านองค์กร — ประสบการณ์จริงที่สอนไม่ได้ในห้องเรียน</p>
 
     <div class="journey-rail">
       <div class="journey-spine"></div>
@@ -675,7 +731,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <div class="journey-yr">2005 – 2007</div>
         <div class="journey-role">Assistant Production Manager</div>
         <div class="journey-org">Reflex Packaging</div>
-        <div class="journey-desc">ร่วมสร้างโรงงานตั้งแต่เริ่มต้น · กระบวนการ Thermoforming · Plastic Sheet Extrusion</div>
+        <div class="journey-desc" data-th="ร่วมสร้างโรงงานตั้งแต่เริ่มต้น · กระบวนการ Thermoforming · Plastic Sheet Extrusion" data-en="Helped build the factory from the ground up · Thermoforming process · Plastic sheet extrusion">ร่วมสร้างโรงงานตั้งแต่เริ่มต้น · กระบวนการ Thermoforming · Plastic Sheet Extrusion</div>
       </div>
 
       <div class="journey-item reveal">
@@ -683,12 +739,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <div class="journey-yr">2007 – 2010</div>
         <div class="journey-role">Production Manager</div>
         <div class="journey-org">Techempack</div>
-        <div class="journey-desc">เครื่องจักร Yamanaka, Lyle · Thermoforming, Washing, Cleanroom Packaging</div>
+        <div class="journey-desc" data-th="เครื่องจักร Yamanaka, Lyle · Thermoforming, Washing, Cleanroom Packaging" data-en="Yamanaka and Lyle machinery · Thermoforming, washing, cleanroom packaging">เครื่องจักร Yamanaka, Lyle · Thermoforming, Washing, Cleanroom Packaging</div>
       </div>
 
       <div class="journey-item current reveal">
         <div class="journey-dot"></div>
-        <div class="journey-yr">2010 – ปัจจุบัน</div>
+        <div class="journey-yr" data-th="2010 – ปัจจุบัน" data-en="2010 – Present">2010 – ปัจจุบัน</div>
         <div class="journey-role">Industrial Transformation Consultant</div>
         <div class="journey-org">Salee Industry → Petchsiam</div>
         <div class="journey-desc">Production / Warehouse / Logistics Manager · QMR / ISO Management · Customer Audit, ESG, Carbon Footprint · Factory Relocation, Digital Transformation</div>
@@ -700,9 +756,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <!-- RESEARCH & PUBLICATION -->
 <section class="research-section">
   <div class="wrap">
-    <span class="section-tag reveal">งานวิจัยที่ผ่านการตรวจสอบทางวิชาการ</span>
-    <h2 class="section-h2 reveal">ไม่ใช่แค่ทำตามแบบฟอร์ม — แต่ผ่าน Peer Review</h2>
-    <p class="section-sub reveal">วิธีคำนวณคาร์บอนฟุตพริ้นท์ที่ใช้กับลูกค้า มีพื้นฐานจากงานวิจัยที่ผู้ทรงคุณวุฒิจากหลายสถาบันตรวจสอบแล้ว ไม่ใช่แค่ความเห็นส่วนตัว</p>
+    <span class="section-tag reveal" data-th="งานวิจัยที่ผ่านการตรวจสอบทางวิชาการ" data-en="Academically peer-reviewed research">งานวิจัยที่ผ่านการตรวจสอบทางวิชาการ</span>
+    <h2 class="section-h2 reveal" data-th="ไม่ใช่แค่ทำตามแบบฟอร์ม — แต่ผ่าน Peer Review" data-en="Not just filling out forms — peer-reviewed">ไม่ใช่แค่ทำตามแบบฟอร์ม — แต่ผ่าน Peer Review</h2>
+    <p class="section-sub reveal" data-th="วิธีคำนวณคาร์บอนฟุตพริ้นท์ที่ใช้กับลูกค้า มีพื้นฐานจากงานวิจัยที่ผู้ทรงคุณวุฒิจากหลายสถาบันตรวจสอบแล้ว ไม่ใช่แค่ความเห็นส่วนตัว" data-en="The carbon-footprint method used with clients is grounded in research reviewed by experts from multiple institutions — not just personal opinion.">วิธีคำนวณคาร์บอนฟุตพริ้นท์ที่ใช้กับลูกค้า มีพื้นฐานจากงานวิจัยที่ผู้ทรงคุณวุฒิจากหลายสถาบันตรวจสอบแล้ว ไม่ใช่แค่ความเห็นส่วนตัว</p>
 
     <div class="research-grid">
       <div class="research-card reveal">
@@ -713,24 +769,24 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <div class="research-content">
         <span class="research-ribbon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-          รางวัลบทความวิจัยดีเด่น
+          <span data-th="รางวัลบทความวิจัยดีเด่น" data-en="Best Paper Award">รางวัลบทความวิจัยดีเด่น</span>
         </span>
         <h3 class="research-title">"การประเมินคาร์บอนฟุตพริ้นท์ของผลิตภัณฑ์<br>กรณีศึกษา: กระบวนการผลิตถังพลาสติก"</h3>
-        <p class="research-authors">โดย <strong>สรวิศ สุวรรณรงค์</strong> และ แววบุญ แย้มแสงสังข์</p>
+        <p class="research-authors" data-th="โดย &lt;strong&gt;สรวิศ สุวรรณรงค์&lt;/strong&gt; และ แววบุญ แย้มแสงสังข์" data-en="By &lt;strong&gt;Sorawit Suwannarong&lt;/strong&gt; and Waeobun Yaemsaengsang">โดย <strong>สรวิศ สุวรรณรงค์</strong> และ แววบุญ แย้มแสงสังข์</p>
 
         <div class="research-meta-row">
           <div class="research-meta-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21V12h6v9"/></svg>
-            IE Network 2025 (ครั้งที่ 43) · ม.สงขลานครินทร์
+            <span data-th="IE Network 2025 (ครั้งที่ 43) · ม.สงขลานครินทร์" data-en="IE Network 2025 (43rd) · Prince of Songkla University">IE Network 2025 (ครั้งที่ 43) · ม.สงขลานครินทร์</span>
           </div>
           <div class="research-meta-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            8 พฤษภาคม 2568
+            <span data-th="8 พฤษภาคม 2568" data-en="8 May 2025">8 พฤษภาคม 2568</span>
           </div>
         </div>
-        <p class="research-desc">ได้รับรางวัลบทความวิจัยดีเด่นจากการนำเสนอผลงานในที่ประชุมวิชาการข่ายงานวิศวกรรมอุตสาหการ ซึ่งเป็นเวทีวิชาการระดับประเทศด้านวิศวกรรมอุตสาหการ</p>
+        <p class="research-desc" data-th="ได้รับรางวัลบทความวิจัยดีเด่นจากการนำเสนอผลงานในที่ประชุมวิชาการข่ายงานวิศวกรรมอุตสาหการ ซึ่งเป็นเวทีวิชาการระดับประเทศด้านวิศวกรรมอุตสาหการ" data-en="Received the Best Paper Award for a presentation at the Industrial Engineering Network conference, a national-level academic forum for industrial engineering.">ได้รับรางวัลบทความวิจัยดีเด่นจากการนำเสนอผลงานในที่ประชุมวิชาการข่ายงานวิศวกรรมอุตสาหการ ซึ่งเป็นเวทีวิชาการระดับประเทศด้านวิศวกรรมอุตสาหการ</p>
         <a class="research-link" href="https://ir.stou.ac.th/bitstream/123456789/14086/1/2669600237.pdf" target="_blank" rel="noopener noreferrer">
-          อ่านบทความฉบับเต็ม (PDF)
+          <span data-th="อ่านบทความฉบับเต็ม (PDF)" data-en="Read the full paper (PDF)">อ่านบทความฉบับเต็ม (PDF)</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
         </a>
         </div>
@@ -741,24 +797,24 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <a class="research-stat research-stat-link" href="https://ir.stou.ac.th/bitstream/123456789/14086/1/2669600237.pdf" target="_blank" rel="noopener noreferrer">
           <div class="research-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
           <div>
-            <div class="research-stat-num">ตีพิมพ์แล้ว</div>
-            <div class="research-stat-lbl">วารสารข่ายงานวิศวกรรมอุตสาหการไทย<br>ปีที่ 11 ฉบับที่ 2 (ก.ค.–ธ.ค. 2568)</div>
+            <div class="research-stat-num" data-th="ตีพิมพ์แล้ว" data-en="Published">ตีพิมพ์แล้ว</div>
+            <div class="research-stat-lbl" data-th="วารสารข่ายงานวิศวกรรมอุตสาหการไทย&lt;br&gt;ปีที่ 11 ฉบับที่ 2 (ก.ค.–ธ.ค. 2568)" data-en="Thai Industrial Engineering Network Journal&lt;br&gt;Vol. 11, No. 2 (Jul–Dec 2025)">วารสารข่ายงานวิศวกรรมอุตสาหการไทย<br>ปีที่ 11 ฉบับที่ 2 (ก.ค.–ธ.ค. 2568)</div>
           </div>
         </a>
         <div class="research-divider"></div>
         <div class="research-stat">
           <div class="research-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
           <div>
-            <div class="research-stat-num">3 ผู้ทรงคุณวุฒิ</div>
-            <div class="research-stat-lbl">ตรวจสอบแบบ Peer Review<br>จากหลายสถาบัน ไม่ใช่สถาบันเดียวกับผู้เขียน</div>
+            <div class="research-stat-num" data-th="3 ผู้ทรงคุณวุฒิ" data-en="3 expert reviewers">3 ผู้ทรงคุณวุฒิ</div>
+            <div class="research-stat-lbl" data-th="ตรวจสอบแบบ Peer Review&lt;br&gt;จากหลายสถาบัน ไม่ใช่สถาบันเดียวกับผู้เขียน" data-en="Peer-reviewed&lt;br&gt;by reviewers from multiple institutions, independent of the authors">ตรวจสอบแบบ Peer Review<br>จากหลายสถาบัน ไม่ใช่สถาบันเดียวกับผู้เขียน</div>
           </div>
         </div>
         <div class="research-divider"></div>
         <div class="research-stat">
           <div class="research-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="10"/></svg></div>
           <div>
-            <div class="research-stat-num">ม.ศิลปากร</div>
-            <div class="research-stat-lbl">รับรองโดยภาควิชาวิศวกรรมอุตสาหการและการจัดการ</div>
+            <div class="research-stat-num" data-th="ม.ศิลปากร" data-en="Silpakorn University">ม.ศิลปากร</div>
+            <div class="research-stat-lbl" data-th="รับรองโดยภาควิชาวิศวกรรมอุตสาหการและการจัดการ" data-en="Endorsed by the Department of Industrial Engineering and Management">รับรองโดยภาควิชาวิศวกรรมอุตสาหการและการจัดการ</div>
           </div>
         </div>
       </div>
@@ -769,9 +825,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <!-- PROOF GALLERY: client case + training -->
 <section class="case-section">
   <div class="wrap">
-    <span class="section-tag reveal">ผลงานจริง ไม่ใช่แค่คำพูด</span>
-    <h2 class="section-h2 reveal">จากที่ปรึกษา สู่ใบรับรองที่จับต้องได้</h2>
-    <p class="section-sub reveal">ไม่ใช่แค่วางระบบให้ดูดี แต่ลงพื้นที่จริง อบรมทีมงานจริง พาลูกค้าไปจนถึงวันที่ได้รับใบรับรองจากหน่วยงานระดับประเทศ</p>
+    <span class="section-tag reveal" data-th="ผลงานจริง ไม่ใช่แค่คำพูด" data-en="Real work, not just talk">ผลงานจริง ไม่ใช่แค่คำพูด</span>
+    <h2 class="section-h2 reveal" data-th="จากที่ปรึกษา สู่ใบรับรองที่จับต้องได้" data-en="From Consulting to a Certificate You Can Hold">จากที่ปรึกษา สู่ใบรับรองที่จับต้องได้</h2>
+    <p class="section-sub reveal" data-th="ไม่ใช่แค่วางระบบให้ดูดี แต่ลงพื้นที่จริง อบรมทีมงานจริง พาลูกค้าไปจนถึงวันที่ได้รับใบรับรองจากหน่วยงานระดับประเทศ" data-en="Not just building a system that looks good on paper — getting on-site, training the real team, and taking clients all the way to certification from a national authority.">ไม่ใช่แค่วางระบบให้ดูดี แต่ลงพื้นที่จริง อบรมทีมงานจริง พาลูกค้าไปจนถึงวันที่ได้รับใบรับรองจากหน่วยงานระดับประเทศ</p>
 
     <div class="proof-grid reveal">
       <div class="proof-card">
@@ -779,9 +835,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
           <img src="assets/photos/hero-cert-ceremony.jpg" alt="พิธีมอบใบรับรอง Carbon Footprint of Circular Economy ให้บริษัท เพชรสยาม (ประเทศไทย) จำกัด">
         </div>
         <div class="proof-body">
-          <span class="proof-tag">บริษัท เพชรสยาม (ประเทศไทย) จำกัด</span>
-          <h3 class="proof-title">คว้าฉลากคาร์บอน Circular Economy จาก TGO</h3>
-          <p class="proof-desc">วางระบบประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตามกรอบ ISO 14067 ควบคู่กับ LCA จนได้รับเครื่องหมายรับรองฉลากคาร์บอนอย่างเป็นทางการจาก TGO</p>
+          <span class="proof-tag" data-th="บริษัท เพชรสยาม (ประเทศไทย) จำกัด" data-en="Petchsiam (Thailand) Co., Ltd.">บริษัท เพชรสยาม (ประเทศไทย) จำกัด</span>
+          <h3 class="proof-title" data-th="คว้าฉลากคาร์บอน Circular Economy จาก TGO" data-en="Earned the Circular Economy carbon label from TGO">คว้าฉลากคาร์บอน Circular Economy จาก TGO</h3>
+          <p class="proof-desc" data-th="วางระบบประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตามกรอบ ISO 14067 ควบคู่กับ LCA จนได้รับเครื่องหมายรับรองฉลากคาร์บอนอย่างเป็นทางการจาก TGO" data-en="Built a product carbon-footprint assessment system under the ISO 14067 framework alongside LCA, through to TGO's official carbon-label certification mark.">วางระบบประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตามกรอบ ISO 14067 ควบคู่กับ LCA จนได้รับเครื่องหมายรับรองฉลากคาร์บอนอย่างเป็นทางการจาก TGO</p>
         </div>
       </div>
 
@@ -790,9 +846,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
           <img src="assets/photos/speaker-training.jpg" alt="สรวิศ สุวรรณรงค์ เป็นวิทยากรอบรมให้ทีมงานโรงงานลูกค้า">
         </div>
         <div class="proof-body">
-          <span class="proof-tag">วิทยากรอบรมในโรงงานจริง</span>
-          <h3 class="proof-title">ไม่ใช่แค่ที่ปรึกษา แต่ลงมืออบรมเองทุกครั้ง</h3>
-          <p class="proof-desc">บรรยายและฝึกอบรม ISO / ESG / Carbon Footprint ให้ทีมงานหน้างานนำไปปฏิบัติได้จริง ไม่ใช่แค่ส่งเอกสารให้อ่านเอง</p>
+          <span class="proof-tag" data-th="วิทยากรอบรมในโรงงานจริง" data-en="On-site factory trainer">วิทยากรอบรมในโรงงานจริง</span>
+          <h3 class="proof-title" data-th="ไม่ใช่แค่ที่ปรึกษา แต่ลงมืออบรมเองทุกครั้ง" data-en="Not just a consultant — hands-on training every time">ไม่ใช่แค่ที่ปรึกษา แต่ลงมืออบรมเองทุกครั้ง</h3>
+          <p class="proof-desc" data-th="บรรยายและฝึกอบรม ISO / ESG / Carbon Footprint ให้ทีมงานหน้างานนำไปปฏิบัติได้จริง ไม่ใช่แค่ส่งเอกสารให้อ่านเอง" data-en="Lectures and trains shop-floor teams on ISO / ESG / Carbon Footprint so they can actually apply it — not just handing over documents to read alone.">บรรยายและฝึกอบรม ISO / ESG / Carbon Footprint ให้ทีมงานหน้างานนำไปปฏิบัติได้จริง ไม่ใช่แค่ส่งเอกสารให้อ่านเอง</p>
         </div>
       </div>
     </div>
@@ -802,25 +858,25 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <!-- SERVICES -->
 <section class="services-section">
   <div class="wrap">
-    <span class="section-tag reveal">บริการของเรา</span>
-    <h2 class="section-h2 reveal">เราเข้าใจ SME โรงงานไทย</h2>
-    <p class="section-sub reveal">เข้าใจหน้างานจริง พูดภาษาคนโรงงาน ทำได้จริงวัดผลได้ คุ้มค่าใช้ทุนอย่างคุ้มค่า</p>
+    <span class="section-tag reveal" data-th="บริการของเรา" data-en="Our services">บริการของเรา</span>
+    <h2 class="section-h2 reveal" data-th="เราเข้าใจ SME โรงงานไทย" data-en="We understand Thai SME factories">เราเข้าใจ SME โรงงานไทย</h2>
+    <p class="section-sub reveal" data-th="เข้าใจหน้างานจริง พูดภาษาคนโรงงาน ทำได้จริงวัดผลได้ คุ้มค่าใช้ทุนอย่างคุ้มค่า" data-en="We understand the shop floor, speak the factory's language, deliver measurable results, and make every baht count.">เข้าใจหน้างานจริง พูดภาษาคนโรงงาน ทำได้จริงวัดผลได้ คุ้มค่าใช้ทุนอย่างคุ้มค่า</p>
 
     <div class="services-grid reveal">
       <div class="svc-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
         <div class="svc-title">Smart Industry</div>
-        <div class="svc-desc">วางระบบการจัดการแบบ Smart Factory ปรับกระบวนการเก็บข้อมูลเครื่องจักรและพลังงานอัตโนมัติ ลดความซ้ำซ้อน</div>
+        <div class="svc-desc" data-th="วางระบบการจัดการแบบ Smart Factory ปรับกระบวนการเก็บข้อมูลเครื่องจักรและพลังงานอัตโนมัติ ลดความซ้ำซ้อน" data-en="Build a Smart Factory management system that automates machine and energy data collection, cutting redundant work.">วางระบบการจัดการแบบ Smart Factory ปรับกระบวนการเก็บข้อมูลเครื่องจักรและพลังงานอัตโนมัติ ลดความซ้ำซ้อน</div>
       </div>
       <div class="svc-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
         <div class="svc-title">EcoSustain Service</div>
-        <div class="svc-desc">บริการที่ปรึกษาด้าน ESG &amp; Carbon Reduction (CFO &amp; CFP) ด้วยซอฟต์แวร์ช่วยรวบรวมและวิเคราะห์ข้อมูลทันที</div>
+        <div class="svc-desc" data-th="บริการที่ปรึกษาด้าน ESG &amp; Carbon Reduction (CFO &amp; CFP) ด้วยซอฟต์แวร์ช่วยรวบรวมและวิเคราะห์ข้อมูลทันที" data-en="ESG and carbon-reduction (CFO &amp; CFP) consulting, backed by software that collects and analyzes data on the spot.">บริการที่ปรึกษาด้าน ESG &amp; Carbon Reduction (CFO &amp; CFP) ด้วยซอฟต์แวร์ช่วยรวบรวมและวิเคราะห์ข้อมูลทันที</div>
       </div>
       <div class="svc-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
         <div class="svc-title">Greenlife Academy</div>
-        <div class="svc-desc">จัดฝึกอบรม ISO, Awareness และ ESG ทั้งแบบ In-house และ Online เพื่อปูพื้นฐานบุคลากรให้ขับเคลื่อนระบบต่อเองได้</div>
+        <div class="svc-desc" data-th="จัดฝึกอบรม ISO, Awareness และ ESG ทั้งแบบ In-house และ Online เพื่อปูพื้นฐานบุคลากรให้ขับเคลื่อนระบบต่อเองได้" data-en="ISO, awareness, and ESG training — in-house or online — building the team's foundation to run the system on their own.">จัดฝึกอบรม ISO, Awareness และ ESG ทั้งแบบ In-house และ Online เพื่อปูพื้นฐานบุคลากรให้ขับเคลื่อนระบบต่อเองได้</div>
       </div>
     </div>
   </div>
@@ -829,9 +885,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <!-- SMART FACTORY DASHBOARD DEMO -->
 <section class="demo-section">
   <div class="wrap">
-    <span class="section-tag reveal">เบื้องหลังบริการ Smart Industry</span>
+    <span class="section-tag reveal" data-th="เบื้องหลังบริการ Smart Industry" data-en="Behind the Smart Industry service">เบื้องหลังบริการ Smart Industry</span>
     <h2 class="section-h2 reveal">ระบบที่อยู่หลังคำว่า "Smart Factory"</h2>
-    <p class="section-sub reveal">ตัวอย่างแนวคิด Dashboard ที่ใช้ติดตามพลังงานและคาร์บอนแบบเรียลไทม์ — ดึงข้อมูลจากมิเตอร์ไฟฟ้าและเครื่องจักรหลัก มาแสดงผลในที่เดียว</p>
+    <p class="section-sub reveal" data-th="ตัวอย่างแนวคิด Dashboard ที่ใช้ติดตามพลังงานและคาร์บอนแบบเรียลไทม์ — ดึงข้อมูลจากมิเตอร์ไฟฟ้าและเครื่องจักรหลัก มาแสดงผลในที่เดียว" data-en="A concept dashboard for tracking energy and carbon in real time — pulling data from electricity meters and key machinery into one view.">ตัวอย่างแนวคิด Dashboard ที่ใช้ติดตามพลังงานและคาร์บอนแบบเรียลไทม์ — ดึงข้อมูลจากมิเตอร์ไฟฟ้าและเครื่องจักรหลัก มาแสดงผลในที่เดียว</p>
 
     <div class="demo-frame-wrap reveal">
       <div class="demo-titlebar">
@@ -878,7 +934,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
                 <span class="demo-panel-title">Energy Dashboard</span>
                 <span class="demo-panel-tag">kWh / Cost / Load</span>
               </div>
-              <div class="demo-metric-row"><span class="demo-metric-lbl">Energy Cost</span><span class="demo-metric-val">3,444 บาท</span></div>
+              <div class="demo-metric-row"><span class="demo-metric-lbl">Energy Cost</span><span class="demo-metric-val" data-th="3,444 บาท" data-en="THB 3,444">3,444 บาท</span></div>
               <div class="demo-metric-row"><span class="demo-metric-lbl">Output Loss Estimate</span><span class="demo-metric-val">27 pcs</span></div>
               <div class="demo-metric-row"><span class="demo-metric-lbl">Live Power</span><span class="demo-metric-val">102.5 kW</span></div>
               <svg viewBox="0 0 300 90" style="width:100%;height:auto;margin-top:8px;">
@@ -915,21 +971,21 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         </div>
       </div>
     </div>
-    <p class="demo-caption reveal">* ตัวอย่างแนวคิดระบบ (concept demo) ใช้ข้อมูลจำลองเพื่อสาธิตการแสดงผล ไม่ใช่ข้อมูลจากโรงงานลูกค้าจริง</p>
+    <p class="demo-caption reveal" data-th="* ตัวอย่างแนวคิดระบบ (concept demo) ใช้ข้อมูลจำลองเพื่อสาธิตการแสดงผล ไม่ใช่ข้อมูลจากโรงงานลูกค้าจริง" data-en="* Concept demo — uses simulated data for illustration, not data from an actual client factory.">* ตัวอย่างแนวคิดระบบ (concept demo) ใช้ข้อมูลจำลองเพื่อสาธิตการแสดงผล ไม่ใช่ข้อมูลจากโรงงานลูกค้าจริง</p>
   </div>
 </section>
 
 <!-- INDUSTRIES -->
 <section class="industry-section">
   <div class="wrap">
-    <span class="section-tag reveal" style="text-align:center;display:block;">เราช่วยโรงงานหลากหลายอุตสาหกรรม</span>
+    <span class="section-tag reveal" style="text-align:center;display:block;" data-th="เราช่วยโรงงานหลากหลายอุตสาหกรรม" data-en="We support factories across industries">เราช่วยโรงงานหลากหลายอุตสาหกรรม</span>
     <div class="industry-row reveal">
-      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div><span class="ind-label">พลาสติก</span></div>
-      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/></svg></div><span class="ind-label">บรรจุภัณฑ์</span></div>
-      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M5 17V9l2-5h10l2 5v8"/></svg></div><span class="ind-label">ยานยนต์</span></div>
-      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6a2 2 0 0 0 2 2h3Zm0 0v7"/></svg></div><span class="ind-label">อาหาร</span></div>
-      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></div><span class="ind-label">อิเล็กทรอนิกส์</span></div>
-      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><span class="ind-label">อื่นๆ</span></div>
+      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div><span class="ind-label" data-th="พลาสติก" data-en="Plastics">พลาสติก</span></div>
+      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/></svg></div><span class="ind-label" data-th="บรรจุภัณฑ์" data-en="Packaging">บรรจุภัณฑ์</span></div>
+      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M5 17V9l2-5h10l2 5v8"/></svg></div><span class="ind-label" data-th="ยานยนต์" data-en="Automotive">ยานยนต์</span></div>
+      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6a2 2 0 0 0 2 2h3Zm0 0v7"/></svg></div><span class="ind-label" data-th="อาหาร" data-en="Food">อาหาร</span></div>
+      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></div><span class="ind-label" data-th="อิเล็กทรอนิกส์" data-en="Electronics">อิเล็กทรอนิกส์</span></div>
+      <div class="ind-item"><div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><span class="ind-label" data-th="อื่นๆ" data-en="Other">อื่นๆ</span></div>
     </div>
   </div>
 </section>
@@ -938,16 +994,24 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <section class="cta-section" id="contact">
   <div class="cta-glow"></div>
   <div class="wrap">
-    <h2 class="cta-h2 reveal">อยากเริ่มต้นแต่ไม่รู้จะเริ่มตรงไหน?</h2>
-    <p class="cta-sub reveal">ให้เราช่วยคุณเริ่มต้นอย่างถูกต้อง — ปรึกษาเบื้องต้นฟรี 30 นาที ไม่มีข้อผูกมัด</p>
+    <h2 class="cta-h2 reveal" data-th="อยากเริ่มต้นแต่ไม่รู้จะเริ่มตรงไหน?" data-en="Want to start but not sure where?">อยากเริ่มต้นแต่ไม่รู้จะเริ่มตรงไหน?</h2>
+    <p class="cta-sub reveal" data-th="ให้เราช่วยคุณเริ่มต้นอย่างถูกต้อง — ปรึกษาเบื้องต้นฟรี 30 นาที ไม่มีข้อผูกมัด" data-en="Let us help you start in the right direction — a free 30-minute initial consultation, no obligation.">ให้เราช่วยคุณเริ่มต้นอย่างถูกต้อง — ปรึกษาเบื้องต้นฟรี 30 นาที ไม่มีข้อผูกมัด</p>
     <div class="cta-buttons reveal">
-      <a href="tel:0837682935" class="btn-primary">โทรปรึกษาฟรี <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="mailto:the_sor@icloud.com" class="btn-secondary">ส่งอีเมลหาเรา</a>
+      <a href="https://line.me/ti/p/jIhRgUuo30" target="_blank" rel="noopener noreferrer" class="btn-line">
+        <img src="assets/photos/line-icon.png" alt="" width="20" height="20">
+        <span data-th="แอด LINE ปรึกษาฟรี" data-en="Add LINE, free consult">แอด LINE ปรึกษาฟรี</span>
+      </a>
+      <a href="tel:0837682935" class="btn-secondary"><span data-th="โทรปรึกษาฟรี" data-en="Call for a free consult">โทรปรึกษาฟรี</span></a>
+    </div>
+    <div class="qr-aid reveal">
+      <img src="assets/photos/line-qr.png" alt="QR code แอด LINE สรวิศ สุวรรณรงค์" width="64" height="64">
+      <span data-th="หรือสแกนด้วยมือถือเพื่อแอด LINE ได้เลย" data-en="Or scan with your phone to add LINE directly">หรือสแกนด้วยมือถือเพื่อแอด LINE ได้เลย</span>
     </div>
     <div class="contact-row reveal">
-      <div class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.61.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.7.34 1.5.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>083-768-2935</div>
-      <div class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4Z"/><path d="m22 6-10 7L2 6"/></svg>the_sor@icloud.com</div>
-      <div class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>333/62 Bangpha, Sriracha, Chonburi 20110</div>
+      <a class="contact-item" href="https://line.me/ti/p/jIhRgUuo30" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg><span data-th="แอด LINE: คลิกเพื่อแชท" data-en="LINE: tap to chat">แอด LINE: คลิกเพื่อแชท</span></a>
+      <a class="contact-item" href="tel:+66837682935"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.61.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.7.34 1.5.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>083-768-2935</a>
+      <a class="contact-item" href="mailto:the_sor@icloud.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4Z"/><path d="m22 6-10 7L2 6"/></svg>the_sor@icloud.com</a>
+      <a class="contact-item" href="https://maps.google.com/?q=333/62+Bangpha+Sriracha+Chonburi+20110" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>333/62 Bangpha, Sriracha, Chonburi 20110</a>
     </div>
   </div>
 </section>
@@ -961,7 +1025,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
     </div>
     <div class="footer-links">
       <a href="#">Facebook</a>
-      <a href="#">LINE</a>
+      <a href="https://line.me/ti/p/jIhRgUuo30" target="_blank" rel="noopener noreferrer">LINE</a>
       <a href="#">Website</a>
     </div>
   </div>
@@ -998,6 +1062,35 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
     });
   }, { threshold: 0.35 });
   if (rail) railIo.observe(rail);
+
+  // ===== Language toggle (shared 'fg_lang' key with knowledge.html) =====
+  const LANG_KEY = 'fg_lang';
+  const PAGE_TITLE_TH = 'FutureGreen Consulting — รู้ว่าต้องเริ่มจากไหน ภายใน 1 วัน';
+  const PAGE_TITLE_EN = 'FutureGreen Consulting — Know Where to Start, in 1 Day';
+  const HERO_H1_TH = 'ที่ปรึกษาเพื่อความยั่งยืน<br>สำหรับ <em>SME โรงงานไทย</em>';
+  const HERO_H1_EN = 'Sustainability Consulting<br>for <em>Thai SME Factories</em>';
+
+  const langToggle = document.getElementById('langToggle');
+  const heroH1 = document.getElementById('heroH1');
+
+  function applyLanguage(lang) {
+    localStorage.setItem(LANG_KEY, lang);
+    document.documentElement.lang = lang;
+    document.getElementById('pageTitle').textContent = lang === 'en' ? PAGE_TITLE_EN : PAGE_TITLE_TH;
+    document.title = lang === 'en' ? PAGE_TITLE_EN : PAGE_TITLE_TH;
+    heroH1.innerHTML = lang === 'en' ? HERO_H1_EN : HERO_H1_TH;
+    document.querySelectorAll('[data-th]').forEach(el => {
+      const val = lang === 'en' ? (el.getAttribute('data-en') || el.getAttribute('data-th')) : el.getAttribute('data-th');
+      el.innerHTML = val;
+    });
+    langToggle.dataset.active = lang;
+    langToggle.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  }
+  langToggle.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+  });
+
+  applyLanguage(localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'th');
 </script>
 </body>
 </html>
