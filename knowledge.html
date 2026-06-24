@@ -650,6 +650,25 @@ applyLanguage(currentLang);
     100%{ box-shadow:0 0 0 16px rgba(82,183,136,0); }
   }
 
+  /* ป้ายบอกว่านี่คือแชทบอท โผล่มาตอนโหลดหน้าแล้วจางหายไป / กดปุ่มก็หาย */
+  #fg-chat-teaser{
+    position:fixed; bottom:34px; right:96px; max-width:230px;
+    background:#fff; color:var(--fg-green-900); font-family:'IBM Plex Sans Thai', sans-serif;
+    font-size:13.5px; line-height:1.45; padding:10px 14px; border-radius:14px 14px 4px 14px;
+    box-shadow:0 8px 24px rgba(0,0,0,.18); z-index:9998;
+    opacity:0; transform:translateY(8px) scale(.96); pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  #fg-chat-teaser.fg-show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  #fg-chat-teaser .fg-teaser-close{
+    position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%;
+    background:var(--fg-green-900); color:#fff; border:none; font-size:11px; line-height:1;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  @media (max-width:480px){
+    #fg-chat-teaser{ right:14px; bottom:96px; max-width:180px; }
+  }
+
   #fg-chat-panel{
     position:fixed; bottom:96px; right:24px; width:360px; max-width:92vw;
     height:520px; max-height:75vh; background:var(--fg-cream);
@@ -705,6 +724,10 @@ applyLanguage(currentLang);
   }
 </style>
 
+<div id="fg-chat-teaser">
+  <button class="fg-teaser-close" id="fg-teaser-close" aria-label="ปิด">✕</button>
+  <span id="fg-teaser-text">💬 มีคำถามเรื่อง ISO/Carbon Footprint? ถามผู้ช่วยได้เลย</span>
+</div>
 <button id="fg-chat-btn" class="fg-pulse" aria-label="เปิดแชทถาม FutureGreen Assistant">🌿</button>
 
 <div id="fg-chat-panel" role="dialog" aria-label="FutureGreen chat assistant" aria-hidden="true">
@@ -733,6 +756,7 @@ applyLanguage(currentLang);
       title: 'FutureGreen Assistant',
       sub: 'ถาม-ตอบ ISO / ESG / Carbon Footprint',
       placeholder: 'พิมพ์คำถาม...',
+      teaser: '💬 มีคำถามเรื่อง ISO/Carbon Footprint? ถามผู้ช่วยได้เลย',
       greeting: 'สวัสดีค่ะ 🌿 ดิฉันเป็นผู้ช่วยของ FutureGreen Consulting ถามเรื่อง ISO 9001/14001/45001/50001, Carbon Footprint, GP Audit หรือบริการอื่นๆ ได้เลยค่ะ หรือลองใช้ "Carbon Readiness Check" ฟรีเพื่อเริ่มต้นได้นะคะ',
       error: 'ขออภัยค่ะ ระบบขัดข้องชั่วคราว รบกวนกดไอคอน LINE ด้านบนเพื่อคุยกับทีมงานโดยตรงนะคะ 🙏',
       typing: 'กำลังพิมพ์…'
@@ -741,6 +765,7 @@ applyLanguage(currentLang);
       title: 'FutureGreen Assistant',
       sub: 'Ask about ISO / ESG / Carbon Footprint',
       placeholder: 'Type your question...',
+      teaser: "💬 Questions about ISO/Carbon Footprint? Ask our assistant",
       greeting: "Hi 🌿 I'm the FutureGreen Consulting assistant. Ask about ISO 9001/14001/45001/50001, Carbon Footprint, GP Audit, or try our free Carbon Readiness Check to get started.",
       error: 'Sorry, the assistant is temporarily down. Please tap the LINE icon above to reach our team directly.',
       typing: 'Typing…'
@@ -759,6 +784,20 @@ applyLanguage(currentLang);
   document.getElementById('fg-title-text').textContent = T_ALL[currentLang].title;
   document.getElementById('fg-sub-text').textContent = T_ALL[currentLang].sub;
   input.placeholder = T_ALL[currentLang].placeholder;
+
+  const teaser = document.getElementById('fg-chat-teaser');
+  const teaserText = document.getElementById('fg-teaser-text');
+  const teaserClose = document.getElementById('fg-teaser-close');
+  teaserText.textContent = T_ALL[currentLang].teaser;
+
+  let teaserTimer = setTimeout(function(){ teaser.classList.add('fg-show'); }, 1200);
+  let teaserAutoHide = setTimeout(function(){ teaser.classList.remove('fg-show'); }, 9000);
+
+  function dismissTeaser(){
+    clearTimeout(teaserTimer); clearTimeout(teaserAutoHide);
+    teaser.classList.remove('fg-show');
+  }
+  teaserClose.addEventListener('click', function(e){ e.stopPropagation(); dismissTeaser(); });
 
   let history = [];
   let opened = false;
@@ -814,6 +853,7 @@ applyLanguage(currentLang);
   }
 
   btn.addEventListener('click', function(){
+    dismissTeaser();
     opened = !opened;
     panel.classList.toggle('fg-open', opened);
     panel.setAttribute('aria-hidden', String(!opened));
@@ -855,6 +895,7 @@ applyLanguage(currentLang);
         document.getElementById('fg-title-text').textContent = NT.title;
         document.getElementById('fg-sub-text').textContent = NT.sub;
         input.placeholder = NT.placeholder;
+        teaserText.textContent = NT.teaser;
         currentLang = newLang;
       });
     });
