@@ -1381,5 +1381,71 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 })();
 </script>
 
+
+<!-- ============================================================================
+     แก้พฤติกรรมปุ่ม "โทรปรึกษาฟรี" / เบอร์โทร บนเดสก์ท็อป
+     มือถือ: ปล่อยให้ tel: ทำงานปกติ (เปิดแอปโทรศัพท์)
+     เดสก์ท็อป: กันไม่ให้เด้ง popup "Select an app" — เปลี่ยนเป็นคัดลอกเบอร์ + แจ้งเตือนแทน
+     ============================================================================ -->
+<style>
+  #fg-tel-toast{
+    position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 12px);
+    background: var(--forest, #0D3D2B); color: #fff;
+    font-family: var(--font-body, 'IBM Plex Sans Thai', sans-serif);
+    padding: 12px 22px; border-radius: 999px; font-size: 14px; line-height: 1.4;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25); z-index: 10000; max-width: 90vw; text-align: center;
+    opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+  }
+  #fg-tel-toast.fg-show{ opacity: 1; transform: translate(-50%, 0); }
+</style>
+<script>
+(function(){
+  function isMobileDevice(){
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  }
+  if (isMobileDevice()) return; // มือถือ: ปล่อยให้ tel: ทำงานตามปกติ ไม่ต้องแก้อะไร
+
+  function getLang(){
+    var el = document.getElementById('langToggle');
+    return (el && el.dataset.active === 'en') ? 'en' : 'th';
+  }
+
+  function showToast(text){
+    var toast = document.getElementById('fg-tel-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'fg-tel-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = text;
+    toast.classList.add('fg-show');
+    clearTimeout(toast._hideTimer);
+    toast._hideTimer = setTimeout(function(){ toast.classList.remove('fg-show'); }, 3000);
+  }
+
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var number = link.getAttribute('href').replace('tel:', '');
+      var display = link.textContent.trim() || number;
+      var lang = getLang();
+      var msg = (lang === 'en')
+        ? 'Copied: ' + display + ' — paste it into your phone to call'
+        : 'คัดลอกเบอร์ ' + display + ' แล้วครับ นำไปวางในแอปโทรศัพท์ได้เลย';
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(number).then(function(){
+          showToast(msg);
+        }).catch(function(){
+          showToast((lang === 'en' ? 'Phone: ' : 'เบอร์โทร: ') + display);
+        });
+      } else {
+        showToast((lang === 'en' ? 'Phone: ' : 'เบอร์โทร: ') + display);
+      }
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
