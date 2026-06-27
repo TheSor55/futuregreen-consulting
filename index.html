@@ -347,6 +347,33 @@ img { max-width: 100%; display: block; }
 
 /* ===== SERVICES ===== */
 .services-section { background: var(--cream); padding: 100px 0; }
+.fit-section { background: var(--cream-warm); padding: 88px 0; }
+.start-section { background: var(--forest-deep); padding: 96px 0; }
+.start-section .section-tag { color: var(--gold); }
+.start-section .section-h2 { color: var(--cream); }
+.start-section .section-sub { color: rgba(247,244,236,.62); }
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 38px; }
+.fit-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  padding: 18px 20px; font-size: 14px; color: var(--ink); line-height: 1.55; font-weight: 500;
+}
+.fit-item::before {
+  content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--leaf);
+  flex: 0 0 auto; margin-top: 7px; box-shadow: 0 0 0 4px rgba(31,138,92,.12);
+}
+.start-list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 44px; counter-reset: startStep; }
+.start-item {
+  counter-increment: startStep;
+  background: rgba(247,244,236,.05); border: 1px solid rgba(247,244,236,.14);
+  border-radius: 14px; padding: 22px 18px; color: rgba(247,244,236,.78);
+  font-size: 13.5px; line-height: 1.55; min-height: 132px;
+}
+.start-item::before {
+  content: counter(startStep, decimal-leading-zero);
+  display: block; font-family: var(--font-mono); font-size: 11px; color: var(--gold);
+  margin-bottom: 12px; letter-spacing: .06em;
+}
 
 /* ===== PROOF GALLERY (client case + training) ===== */
 .case-section { background: var(--forest-deep); padding: 100px 0; position: relative; overflow: hidden; }
@@ -440,6 +467,11 @@ img { max-width: 100%; display: block; }
 .contact-item { display: flex; align-items: center; gap: 10px; color: rgba(247,244,236,.75); font-size: 13.5px; text-decoration: none; transition: color .15s; padding: 4px; }
 .contact-item:hover { color: var(--leaf-bright); }
 .contact-item svg { width: 16px; height: 16px; stroke: var(--leaf-bright); flex-shrink: 0; }
+.freelance-note {
+  position: relative; max-width: 780px; margin: 34px auto 0;
+  color: rgba(247,244,236,.62); font-size: 13px; line-height: 1.65;
+  border-top: 1px solid rgba(247,244,236,.16); padding-top: 22px;
+}
 
 /* ===== FOOTER ===== */
 .footer { background: var(--forest-deep); padding: 36px 0; padding-bottom: calc(36px + env(safe-area-inset-bottom)); }
@@ -469,12 +501,15 @@ img { max-width: 100%; display: block; }
   .cred-photo { max-width: 320px; margin: 0 auto; }
   .journey-rail { padding-left: 28px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .fit-grid { grid-template-columns: 1fr; }
+  .start-list { grid-template-columns: 1fr 1fr; }
   .research-grid { grid-template-columns: 1fr; }
   .industry-row { justify-content: center; }
   .wrap { padding: 0 20px; }
 }
 @media (max-width: 600px) {
   .services-grid { grid-template-columns: 1fr; }
+  .start-list { grid-template-columns: 1fr; }
 }
 @media (max-width: 540px) {
   .pain-grid { grid-template-columns: 1fr; }
@@ -526,9 +561,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
       <div class="hero-ctas">
         <a href="https://line.me/R/ti/p/@137xvimh" target="_blank" rel="noopener noreferrer" class="btn-line">
           <img src="assets/photos/line-icon.png" alt="" width="20" height="20">
-          <span data-th="ทักมาปรึกษาฟรี" data-en="Add LINE, free consult">ทักมาปรึกษาฟรี</span>
+          <span data-th="ปรึกษาฟรี 30 นาที" data-en="Book Free Consultation">ปรึกษาฟรี 30 นาที</span>
         </a>
-        <a href="#journey" class="btn-secondary" data-th="ดูประสบการณ์มากกว่า 30 ปี" data-en="See 30+ years of experience">ดูประสบการณ์มากกว่า 30 ปี</a>
+        <a href="#contact" class="btn-secondary" data-th="ขอใบเสนอราคา" data-en="Request Quotation">ขอใบเสนอราคา</a>
       </div>
     </div>
     <div class="hero-img-col">
@@ -868,20 +903,67 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 
     <div class="services-grid reveal">
       <div class="svc-card">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-        <div class="svc-title">Smart Industry</div>
-        <div class="svc-desc" data-th="วางระบบการจัดการแบบ Smart Factory ปรับกระบวนการเก็บข้อมูลเครื่องจักรและพลังงานอัตโนมัติ ลดความซ้ำซ้อน" data-en="Build a Smart Factory management system that automates machine and energy data collection, cutting redundant work.">วางระบบการจัดการแบบ Smart Factory ปรับกระบวนการเก็บข้อมูลเครื่องจักรและพลังงานอัตโนมัติ ลดความซ้ำซ้อน</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9Z"/></svg></div>
+        <div class="svc-title" data-th="ที่ปรึกษา ISO 9001 / ISO 14001" data-en="ISO 9001 / ISO 14001 Consulting">ที่ปรึกษา ISO 9001 / ISO 14001</div>
+        <div class="svc-desc" data-th="วางระบบคุณภาพและสิ่งแวดล้อมให้เหมาะกับโรงงานจริง ตั้งแต่ Gap Assessment เอกสาร การปฏิบัติ ไปจนถึงเตรียม Audit" data-en="Build practical quality and environmental management systems, from gap assessment and documentation to implementation and audit preparation.">วางระบบคุณภาพและสิ่งแวดล้อมให้เหมาะกับโรงงานจริง ตั้งแต่ Gap Assessment เอกสาร การปฏิบัติ ไปจนถึงเตรียม Audit</div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
-        <div class="svc-title">EcoSustain Service</div>
-        <div class="svc-desc" data-th="บริการที่ปรึกษาด้าน ESG &amp; Carbon Reduction (CFO &amp; CFP) ด้วยซอฟต์แวร์ช่วยรวบรวมและวิเคราะห์ข้อมูลทันที" data-en="ESG and carbon-reduction (CFO &amp; CFP) consulting, backed by software that collects and analyzes data on the spot.">บริการที่ปรึกษาด้าน ESG &amp; Carbon Reduction (CFO &amp; CFP) ด้วยซอฟต์แวร์ช่วยรวบรวมและวิเคราะห์ข้อมูลทันที</div>
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></div>
+        <div class="svc-title" data-th="Carbon Footprint for Organization: CFO" data-en="Carbon Footprint for Organization: CFO">Carbon Footprint for Organization: CFO</div>
+        <div class="svc-desc" data-th="ช่วยกำหนดขอบเขต รวบรวม Activity Data คำนวณ GHG และเตรียมรายงานคาร์บอนฟุตพริ้นท์องค์กรให้ตรวจสอบได้" data-en="Support boundary setting, activity data collection, GHG calculation, and organization carbon-footprint reporting that can be reviewed.">ช่วยกำหนดขอบเขต รวบรวม Activity Data คำนวณ GHG และเตรียมรายงานคาร์บอนฟุตพริ้นท์องค์กรให้ตรวจสอบได้</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18"/><path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><rect x="5" y="7" width="14" height="14" rx="2"/><path d="M9 13h6M9 17h4"/></svg></div>
+        <div class="svc-title" data-th="Carbon Footprint of Product: CFP" data-en="Carbon Footprint of Product: CFP">Carbon Footprint of Product: CFP</div>
+        <div class="svc-desc" data-th="ประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์โดยเชื่อมข้อมูลวัตถุดิบ พลังงาน กระบวนการผลิต และแนวทาง ISO 14067 / LCA" data-en="Assess product carbon footprint by connecting material, energy, production-process, and ISO 14067 / LCA data.">ประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์โดยเชื่อมข้อมูลวัตถุดิบ พลังงาน กระบวนการผลิต และแนวทาง ISO 14067 / LCA</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-9"/><path d="M14 6h6v6"/></svg></div>
+        <div class="svc-title" data-th="ESG / Sustainability Roadmap" data-en="ESG / Sustainability Roadmap">ESG / Sustainability Roadmap</div>
+        <div class="svc-desc" data-th="แปลงโจทย์ ESG, Net Zero และความต้องการลูกค้าให้เป็นแผนงาน ขอบเขต ระยะเวลา และลำดับความสำคัญที่ทำได้จริง" data-en="Turn ESG, Net Zero, and customer requirements into a practical roadmap, scope, timeline, and priority sequence.">แปลงโจทย์ ESG, Net Zero และความต้องการลูกค้าให้เป็นแผนงาน ขอบเขต ระยะเวลา และลำดับความสำคัญที่ทำได้จริง</div>
       </div>
       <div class="svc-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
-        <div class="svc-title">Greenlife Academy</div>
-        <div class="svc-desc" data-th="จัดฝึกอบรม ISO, Awareness และ ESG ทั้งแบบ In-house และ Online เพื่อปูพื้นฐานบุคลากรให้ขับเคลื่อนระบบต่อเองได้" data-en="ISO, awareness, and ESG training — in-house or online — building the team's foundation to run the system on their own.">จัดฝึกอบรม ISO, Awareness และ ESG ทั้งแบบ In-house และ Online เพื่อปูพื้นฐานบุคลากรให้ขับเคลื่อนระบบต่อเองได้</div>
+        <div class="svc-title" data-th="Internal Audit &amp; Training" data-en="Internal Audit &amp; Training">Internal Audit &amp; Training</div>
+        <div class="svc-desc" data-th="อบรมทีมงาน ตรวจประเมินภายใน และเตรียมความพร้อมก่อนลูกค้า หน่วยรับรอง หรือผู้ตรวจเข้าหน้างานจริง" data-en="Train teams, run internal audits, and prepare for customer, certification-body, or external site audits.">อบรมทีมงาน ตรวจประเมินภายใน และเตรียมความพร้อมก่อนลูกค้า หน่วยรับรอง หรือผู้ตรวจเข้าหน้างานจริง</div>
       </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/><path d="M7 13l3-3 3 2 4-5"/></svg></div>
+        <div class="svc-title" data-th="Factory Dashboard / Digital ISO System" data-en="Factory Dashboard / Digital ISO System">Factory Dashboard / Digital ISO System</div>
+        <div class="svc-desc" data-th="ออกแบบ Dashboard และระบบจัดการเอกสาร/ข้อมูล ISO ให้ทีมโรงงานติดตามพลังงาน คาร์บอน งาน Audit และ Action Plan ได้ง่ายขึ้น" data-en="Design dashboards and digital ISO data/document systems so factory teams can track energy, carbon, audits, and action plans more clearly.">ออกแบบ Dashboard และระบบจัดการเอกสาร/ข้อมูล ISO ให้ทีมโรงงานติดตามพลังงาน คาร์บอน งาน Audit และ Action Plan ได้ง่ายขึ้น</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<section class="fit-section">
+  <div class="wrap">
+    <span class="section-tag reveal" data-th="เหมาะกับใคร" data-en="Who This Is For">เหมาะกับใคร</span>
+    <h2 class="section-h2 reveal" data-th="สำหรับโรงงานที่ต้องการเริ่มอย่างเป็นระบบและทำได้จริง" data-en="For factories that need a practical, structured start">สำหรับโรงงานที่ต้องการเริ่มอย่างเป็นระบบและทำได้จริง</h2>
+    <p class="section-sub reveal" data-th="เหมาะกับองค์กรที่ต้องรับมือทั้งมาตรฐาน ลูกค้า Audit ข้อมูลคาร์บอน และการปรับปรุงหน้างาน โดยยังต้องควบคุมเวลาและงบประมาณ" data-en="Designed for organizations handling standards, customer audits, carbon data, and factory improvement while keeping time and budget under control.">เหมาะกับองค์กรที่ต้องรับมือทั้งมาตรฐาน ลูกค้า Audit ข้อมูลคาร์บอน และการปรับปรุงหน้างาน โดยยังต้องควบคุมเวลาและงบประมาณ</p>
+    <div class="fit-grid reveal">
+      <div class="fit-item" data-th="โรงงาน SME ไทย" data-en="Thai SME factories">โรงงาน SME ไทย</div>
+      <div class="fit-item" data-th="ผู้ผลิตที่ต้องส่งออกหรือเตรียมเป็น Supplier ให้ลูกค้ารายใหญ่" data-en="Export-oriented manufacturers or suppliers preparing for customer audits">ผู้ผลิตที่ต้องส่งออกหรือเตรียมเป็น Supplier ให้ลูกค้ารายใหญ่</div>
+      <div class="fit-item" data-th="องค์กรที่กำลังเริ่มทำ ISO, ESG, CFO, CFP หรือ Net Zero" data-en="Organizations starting ISO, ESG, CFO, CFP, or Net Zero projects">องค์กรที่กำลังเริ่มทำ ISO, ESG, CFO, CFP หรือ Net Zero</div>
+      <div class="fit-item" data-th="ทีมโรงงานที่ต้องการแนวทางปฏิบัติจริง ไม่ใช่แค่เอกสาร" data-en="Factory teams that need practical implementation, not just documents">ทีมโรงงานที่ต้องการแนวทางปฏิบัติจริง ไม่ใช่แค่เอกสาร</div>
+      <div class="fit-item" data-th="ผู้บริหารที่ต้องการเห็นภาพรวม แผนงาน และต้นทุนก่อนเริ่มโครงการ" data-en="Executives who need a clear roadmap, scope, and estimated cost before starting">ผู้บริหารที่ต้องการเห็นภาพรวม แผนงาน และต้นทุนก่อนเริ่มโครงการ</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO START -->
+<section class="start-section">
+  <div class="wrap">
+    <span class="section-tag reveal" data-th="เริ่มต้นอย่างไร" data-en="How to Start">เริ่มต้นอย่างไร</span>
+    <h2 class="section-h2 reveal" data-th="เริ่มจากภาพรวมก่อน แล้วค่อยลงมือในขอบเขตที่เหมาะสม" data-en="Start with the big picture, then implement the right scope">เริ่มจากภาพรวมก่อน แล้วค่อยลงมือในขอบเขตที่เหมาะสม</h2>
+    <p class="section-sub reveal" data-th="กระบวนการทำงานถูกออกแบบให้ผู้บริหารเห็นทิศทางก่อนตัดสินใจ และทีมหน้างานรู้ว่าต้องเตรียมข้อมูลอะไรบ้าง" data-en="The workflow helps executives see direction before deciding, while factory teams know what data and actions to prepare.">กระบวนการทำงานถูกออกแบบให้ผู้บริหารเห็นทิศทางก่อนตัดสินใจ และทีมหน้างานรู้ว่าต้องเตรียมข้อมูลอะไรบ้าง</p>
+    <div class="start-list reveal">
+      <div class="start-item" data-th="ปรึกษาฟรี 30 นาที" data-en="Free 30-minute consultation">ปรึกษาฟรี 30 นาที</div>
+      <div class="start-item" data-th="ประเมินสถานะเบื้องต้น" data-en="Initial gap assessment">ประเมินสถานะเบื้องต้น</div>
+      <div class="start-item" data-th="จัดทำ Roadmap และใบเสนอราคา" data-en="Roadmap and quotation">จัดทำ Roadmap และใบเสนอราคา</div>
+      <div class="start-item" data-th="ลงมือพัฒนาเอกสาร ระบบ ข้อมูล และการปฏิบัติจริง" data-en="Implementation support for documents, systems, data, and operation">ลงมือพัฒนาเอกสาร ระบบ ข้อมูล และการปฏิบัติจริง</div>
+      <div class="start-item" data-th="เตรียมรายงาน Audit หรือการรับรองตามเป้าหมาย" data-en="Report, audit, or certification preparation">เตรียมรายงาน Audit หรือการรับรองตามเป้าหมาย</div>
     </div>
   </div>
 </section>
@@ -890,7 +972,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <section class="demo-section">
   <div class="wrap">
     <span class="section-tag reveal" data-th="เบื้องหลังบริการ Smart Industry" data-en="Behind the Smart Industry service">เบื้องหลังบริการ Smart Industry</span>
-    <h2 class="section-h2 reveal">ระบบที่อยู่หลังคำว่า "Smart Factory"</h2>
+    <h2 class="section-h2 reveal" data-th="ระบบที่อยู่หลังคำว่า &quot;Smart Factory&quot;" data-en="The system behind &quot;Smart Factory&quot;">ระบบที่อยู่หลังคำว่า "Smart Factory"</h2>
     <p class="section-sub reveal" data-th="ตัวอย่างแนวคิด Dashboard ที่ใช้ติดตามพลังงานและคาร์บอนแบบเรียลไทม์ — ดึงข้อมูลจากมิเตอร์ไฟฟ้าและเครื่องจักรหลัก มาแสดงผลในที่เดียว" data-en="A concept dashboard for tracking energy and carbon in real time — pulling data from electricity meters and key machinery into one view.">ตัวอย่างแนวคิด Dashboard ที่ใช้ติดตามพลังงานและคาร์บอนแบบเรียลไทม์ — ดึงข้อมูลจากมิเตอร์ไฟฟ้าและเครื่องจักรหลัก มาแสดงผลในที่เดียว</p>
 
     <div class="demo-frame-wrap reveal">
@@ -1003,9 +1085,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
     <div class="cta-buttons reveal">
       <a href="https://line.me/R/ti/p/@137xvimh" target="_blank" rel="noopener noreferrer" class="btn-line">
         <img src="assets/photos/line-icon.png" alt="" width="20" height="20">
-        <span data-th="แอด LINE ปรึกษาฟรี" data-en="Add LINE, free consult">แอด LINE ปรึกษาฟรี</span>
+        <span data-th="ปรึกษาฟรี 30 นาที" data-en="Book Free Consultation">ปรึกษาฟรี 30 นาที</span>
       </a>
-      <a href="tel:0837682935" class="btn-secondary"><span data-th="โทรปรึกษาฟรี" data-en="Call for a free consult">โทรปรึกษาฟรี</span></a>
+      <a href="tel:0837682935" class="btn-secondary"><span data-th="ขอใบเสนอราคา" data-en="Request Quotation">ขอใบเสนอราคา</span></a>
+      <a href="mailto:the_sor@icloud.com" class="btn-secondary"><span data-th="ติดต่อ FutureGreen" data-en="Contact FutureGreen">ติดต่อ FutureGreen</span></a>
     </div>
     <div class="qr-aid reveal">
       <img src="assets/photos/line-qr.png" alt="QR code แอด LINE สรวิศ สุวรรณรงค์" width="64" height="64">
@@ -1017,6 +1100,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
       <a class="contact-item" href="mailto:the_sor@icloud.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4Z"/><path d="m22 6-10 7L2 6"/></svg>the_sor@icloud.com</a>
       <a class="contact-item" href="https://maps.google.com/?q=333/62+Bangpha+Sriracha+Chonburi+20110" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>333/62 Bangpha, Sriracha, Chonburi 20110</a>
     </div>
+    <p class="freelance-note reveal" data-th="FutureGreen เป็นแบรนด์ที่ปรึกษาอิสระ รูปแบบบริการสามารถปรับตามขอบเขตงาน สภาพหน้างาน ความพร้อมของข้อมูล และความต้องการของลูกค้าแต่ละราย" data-en="FutureGreen is an independent freelance consulting brand. Services can be customized based on project scope, site conditions, data availability, and customer requirements.">FutureGreen เป็นแบรนด์ที่ปรึกษาอิสระ รูปแบบบริการสามารถปรับตามขอบเขตงาน สภาพหน้างาน ความพร้อมของข้อมูล และความต้องการของลูกค้าแต่ละราย</p>
   </div>
 </section>
 
@@ -1028,9 +1112,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
       FutureGreen Consulting · Sustainable · Profitable · Future-Ready
     </div>
     <div class="footer-links">
-      <a href="#">Facebook</a>
+      <a href="knowledge.html" data-th="คลังความรู้" data-en="Knowledge Hub">คลังความรู้</a>
       <a href="https://line.me/R/ti/p/@137xvimh" target="_blank" rel="noopener noreferrer">LINE</a>
-      <a href="#">Website</a>
+      <a href="#contact" data-th="ติดต่อ" data-en="Contact">ติดต่อ</a>
     </div>
   </div>
 </footer>
