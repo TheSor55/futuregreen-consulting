@@ -1,30 +1,44 @@
 # FutureGreen Consulting
 
-## Overview
+## Project Overview
 
-FutureGreen Consulting is a bilingual consulting website and digital profile for ISO, ESG, Carbon Footprint, CFO, CFP, Net Zero, audit, training, and factory sustainability services.
+FutureGreen Consulting is the main bilingual website and digital profile for FutureGreen by Sorawit.
 
-The website helps Thai SME factories understand what sustainability requirements mean, where to start, and how FutureGreen by Sorawit can support practical implementation from readiness checks to certification preparation.
+The website presents consulting services for ISO, ESG, Carbon Footprint, CFO, CFP, audit readiness, sustainability roadmap, training, and digital factory improvement for Thai SME manufacturers.
 
-## Use Case
+TH: เว็บไซต์นี้ทำหน้าที่เป็นหน้าร้านของ FutureGreen เพื่ออธิบายบริการ ความน่าเชื่อถือ ผลงานตัวอย่าง และช่องทางติดต่อสำหรับโรงงานที่ต้องการเริ่มงาน ISO / ESG / Carbon Footprint อย่างเป็นระบบ
 
-This website supports consulting work in:
+## Business Problem
 
-- ISO 9001 / ISO 14001 consulting and certification readiness
-- Carbon Footprint for Organization (CFO)
-- Carbon Footprint of Product (CFP)
-- ESG and sustainability roadmap planning
-- Factory audit preparation and management-system improvement
-- Lead generation and credibility building for Thai and English audiences
+Many SME factories are being asked by customers, brands, and supply-chain partners to provide ISO, ESG, and carbon-related information. However, they often do not know where to start, what data to prepare, or how to turn requirements into a practical work plan.
 
-## Features
+The website helps reduce this confusion by explaining the consulting scope in plain language and connecting business needs with practical services.
+
+## Objective
+
+- Present FutureGreen by Sorawit as a professional consulting brand.
+- Explain ISO, ESG, Carbon Footprint, CFO, CFP, audit, and dashboard services clearly.
+- Build trust through field experience, certification proof, research context, and knowledge materials.
+- Provide a direct path for potential clients to contact and discuss project needs.
+
+## Target Users
+
+- Thai SME factory owners and executives
+- ISO / ESG / sustainability officers
+- Factory managers and production teams
+- Export-oriented suppliers
+- Companies preparing for customer audits or carbon data requests
+- Organizations exploring CFO, CFP, Net Zero, or factory sustainability projects
+
+## Key Features
 
 - Bilingual Thai / English content
-- Consultant profile and field experience presentation
-- Service sections for ISO, ESG, Carbon Footprint, CFO, CFP, training, and digital systems
-- Knowledge hub for client-facing infographics and educational material
-- Certification proof, research context, and consulting credibility sections
-- Contact and lead-generation flow for prospective factory clients
+- Consulting service overview
+- Consultant profile and field experience
+- Certification and credibility proof
+- Knowledge hub for ISO / ESG / Carbon Footprint materials
+- Digital Tools & Prototype section linking to live demo tools
+- Contact and lead-generation flow
 
 ## Tech Stack
 
@@ -33,26 +47,51 @@ This website supports consulting work in:
 - JavaScript
 - GitHub Pages
 
-## Demo
+## Use Case for Consulting Work
+
+This website is used as a client-facing digital profile for freelance consulting work. It supports the first stage of business development by helping clients understand the service scope before an initial consultation.
+
+Example consulting use cases:
+
+- Explaining ISO / ESG / Carbon Footprint services to factory decision-makers
+- Sharing knowledge materials before client meetings
+- Showing prototype tools that support audit, dashboard, QC, and carbon workflows
+- Building credibility for independent consulting engagements
+
+## Project Status
+
+MVP / Production website for freelance consulting profile
+
+The website is live and usable as a consulting portfolio and lead-generation site. It is not a complex web application and does not require authentication, database, backup, or enterprise infrastructure.
+
+## Demo Link
 
 Live Demo: https://thesor55.github.io/futuregreen-consulting/
 
 Knowledge Hub: https://thesor55.github.io/futuregreen-consulting/knowledge.html
 
-## Status
-
-MVP / Freelance consulting website
-
-Custom domain migration to futuregreennet.com may be considered later.
+Digital Tools: https://thesor55.github.io/futuregreen-consulting/#digital-tools
 
 ## Screenshots
 
 ![FutureGreen Consulting homepage](assets/screenshots/home.png)
 
-## Consultant Context
+## Future Improvement Plan
 
-Developed by FutureGreen by Sorawit as the main digital profile for ISO, ESG, Carbon Footprint, and factory sustainability consulting services for Thai SME manufacturers.
+- Add more client-facing case studies when publicly shareable.
+- Add clearer service packages for ISO, ESG, CFO, CFP, and dashboards.
+- Add more screenshots or short demo videos for the Digital Tools section.
+- Improve custom-domain setup when the brand domain is finalized.
+- Continue refining Thai / English content based on client feedback.
 
-## Development Notes
+## Disclaimer
 
-The website is bilingual Thai / English. Preserve the existing language switcher and data-th / data-en translation pattern when editing content.
+This website is a consulting portfolio and information site. It does not replace formal certification-body requirements, legal advice, or official guidance from relevant authorities. Project scope, deliverables, and timelines should be confirmed separately for each client engagement.
+
+## Recommended GitHub About Description
+
+FutureGreen consulting website for Thai SME factories: ISO, ESG, carbon footprint, CFO/CFP, audit readiness, and sustainability services.
+
+## Recommended GitHub Topics
+
+`iso` `esg` `carbon-footprint` `cfo` `cfp` `factory-dashboard` `audit-checklist` `sustainability` `smart-factory` `thai-sme` `github-pages`
