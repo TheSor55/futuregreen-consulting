@@ -441,6 +441,29 @@ img { max-width: 100%; display: block; }
 .demo-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 10.5px; color: rgba(255,255,255,.55); margin-top: 12px; }
 .demo-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
 .demo-caption { text-align: center; margin-top: 22px; font-size: 12.5px; color: var(--ink-soft); }
+
+/* ===== DIGITAL TOOLS ===== */
+.tools-section { background: var(--cream-warm); padding: 96px 0; }
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 46px; }
+.tool-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 16px;
+  padding: 24px 22px 22px; display: flex; flex-direction: column; min-height: 238px;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.tool-card:hover { border-color: rgba(31,138,92,.45); transform: translateY(-3px); box-shadow: 0 24px 54px -34px rgba(13,61,43,.45); }
+.tool-kicker {
+  display: inline-flex; align-items: center; align-self: flex-start;
+  border-radius: 999px; background: rgba(31,138,92,.1); color: var(--leaf);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em; padding: 5px 10px; margin-bottom: 16px;
+}
+.tool-title { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--forest); line-height: 1.35; margin-bottom: 10px; }
+.tool-desc { font-size: 13.2px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 18px; }
+.tool-link {
+  margin-top: auto; display: inline-flex; align-items: center; gap: 8px; color: var(--forest);
+  text-decoration: none; font-size: 13px; font-weight: 600; padding-top: 12px; border-top: 1px solid var(--line);
+}
+.tool-link svg { width: 15px; height: 15px; stroke: var(--leaf); transition: transform .15s; }
+.tool-link:hover svg { transform: translateX(3px); }
 @media (max-width: 760px) {
   .demo-app { flex-direction: column; }
   .demo-sidebar { flex: 0 0 auto; display: flex; align-items: center; gap: 14px; padding: 14px 16px; }
@@ -501,6 +524,7 @@ img { max-width: 100%; display: block; }
   .cred-photo { max-width: 320px; margin: 0 auto; }
   .journey-rail { padding-left: 28px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
   .fit-grid { grid-template-columns: 1fr; }
   .start-list { grid-template-columns: 1fr 1fr; }
   .research-grid { grid-template-columns: 1fr; }
@@ -509,6 +533,7 @@ img { max-width: 100%; display: block; }
 }
 @media (max-width: 600px) {
   .services-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr; }
   .start-list { grid-template-columns: 1fr; }
 }
 @media (max-width: 540px) {
@@ -1058,6 +1083,59 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
       </div>
     </div>
     <p class="demo-caption reveal" data-th="* ตัวอย่างแนวคิดระบบ (concept demo) ใช้ข้อมูลจำลองเพื่อสาธิตการแสดงผล ไม่ใช่ข้อมูลจากโรงงานลูกค้าจริง" data-en="* Concept demo — uses simulated data for illustration, not data from an actual client factory.">* ตัวอย่างแนวคิดระบบ (concept demo) ใช้ข้อมูลจำลองเพื่อสาธิตการแสดงผล ไม่ใช่ข้อมูลจากโรงงานลูกค้าจริง</p>
+  </div>
+</section>
+
+<!-- DIGITAL TOOLS & PROTOTYPE -->
+<section class="tools-section" id="digital-tools">
+  <div class="wrap">
+    <span class="section-tag reveal" data-th="Digital Tools &amp; Prototype" data-en="Digital Tools &amp; Prototype">Digital Tools &amp; Prototype</span>
+    <h2 class="section-h2 reveal" data-th="ตัวอย่างเครื่องมือที่พัฒนาให้โรงงานลองใช้งานจริง" data-en="Practical prototype tools for factory teams">ตัวอย่างเครื่องมือที่พัฒนาให้โรงงานลองใช้งานจริง</h2>
+    <p class="section-sub reveal" data-th="FutureGreen ใช้ GitHub เป็นพื้นที่แสดงตัวอย่างระบบดิจิทัลที่ช่วยงาน ISO, ESG, Carbon Footprint, Audit, Dashboard และ QC ให้เห็นภาพก่อนเริ่มโครงการจริง" data-en="FutureGreen uses GitHub as a digital tool portfolio for ISO, ESG, Carbon Footprint, audit, dashboard, and QC workflows, so factory teams can see and try the concept before a real project starts.">FutureGreen ใช้ GitHub เป็นพื้นที่แสดงตัวอย่างระบบดิจิทัลที่ช่วยงาน ISO, ESG, Carbon Footprint, Audit, Dashboard และ QC ให้เห็นภาพก่อนเริ่มโครงการจริง</p>
+
+    <div class="tools-grid reveal">
+      <article class="tool-card">
+        <span class="tool-kicker">Factory Dashboard</span>
+        <h3 class="tool-title">Industrial AI Dashboard</h3>
+        <p class="tool-desc" data-th="Dashboard ตัวอย่างสำหรับดู OEE, Downtime, Scrap, Energy และ Carbon ในมุมผู้จัดการโรงงาน" data-en="A sample dashboard for OEE, downtime, scrap, energy, and carbon visibility from a factory-management view.">Dashboard ตัวอย่างสำหรับดู OEE, Downtime, Scrap, Energy และ Carbon ในมุมผู้จัดการโรงงาน</p>
+        <a class="tool-link" href="https://thesor55.github.io/industrial-ai-dashboard/" target="_blank" rel="noopener noreferrer">Live Demo <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="tool-card">
+        <span class="tool-kicker">Audit Checklist</span>
+        <h3 class="tool-title">GP Audit Checklist</h3>
+        <p class="tool-desc" data-th="Checklist แบบโต้ตอบสำหรับเตรียมตรวจ Green Production, Internal Audit และติดตามคะแนนแบบ Real-time" data-en="An interactive checklist for Green Production, internal audit preparation, and real-time scoring.">Checklist แบบโต้ตอบสำหรับเตรียมตรวจ Green Production, Internal Audit และติดตามคะแนนแบบ Real-time</p>
+        <a class="tool-link" href="https://thesor55.github.io/gp-audit-checklist/" target="_blank" rel="noopener noreferrer">Live Demo <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="tool-card">
+        <span class="tool-kicker">ESG / Carbon AI</span>
+        <h3 class="tool-title">ESG Carbon Report Assistant</h3>
+        <p class="tool-desc" data-th="ผู้ช่วยจัดโครงรายงาน ESG / Carbon, เตรียมข้อมูลกิจกรรม และเช็กความพร้อมของหลักฐานก่อนทำรายงานจริง" data-en="An assistant concept for structuring ESG / carbon reports, preparing activity data, and checking evidence readiness.">ผู้ช่วยจัดโครงรายงาน ESG / Carbon, เตรียมข้อมูลกิจกรรม และเช็กความพร้อมของหลักฐานก่อนทำรายงานจริง</p>
+        <a class="tool-link" href="https://thesor55.github.io/esg-carbon-report-assistant/" target="_blank" rel="noopener noreferrer">Live Demo <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="tool-card">
+        <span class="tool-kicker">Carbon Calculator</span>
+        <h3 class="tool-title">Carbon Free Journey Calculator</h3>
+        <p class="tool-desc" data-th="เครื่องมือคำนวณคาร์บอนจากการเดินทาง เพื่อใช้สื่อสารเรื่องคาร์บอนและทางเลือกลดผลกระทบอย่างเข้าใจง่าย" data-en="A simple travel carbon calculator for awareness, communication, and low-carbon choice comparison.">เครื่องมือคำนวณคาร์บอนจากการเดินทาง เพื่อใช้สื่อสารเรื่องคาร์บอนและทางเลือกลดผลกระทบอย่างเข้าใจง่าย</p>
+        <a class="tool-link" href="https://thesor55.github.io/Carbon-Free-Journey-Calculator/" target="_blank" rel="noopener noreferrer">Live Demo <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="tool-card">
+        <span class="tool-kicker">QC / AQL</span>
+        <h3 class="tool-title">AQL Sampling Dashboard</h3>
+        <p class="tool-desc" data-th="เครื่องมือช่วย QC คำนวณขนาดตัวอย่าง, Ac/Re และตัดสิน Accept / Reject ตามแนวคิด AQL" data-en="A QC tool for sample-size calculation, Ac/Re lookup, and Accept / Reject decisions based on AQL logic.">เครื่องมือช่วย QC คำนวณขนาดตัวอย่าง, Ac/Re และตัดสิน Accept / Reject ตามแนวคิด AQL</p>
+        <a class="tool-link" href="https://thesor55.github.io/aql-sampling-dashboard-/" target="_blank" rel="noopener noreferrer">Live Demo <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="tool-card">
+        <span class="tool-kicker">Knowledge Hub</span>
+        <h3 class="tool-title">ISO / ESG Knowledge Materials</h3>
+        <p class="tool-desc" data-th="คลังอินโฟกราฟิกและสื่ออธิบาย ISO, CFO, CFP, Emission Factor และแนวทางเริ่มต้นสำหรับโรงงาน" data-en="A knowledge hub with infographics and materials for ISO, CFO, CFP, emission factors, and factory readiness.">คลังอินโฟกราฟิกและสื่ออธิบาย ISO, CFO, CFP, Emission Factor และแนวทางเริ่มต้นสำหรับโรงงาน</p>
+        <a class="tool-link" href="knowledge.html">Open Hub <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+    </div>
   </div>
 </section>
 
