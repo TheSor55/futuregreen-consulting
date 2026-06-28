@@ -47,7 +47,7 @@ Custom domain migration to futuregreennet.com may be considered later.
 
 ## Screenshots
 
-![FutureGreen certification handover](assets/photos/hero-cert-ceremony.jpg)
+![FutureGreen Consulting homepage](assets/screenshots/home.png)
 
 ## Consultant Context
 
