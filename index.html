@@ -374,6 +374,35 @@ img { max-width: 100%; display: block; }
   display: block; font-family: var(--font-mono); font-size: 11px; color: var(--gold);
   margin-bottom: 12px; letter-spacing: .06em;
 }
+.service-packages-section { background: var(--cream); padding: 96px 0; }
+.package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 44px; }
+.package-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 16px;
+  padding: 26px 24px; display: flex; flex-direction: column; gap: 12px;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.package-card:hover {
+  border-color: rgba(31,138,92,.45); transform: translateY(-2px);
+  box-shadow: 0 18px 42px -30px rgba(13,61,43,.34);
+}
+.package-kicker {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--gold);
+}
+.package-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--forest); line-height: 1.35; }
+.package-desc { font-size: 13.5px; line-height: 1.65; color: var(--ink-soft); }
+.package-fit {
+  margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line);
+  font-size: 12.8px; line-height: 1.6; color: var(--ink); font-weight: 500;
+}
+.package-fit strong { color: var(--forest); }
+.package-link {
+  display: inline-flex; align-items: center; width: fit-content; margin-top: 4px;
+  font-size: 13px; font-weight: 700; color: var(--forest); text-decoration: none;
+  border-bottom: 1px solid var(--leaf-bright); padding-bottom: 2px;
+}
+.package-link:hover { color: var(--leaf); }
+.package-note { margin: 28px auto 0; max-width: 860px; font-size: 12.8px; line-height: 1.7; color: var(--ink-soft); text-align: center; }
 
 /* ===== PROOF GALLERY (client case + training) ===== */
 .case-section { background: var(--forest-deep); padding: 100px 0; position: relative; overflow: hidden; }
@@ -525,6 +554,7 @@ img { max-width: 100%; display: block; }
   .journey-rail { padding-left: 28px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .package-grid { grid-template-columns: repeat(2, 1fr); }
   .fit-grid { grid-template-columns: 1fr; }
   .start-list { grid-template-columns: 1fr 1fr; }
   .research-grid { grid-template-columns: 1fr; }
@@ -534,6 +564,7 @@ img { max-width: 100%; display: block; }
 @media (max-width: 600px) {
   .services-grid { grid-template-columns: 1fr; }
   .tools-grid { grid-template-columns: 1fr; }
+  .package-grid { grid-template-columns: 1fr; }
   .start-list { grid-template-columns: 1fr; }
 }
 @media (max-width: 540px) {
@@ -588,7 +619,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
           <img src="assets/photos/line-icon.png" alt="" width="20" height="20">
           <span data-th="ปรึกษาฟรี 30 นาที" data-en="Book Free Consultation">ปรึกษาฟรี 30 นาที</span>
         </a>
-        <a href="#contact" class="btn-secondary" data-th="ขอใบเสนอราคา" data-en="Request Quotation">ขอใบเสนอราคา</a>
+        <a href="mailto:suwansor@gmail.com?subject=ขอใบเสนอราคา%20FutureGreen%20Consulting&body=สวัสดีครับ%20สนใจขอใบเสนอราคา%20FutureGreen%20Consulting%0A%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aอีเมล:%0Aประเภทงานที่สนใจ:%0Aรายละเอียดเบื้องต้น:" class="btn-secondary" data-th="ขอใบเสนอราคา" data-en="Request Quotation">ขอใบเสนอราคา</a>
       </div>
     </div>
     <div class="hero-img-col">
@@ -993,6 +1024,60 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
   </div>
 </section>
 
+<!-- SERVICE PACKAGES -->
+<section class="service-packages-section" id="service-packages">
+  <div class="wrap">
+    <span class="section-tag reveal" data-th="แพ็กเกจบริการ" data-en="Service Packages">แพ็กเกจบริการ</span>
+    <h2 class="section-h2 reveal" data-th="แพ็กเกจบริการเบื้องต้น" data-en="Service Packages">แพ็กเกจบริการเบื้องต้น</h2>
+    <p class="section-sub reveal" data-th="เลือกขอบเขตงานที่เหมาะกับสถานะปัจจุบันของโรงงาน เริ่มจากการประเมินเบื้องต้น แล้วค่อยจัดทำ Roadmap และใบเสนอราคาตามความจำเป็นจริง" data-en="Choose the right scope based on your factory’s current readiness. Start with an initial assessment, then define a roadmap and quotation based on actual needs.">เลือกขอบเขตงานที่เหมาะกับสถานะปัจจุบันของโรงงาน เริ่มจากการประเมินเบื้องต้น แล้วค่อยจัดทำ Roadmap และใบเสนอราคาตามความจำเป็นจริง</p>
+    <div class="package-grid reveal">
+      <article class="package-card">
+        <div class="package-kicker">Package 01</div>
+        <h3 class="package-title" data-th="ISO &amp; Management System Starter" data-en="ISO &amp; Management System Starter">ISO &amp; Management System Starter</h3>
+        <p class="package-desc" data-th="วางระบบหรือเตรียมความพร้อมสำหรับ ISO 9001, ISO 14001, ISO 45001, ISO 50001, Internal Audit, Corrective Action และเอกสารระบบบริหารจัดการ" data-en="Support for ISO 9001, ISO 14001, ISO 45001, ISO 50001, internal audit, corrective action, and management-system documentation.">วางระบบหรือเตรียมความพร้อมสำหรับ ISO 9001, ISO 14001, ISO 45001, ISO 50001, Internal Audit, Corrective Action และเอกสารระบบบริหารจัดการ</p>
+        <p class="package-fit"><strong data-th="เหมาะกับ:" data-en="Suitable for:">เหมาะกับ:</strong> <span data-th="โรงงานที่ต้องการเริ่มวางระบบ เตรียมขอการรับรอง หรือปรับเอกสาร ISO ให้ใช้งานได้จริง" data-en="Factories preparing for certification, improving ISO documentation, or strengthening audit readiness.">โรงงานที่ต้องการเริ่มวางระบบ เตรียมขอการรับรอง หรือปรับเอกสาร ISO ให้ใช้งานได้จริง</span></p>
+        <a class="package-link" href="mailto:suwansor@gmail.com?subject=ขอประเมินขอบเขตงาน%20FutureGreen&body=สวัสดีครับ%20สนใจขอประเมินขอบเขตงาน%20FutureGreen%0A%0Aประเภทบริการที่สนใจ:%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aรายละเอียดเบื้องต้น:" data-th="ขอประเมินขอบเขตงาน" data-en="Request Scope Assessment">ขอประเมินขอบเขตงาน</a>
+      </article>
+      <article class="package-card">
+        <div class="package-kicker">Package 02</div>
+        <h3 class="package-title" data-th="Carbon Footprint &amp; Sustainability Readiness" data-en="Carbon Footprint &amp; Sustainability Readiness">Carbon Footprint &amp; Sustainability Readiness</h3>
+        <p class="package-desc" data-th="เตรียมข้อมูลและวางแนวทางสำหรับ CFO, CFP, Green Production, Eco Factory และโครงการลดคาร์บอนในบริบทโรงงาน" data-en="Preparation for CFO, CFP, Green Production, Eco Factory, and carbon-reduction projects in manufacturing context.">เตรียมข้อมูลและวางแนวทางสำหรับ CFO, CFP, Green Production, Eco Factory และโครงการลดคาร์บอนในบริบทโรงงาน</p>
+        <p class="package-fit"><strong data-th="เหมาะกับ:" data-en="Suitable for:">เหมาะกับ:</strong> <span data-th="โรงงานที่เริ่มถูกลูกค้าถามเรื่อง Carbon Data, ESG หรือข้อมูลสิ่งแวดล้อม" data-en="Factories being asked by customers for carbon data, ESG information, or environmental evidence.">โรงงานที่เริ่มถูกลูกค้าถามเรื่อง Carbon Data, ESG หรือข้อมูลสิ่งแวดล้อม</span></p>
+        <a class="package-link" href="mailto:suwansor@gmail.com?subject=ขอประเมินขอบเขตงาน%20FutureGreen&body=สวัสดีครับ%20สนใจขอประเมินขอบเขตงาน%20FutureGreen%0A%0Aประเภทบริการที่สนใจ:%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aรายละเอียดเบื้องต้น:" data-th="ขอประเมินขอบเขตงาน" data-en="Request Scope Assessment">ขอประเมินขอบเขตงาน</a>
+      </article>
+      <article class="package-card">
+        <div class="package-kicker">Package 03</div>
+        <h3 class="package-title" data-th="Social Compliance &amp; Audit Readiness" data-en="Social Compliance &amp; Audit Readiness">Social Compliance &amp; Audit Readiness</h3>
+        <p class="package-desc" data-th="เตรียมความพร้อมด้านแรงงานและสังคมสำหรับ SMETA, Sedex, มรท.8001, Corrective Action Plan และการตอบ Finding" data-en="Readiness support for SMETA, Sedex, Thai Labour Standard, corrective action plans, and social-compliance findings.">เตรียมความพร้อมด้านแรงงานและสังคมสำหรับ SMETA, Sedex, มรท.8001, Corrective Action Plan และการตอบ Finding</p>
+        <p class="package-fit"><strong data-th="เหมาะกับ:" data-en="Suitable for:">เหมาะกับ:</strong> <span data-th="โรงงานที่ต้องรับการตรวจจากลูกค้าต่างประเทศ หรือมีประเด็นแรงงาน/ชั่วโมงทำงาน/เอกสารพนักงาน" data-en="Factories preparing for customer audits or dealing with labor, working-hour, or employee-documentation issues.">โรงงานที่ต้องรับการตรวจจากลูกค้าต่างประเทศ หรือมีประเด็นแรงงาน/ชั่วโมงทำงาน/เอกสารพนักงาน</span></p>
+        <a class="package-link" href="mailto:suwansor@gmail.com?subject=ขอประเมินขอบเขตงาน%20FutureGreen&body=สวัสดีครับ%20สนใจขอประเมินขอบเขตงาน%20FutureGreen%0A%0Aประเภทบริการที่สนใจ:%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aรายละเอียดเบื้องต้น:" data-th="ขอประเมินขอบเขตงาน" data-en="Request Scope Assessment">ขอประเมินขอบเขตงาน</a>
+      </article>
+      <article class="package-card">
+        <div class="package-kicker">Package 04</div>
+        <h3 class="package-title" data-th="Energy &amp; Resource Efficiency" data-en="Energy &amp; Resource Efficiency">Energy &amp; Resource Efficiency</h3>
+        <p class="package-desc" data-th="ตรวจประเมินการใช้พลังงาน จัดทำแผนอนุรักษ์พลังงาน รายงานการจัดการพลังงาน และหาโอกาสลดต้นทุนพลังงาน" data-en="Energy audit, conservation planning, energy-management reporting, and identification of energy-cost reduction opportunities.">ตรวจประเมินการใช้พลังงาน จัดทำแผนอนุรักษ์พลังงาน รายงานการจัดการพลังงาน และหาโอกาสลดต้นทุนพลังงาน</p>
+        <p class="package-fit"><strong data-th="เหมาะกับ:" data-en="Suitable for:">เหมาะกับ:</strong> <span data-th="โรงงานที่มีค่าไฟสูง ต้องการลดต้นทุน หรือเตรียมข้อมูลด้านพลังงานเพื่อเชื่อมกับ Carbon Footprint" data-en="Factories with high energy costs or those preparing energy data for carbon-footprint work.">โรงงานที่มีค่าไฟสูง ต้องการลดต้นทุน หรือเตรียมข้อมูลด้านพลังงานเพื่อเชื่อมกับ Carbon Footprint</span></p>
+        <a class="package-link" href="mailto:suwansor@gmail.com?subject=ขอประเมินขอบเขตงาน%20FutureGreen&body=สวัสดีครับ%20สนใจขอประเมินขอบเขตงาน%20FutureGreen%0A%0Aประเภทบริการที่สนใจ:%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aรายละเอียดเบื้องต้น:" data-th="ขอประเมินขอบเขตงาน" data-en="Request Scope Assessment">ขอประเมินขอบเขตงาน</a>
+      </article>
+      <article class="package-card">
+        <div class="package-kicker">Package 05</div>
+        <h3 class="package-title" data-th="Training &amp; Internal Capability Building" data-en="Training &amp; Internal Capability Building">Training &amp; Internal Capability Building</h3>
+        <p class="package-desc" data-th="อบรม ISO, ESG, Carbon Footprint, Internal Auditor, เทคนิคการตอบ NC และจัดทำสื่ออบรมพร้อม Pre-test/Post-test" data-en="Training for ISO, ESG, Carbon Footprint, Internal Auditor, corrective-action techniques, and training materials with pre/post tests.">อบรม ISO, ESG, Carbon Footprint, Internal Auditor, เทคนิคการตอบ NC และจัดทำสื่ออบรมพร้อม Pre-test/Post-test</p>
+        <p class="package-fit"><strong data-th="เหมาะกับ:" data-en="Suitable for:">เหมาะกับ:</strong> <span data-th="องค์กรที่ต้องการให้ทีมงานเข้าใจระบบจริง และลดการพึ่งพาที่ปรึกษาในระยะยาว" data-en="Organizations that want internal teams to understand the system and reduce long-term dependency on consultants.">องค์กรที่ต้องการให้ทีมงานเข้าใจระบบจริง และลดการพึ่งพาที่ปรึกษาในระยะยาว</span></p>
+        <a class="package-link" href="mailto:suwansor@gmail.com?subject=ขอประเมินขอบเขตงาน%20FutureGreen&body=สวัสดีครับ%20สนใจขอประเมินขอบเขตงาน%20FutureGreen%0A%0Aประเภทบริการที่สนใจ:%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aรายละเอียดเบื้องต้น:" data-th="ขอประเมินขอบเขตงาน" data-en="Request Scope Assessment">ขอประเมินขอบเขตงาน</a>
+      </article>
+      <article class="package-card">
+        <div class="package-kicker">Package 06</div>
+        <h3 class="package-title" data-th="Smart Factory Dashboard Prototype" data-en="Smart Factory Dashboard Prototype">Smart Factory Dashboard Prototype</h3>
+        <p class="package-desc" data-th="ออกแบบ Dashboard ต้นแบบสำหรับ OEE, Downtime, Scrap, Energy, Carbon และข้อมูลโรงงาน เพื่อช่วยผู้บริหารเห็นภาพรวมก่อนลงทุนระบบจริง" data-en="Prototype dashboard for OEE, downtime, scrap, energy, carbon, and factory data, helping management visualize the system before full investment.">ออกแบบ Dashboard ต้นแบบสำหรับ OEE, Downtime, Scrap, Energy, Carbon และข้อมูลโรงงาน เพื่อช่วยผู้บริหารเห็นภาพรวมก่อนลงทุนระบบจริง</p>
+        <p class="package-fit"><strong data-th="เหมาะกับ:" data-en="Suitable for:">เหมาะกับ:</strong> <span data-th="โรงงานที่อยากเริ่ม Digital Factory แบบค่อยเป็นค่อยไป โดยเห็นตัวอย่างก่อนลงทุนเต็มระบบ" data-en="Factories that want to start digital transformation gradually with a working concept before full implementation.">โรงงานที่อยากเริ่ม Digital Factory แบบค่อยเป็นค่อยไป โดยเห็นตัวอย่างก่อนลงทุนเต็มระบบ</span></p>
+        <a class="package-link" href="mailto:suwansor@gmail.com?subject=ขอประเมินขอบเขตงาน%20FutureGreen&body=สวัสดีครับ%20สนใจขอประเมินขอบเขตงาน%20FutureGreen%0A%0Aประเภทบริการที่สนใจ:%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aรายละเอียดเบื้องต้น:" data-th="ขอประเมินขอบเขตงาน" data-en="Request Scope Assessment">ขอประเมินขอบเขตงาน</a>
+      </article>
+    </div>
+    <p class="package-note reveal" data-th="*แพ็กเกจข้างต้นเป็นกรอบบริการเบื้องต้น ขอบเขตงานจริง ระยะเวลา และค่าใช้จ่ายจะประเมินตามสถานะระบบเดิม ความพร้อมของข้อมูล จำนวนไซต์ และเป้าหมายการรับรอง/การทวนสอบของแต่ละองค์กร โดยยังไม่รวมค่าธรรมเนียมหน่วยงานรับรองหรือทวนสอบภายนอก" data-en="*The packages above are initial service scopes. Final scope, timeline, and quotation depend on existing system readiness, data availability, number of sites, and certification/verification objectives. External certification or verification body fees are not included.">*แพ็กเกจข้างต้นเป็นกรอบบริการเบื้องต้น ขอบเขตงานจริง ระยะเวลา และค่าใช้จ่ายจะประเมินตามสถานะระบบเดิม ความพร้อมของข้อมูล จำนวนไซต์ และเป้าหมายการรับรอง/การทวนสอบของแต่ละองค์กร โดยยังไม่รวมค่าธรรมเนียมหน่วยงานรับรองหรือทวนสอบภายนอก</p>
+  </div>
+</section>
+
 <!-- SMART FACTORY DASHBOARD DEMO -->
 <section class="demo-section">
   <div class="wrap">
@@ -1165,8 +1250,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
         <img src="assets/photos/line-icon.png" alt="" width="20" height="20">
         <span data-th="ปรึกษาฟรี 30 นาที" data-en="Book Free Consultation">ปรึกษาฟรี 30 นาที</span>
       </a>
-      <a href="tel:0837682935" class="btn-secondary"><span data-th="ขอใบเสนอราคา" data-en="Request Quotation">ขอใบเสนอราคา</span></a>
-      <a href="mailto:the_sor@icloud.com" class="btn-secondary"><span data-th="ติดต่อ FutureGreen" data-en="Contact FutureGreen">ติดต่อ FutureGreen</span></a>
+      <a href="mailto:suwansor@gmail.com?subject=ขอใบเสนอราคา%20FutureGreen%20Consulting&body=สวัสดีครับ%20สนใจขอใบเสนอราคา%20FutureGreen%20Consulting%0A%0Aชื่อบริษัท:%0Aผู้ติดต่อ:%0Aเบอร์โทร:%0Aอีเมล:%0Aประเภทงานที่สนใจ:%0Aรายละเอียดเบื้องต้น:" class="btn-secondary"><span data-th="ขอใบเสนอราคา" data-en="Request Quotation">ขอใบเสนอราคา</span></a>
+      <a href="mailto:suwansor@gmail.com" class="btn-secondary"><span data-th="ติดต่อ FutureGreen" data-en="Contact FutureGreen">ติดต่อ FutureGreen</span></a>
     </div>
     <div class="qr-aid reveal">
       <img src="assets/photos/line-qr.png" alt="QR code แอด LINE สรวิศ สุวรรณรงค์" width="64" height="64">
@@ -1175,7 +1260,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
     <div class="contact-row reveal">
       <a class="contact-item" href="https://line.me/R/ti/p/@137xvimh" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg><span data-th="แอด LINE: คลิกเพื่อแชท" data-en="LINE: tap to chat">แอด LINE: คลิกเพื่อแชท</span></a>
       <a class="contact-item" href="tel:+66837682935"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.61.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.7.34 1.5.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>083-768-2935</a>
-      <a class="contact-item" href="mailto:the_sor@icloud.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4Z"/><path d="m22 6-10 7L2 6"/></svg>the_sor@icloud.com</a>
+      <a class="contact-item" href="mailto:suwansor@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4Z"/><path d="m22 6-10 7L2 6"/></svg>suwansor@gmail.com</a>
       <a class="contact-item" href="https://maps.google.com/?q=333/62+Bangpha+Sriracha+Chonburi+20110" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>333/62 Bangpha, Sriracha, Chonburi 20110</a>
     </div>
     <p class="freelance-note reveal" data-th="FutureGreen เป็นแบรนด์ที่ปรึกษาอิสระ รูปแบบบริการสามารถปรับตามขอบเขตงาน สภาพหน้างาน ความพร้อมของข้อมูล และความต้องการของลูกค้าแต่ละราย" data-en="FutureGreen is an independent freelance consulting brand. Services can be customized based on project scope, site conditions, data availability, and customer requirements.">FutureGreen เป็นแบรนด์ที่ปรึกษาอิสระ รูปแบบบริการสามารถปรับตามขอบเขตงาน สภาพหน้างาน ความพร้อมของข้อมูล และความต้องการของลูกค้าแต่ละราย</p>
