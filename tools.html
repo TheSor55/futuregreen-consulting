@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title id="pageTitle">เครื่องมือดิจิทัล & Software — FutureGreen Consulting</title>
+<meta name="description" content="ศูนย์รวมเครื่องมือดิจิทัลเพื่อโรงงานอุตสาหกรรม SPC Quality Analytics, AQL Sampling Dashboard, ESG Carbon Calculator และ Green Production Audit โดย FutureGreen Consulting">
+<meta name="keywords" content="SPC Quality Analytics, AQL Sampling Dashboard, ESG Carbon Calculator, Green Production Audit, เครื่องมือดิจิทัลโรงงาน, FutureGreen Consulting, futuregreennet.com">
+<meta name="author" content="Sorawit Suwannarong">
+<meta name="robots" content="index, follow">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://futuregreennet.com/tools.html">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://futuregreennet.com/tools.html">
+<meta property="og:site_name" content="FutureGreen Consulting">
+<meta property="og:title" content="เครื่องมือดิจิทัล & Software — FutureGreen Consulting">
+<meta property="og:description" content="ทดลองใช้งานแอป SPC Quality Analytics, AQL Sampling, ESG Carbon Calculator สำหรับโรงงานสีเขียว">
+<meta property="og:image" content="https://futuregreennet.com/assets/img/hero-sorawit.jpg">
+<meta property="og:locale" content="th_TH">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Noto+Serif+Thai:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #0D3D2B;
+  --forest-deep: #0A1410;
+  --leaf: #1F8A5C;
+  --leaf-bright: #2FAE76;
+  --cream: #F7F4EC;
+  --cream-warm: #EFEADB;
+  --gold: #C9A24B;
+  --gold-pale: #F2E6C8;
+  --ink: #111C17;
+  --ink-soft: #4A5C53;
+  --line: rgba(13,61,43,.14);
+  --line-light: rgba(247,244,236,.18);
+  --font-display: 'Fraunces', 'Noto Serif Thai', serif;
+  --font-body: 'IBM Plex Sans Thai', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream); color: var(--ink); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(247,244,236,.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding: 16px 0; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--forest); text-decoration: none; }
+.nav-brand svg { width: 26px; height: 26px; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-link { font-family: var(--font-body); font-weight: 500; font-size: 14px; color: var(--ink-soft); text-decoration: none; transition: color .15s; }
+.nav-link:hover, .nav-link.active { color: var(--forest); font-weight: 600; }
+.nav-cta { font-family: var(--font-body); font-weight: 600; font-size: 13px; background: var(--forest); color: var(--cream); padding: 10px 22px; border-radius: 100px; text-decoration: none; transition: background .2s; }
+.nav-cta:hover { background: var(--leaf); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* HEADER */
+.header { position: relative; padding: 140px 0 60px; background: var(--forest-deep); color: var(--cream); overflow: hidden; }
+.header-grain { position: absolute; inset: 0; background: radial-gradient(circle at 85% 10%, rgba(31,138,92,.28), transparent 55%), radial-gradient(circle at 8% 90%, rgba(201,162,75,.14), transparent 50%); pointer-events: none; }
+.eyebrow-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(47,174,118,.15); border: 1px solid rgba(47,174,118,.4); color: var(--leaf-bright); font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+.eyebrow-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--leaf-bright); }
+.header h1 { font-family: var(--font-display); font-size: clamp(32px, 4.5vw, 54px); font-weight: 600; line-height: 1.15; margin-bottom: 16px; }
+.header h1 em { font-style: normal; color: var(--leaf-bright); }
+.header p { font-size: 16px; color: rgba(247,244,236,.75); max-width: 640px; line-height: 1.7; }
+
+/* TOOLS SECTION */
+.section { padding: 60px 0 100px; }
+.section-title { font-family: var(--font-display); font-size: 28px; color: var(--forest); margin-bottom: 32px; font-weight: 600; text-align: center; }
+
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+.tool-card { background: #ffffff; border: 1px solid var(--line); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(13,61,43,.04); transition: transform .2s, box-shadow .2s; }
+.tool-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(13,61,43,.08); }
+.tool-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--leaf); background: rgba(31,138,92,.08); padding: 4px 10px; border-radius: 100px; align-self: flex-start; margin-bottom: 16px; }
+.tool-title { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--forest); margin-bottom: 12px; }
+.tool-desc { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 24px; flex-grow: 1; }
+.tool-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; color: var(--ink); }
+.tool-features li { display: flex; align-items: center; gap: 8px; }
+.tool-features li::before { content: '✓'; color: var(--leaf); font-weight: bold; }
+.btn-launch { font-family: var(--font-body); font-weight: 600; font-size: 14px; background: var(--forest); color: var(--cream); text-align: center; padding: 13px 24px; border-radius: 100px; text-decoration: none; transition: background .2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-launch:hover { background: var(--leaf); }
+
+/* FOOTER */
+.footer { background: var(--forest-deep); color: rgba(247,244,236,.6); padding: 40px 0; border-top: 1px solid var(--line-light); font-size: 13px; text-align: center; }
+.footer a { color: var(--gold-pale); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span>FutureGreen</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+      <li><a href="services.html" class="nav-link">บริการของเรา</a></li>
+      <li><a href="tools.html" class="nav-link active">เครื่องมือดิจิทัล</a></li>
+      <li><a href="knowledge.html" class="nav-link">คลังความรู้</a></li>
+      <li><a href="contact.html" class="nav-link">ติดต่อเรา</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">ขอใบเสนอราคา</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-grain"></div>
+  <div class="wrap">
+    <span class="eyebrow-pill">DIGITAL TOOLS HUB</span>
+    <h1>เครื่องมือดิจิทัล & Software <em>เพื่อโรงงานอุตสาหกรรม</em></h1>
+    <p>รวมระบบประมวลผล QC และซอฟต์แวร์ช่วยประเมินคาร์บอน/ความยั่งยืน สำหรับโรงงานอุตสาหกรรม SME สามารถเปิดใช้งานและทดลองใช้สดผ่านเว็บบราวเซอร์ได้ทันที ไม่ต้องติดตั้งโปรแกรม</p>
+  </div>
+</header>
+
+<!-- TOOLS SECTION -->
+<main class="section">
+  <div class="wrap">
+    <div class="tools-grid">
+
+      <!-- TOOL 1: SPC Quality Analytics -->
+      <article class="tool-card" style="border: 1.5px solid var(--leaf);">
+        <span class="tool-badge">MOBILE WEB APP / PWA</span>
+        <h2 class="tool-title">SPC Quality Analytics</h2>
+        <p class="tool-desc">ระบบวิเคราะห์และบันทึกผลการควบคุมคุณภาพกระบวนการผลิต (Statistical Process Control) คำนวณ X-bar R Chart, Cpk, Ppk และตรวจเช็ก AQL แบบเรียลไทม์บนมือถือ iPad และคอมพิวเตอร์หน้างาน</p>
+        <ul class="tool-features">
+          <li>รองรับ iPhone, iPad และ Android</li>
+          <li>คำนวณ X-bar R, Cpk/Ppk อัตโนมัติ</li>
+          <li>บันทึกประวัติการตรวจแบบ Offline</li>
+          <li>ไม่มีค่าติดตั้งระบบ รองรับการใช้งานทันที</li>
+        </ul>
+        <a href="spc/" target="_blank" rel="noopener noreferrer" class="btn-launch">
+          เปิดใช้งาน Web App สด (iOS / Android) →
+        </a>
+      </article>
+
+      <!-- TOOL 2: AQL Sampling Dashboard -->
+      <article class="tool-card">
+        <span class="tool-badge">ANSI/ASQ Z1.4 SAMPLING</span>
+        <h2 class="tool-title">AQL Sampling Dashboard</h2>
+        <p class="tool-desc">เครื่องมือช่วยเจ้าหน้าที่ QC วางแผนสุ่มตรวจสินค้า คำนวณขนาดตัวอย่าง (Sample Size), รหัสสุ่มตรวจ (Code Letter), เกณฑ์ยอมรับ/ปฏิเสธ (Ac/Re) และบันทึกประวัติย้อนหลัง</p>
+        <ul class="tool-features">
+          <li>มาตรฐานสุ่มตรวจ ANSI/ASQ Z1.4</li>
+          <li>คำนวณ Sample Size & Code Letter ทันที</li>
+          <li>ส่งออกรายงาน PDF / CSV</li>
+          <li>รองรับทุกกลุ่มอุตสาหกรรม</li>
+        </ul>
+        <a href="aql/" target="_blank" rel="noopener noreferrer" class="btn-launch">
+          เปิดใช้งาน AQL Dashboard สด →
+        </a>
+      </article>
+
+      <!-- TOOL 3: ESG Carbon Footprint Calculator -->
+      <article class="tool-card">
+        <span class="tool-badge">CARBON FOOTPRINT</span>
+        <h2 class="tool-title">ESG Carbon Footprint Calculator</h2>
+        <p class="tool-desc">โปรแกรมประเมินปริมาณการปล่อยก๊าซเรือนกระจกเบื้องต้นสำหรับองค์กร (CFO Scope 1, 2) ตามเกณฑ์องค์การบริหารจัดการก๊าซเรือนกระจก (TGO)</p>
+        <ul class="tool-features">
+          <li>คำนวณ Scope 1 (การเผาไหม้/เชื้อเพลิง)</li>
+          <li>คำนวณ Scope 2 (การใช้ไฟฟ้าโรงงาน)</li>
+          <li>สรุปปริมาณ tCO2e ประจำปี</li>
+          <li>ใช้ประกอบการทำรายงาน ESG</li>
+        </ul>
+        <a href="services.html#carbon-calc" class="btn-launch" style="background: var(--forest-deep);">
+          ดูรายละเอียด & คำนวณสด →
+        </a>
+      </article>
+
+      <!-- TOOL 4: Green Production Audit Checklist -->
+      <article class="tool-card">
+        <span class="tool-badge">GREEN INDUSTRY</span>
+        <h2 class="tool-title">Green Production Audit Checklist</h2>
+        <p class="tool-desc">แบบประเมินตนเองทางด้านการผลิตสีเขียวและการจัดการสิ่งแวดล้อม (Self-Assessment Checklist) วิเคราะห์ความพร้อมก่อนขอการรับรอง Green Industry และ ISO 14001</p>
+        <ul class="tool-features">
+          <li>หัวข้อตรวจประเมินตามเกณฑ์กระทรวงอุตสาหกรรม</li>
+          <li>ประเมินระดับการรับรอง Green Industry</li>
+          <li>สรุปคะแนนความพร้อมเรียลไทม์</li>
+          <li>แนะนำข้อควรปรับปรุงแก้ไข</li>
+        </ul>
+        <a href="services.html#gp-audit" class="btn-launch" style="background: var(--forest-deep);">
+          เริ่มทำแบบประเมินตนเอง →
+        </a>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <p>© 2026 FutureGreen Consulting. All rights reserved. | <a href="index.html">หน้าแรก</a> · <a href="services.html">บริการ</a> · <a href="tools.html">เครื่องมือดิจิทัล</a> · <a href="knowledge.html">คลังความรู้</a> · <a href="contact.html">ติดต่อเรา</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
