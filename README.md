@@ -66,11 +66,11 @@ The website is live and usable as a consulting portfolio and lead-generation sit
 
 ## Demo Link
 
-Live Demo: https://thesor55.github.io/futuregreen-consulting/
+Live Demo: https://futuregreennet.com/
 
-Knowledge Hub: https://thesor55.github.io/futuregreen-consulting/knowledge.html
+Knowledge Hub: https://futuregreennet.com/knowledge.html
 
-Digital Tools: https://thesor55.github.io/futuregreen-consulting/#digital-tools
+Digital Tools: https://futuregreennet.com/#digital-tools
 
 ## Screenshots
 
