@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQL Sampling Dashboard — FutureGreen Consulting</title>
+  <meta name="description" content="เครื่องมือวางแผนสุ่มตรวจคุณภาพตามแนวทาง ANSI/ASQ Z1.4 (AQL) สำหรับทดลองใช้งานฟรี โดย FutureGreen Consulting">
+  <link rel="canonical" href="https://futuregreennet.com/aql/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://futuregreennet.com/aql/">
+  <meta property="og:title" content="AQL Sampling Dashboard — FutureGreen Consulting">
+  <meta property="og:description" content="เครื่องมือวางแผนสุ่มตรวจคุณภาพตามแนวทาง ANSI/ASQ Z1.4 (AQL) สำหรับทดลองใช้งานฟรี">
+  <meta property="og:site_name" content="FutureGreen Consulting">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --ink: #111827;
+      --muted: #64748b;
+      --line: #dbe3ee;
+      --primary: #175cd3;
+      --primary-dark: #123e92;
+      --primary-soft: #eaf2ff;
+      --green: #12805c;
+      --green-soft: #e7f7ef;
+      --red: #c83333;
+      --red-soft: #fdecec;
+      --amber: #b7791f;
+      --amber-soft: #fff7df;
+      --shadow: 0 20px 45px rgba(15, 23, 42, 0.10);
+      --radius: 8px;
+      --font: Inter, "Noto Sans Thai", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #eef4ff 0, var(--bg) 320px);
+      color: var(--ink);
+      font-family: var(--font);
+      line-height: 1.5;
+      min-width: 320px;
+    }
+
+    button, input, select { font: inherit; }
+    button { border: 0; cursor: pointer; }
+
+    .app {
+      width: min(1440px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #12a38a);
+      box-shadow: 0 12px 24px rgba(23, 92, 211, 0.22);
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      background: #e8eef7;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px;
+      flex: 0 0 auto;
+    }
+
+    .lang-btn {
+      min-width: 54px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .lang-btn.active {
+      color: #fff;
+      background: var(--primary);
+      box-shadow: 0 6px 14px rgba(23, 92, 211, 0.22);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(12, 25, 54, 0.94), rgba(21, 82, 149, 0.88)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='880' height='420' viewBox='0 0 880 420'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.14'%3E%3Cpath d='M0 72h880M0 144h880M0 216h880M0 288h880M0 360h880M88 0v420M176 0v420M264 0v420M352 0v420M440 0v420M528 0v420M616 0v420M704 0v420M792 0v420'/%3E%3C/g%3E%3C/svg%3E");
+      color: #fff;
+      padding: clamp(24px, 4vw, 38px);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(255,255,255,.12);
+      color: #d7e7ff;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .hero h2 {
+      width: min(780px, 100%);
+      margin: 20px 0 12px;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      width: min(680px, 100%);
+      margin: 0;
+      color: rgba(255,255,255,.78);
+      font-size: 16px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #f8fbff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .summary-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(12px);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 16px;
+      min-height: 106px;
+    }
+
+    .kpi span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .kpi strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--ink);
+      font-size: clamp(24px, 4vw, 36px);
+      line-height: 1;
+    }
+
+    .kpi small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(360px, .92fr) minmax(0, 1.08fr);
+      gap: 18px;
+      align-items: start;
+      min-width: 0;
+    }
+
+    .hero > *, .workspace > * { min-width: 0; }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-title { margin: 0; font-size: 18px; line-height: 1.25; }
+    .panel-sub { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+    .panel-body { padding: 20px; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .field .hint {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid #cfd8e6;
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color .18s, box-shadow .18s, background .18s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(23, 92, 211, 0.12);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-weight: 800;
+      transition: transform .18s, box-shadow .18s, background .18s;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #fff; background: var(--primary); box-shadow: 0 10px 18px rgba(23, 92, 211, 0.18); }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-muted { color: #334155; background: #edf2f7; }
+    .btn-muted:hover { background: #e2e8f0; }
+    .btn-success { color: #fff; background: var(--green); }
+    .btn-danger { color: #fff; background: var(--red); }
+    .btn-ghost { color: var(--primary); background: var(--primary-soft); }
+
+    .result-card {
+      display: none;
+      margin-top: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    .result-card.show { display: block; }
+
+    .decision {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .decision strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .decision span { color: var(--muted); font-size: 13px; }
+    .decision.accept { background: var(--green-soft); color: var(--green); }
+    .decision.reject { background: var(--red-soft); color: var(--red); }
+    .decision.pending { background: var(--amber-soft); color: var(--amber); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #fff;
+      color: currentColor;
+      border: 1px solid currentColor;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .metric {
+      background: #fff;
+      padding: 15px;
+      min-height: 92px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f1f5f9;
+      padding: 4px;
+    }
+
+    .tab {
+      min-height: 34px;
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .tab.active { color: #fff; background: var(--primary); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .chart-box {
+      height: 310px;
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 14px;
+    }
+
+    .history-panel { grid-column: 1 / -1; }
+    .history-tools {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .count-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: #f1f5f9;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .table-wrap { max-width: 100%; min-width: 0; overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 880px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+      font-size: 13px;
+    }
+
+    th {
+      color: #475569;
+      background: #f8fafc;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    tr:hover td { background: #fbfdff; }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .status.accept { color: var(--green); background: var(--green-soft); }
+    .status.reject { color: var(--red); background: var(--red-soft); }
+    .status.pending { color: var(--amber); background: var(--amber-soft); }
+
+    .empty {
+      padding: 28px 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 20;
+      transform: translate(-50%, 14px);
+      padding: 12px 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: #0f172a;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 1080px) {
+      .hero, .workspace { grid-template-columns: 1fr; }
+      .summary-panel { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .app { width: min(100% - 20px, 1440px); padding-top: 14px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .hero-panel, .panel-body, .panel-head { padding: 16px; }
+      .summary-panel, .form-grid, .result-grid { grid-template-columns: 1fr 1fr; }
+      .panel-head { flex-direction: column; }
+      .tabs { width: 100%; }
+      .tab { flex: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .summary-panel, .result-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .actions .btn, .result-actions .btn { width: 100%; }
+      .brand-mark { width: 38px; height: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M17 17l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1 data-i18n="appTitle">AQL Sampling Dashboard</h1>
+          <p data-i18n="appSubtitle">Professional quality inspection planner for ANSI/ASQ Z1.4 style sampling.</p>
+        </div>
+      </div>
+      <div class="lang-toggle" aria-label="Language">
+        <button class="lang-btn active" type="button" data-lang="th">TH</button>
+        <button class="lang-btn" type="button" data-lang="en">EN</button>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-panel">
+        <span class="eyebrow" data-i18n="eyebrow">Quality control decision tool</span>
+        <h2 id="heroTitle" data-i18n="heroTitle">สุ่มตรวจสินค้าอย่างเป็นระบบ พร้อมสรุปผล Accept / Reject ในหน้าเดียว</h2>
+        <p class="hero-copy" data-i18n="heroCopy">เลือกอุตสาหกรรม ระดับการตรวจ AQL และขนาดล็อต แล้วให้ระบบคำนวณ code letter, sample size, Ac/Re และบันทึกประวัติการตรวจเพื่อดูแนวโน้มคุณภาพย้อนหลัง</p>
+        <div class="hero-meta" aria-label="Capabilities">
+          <span class="meta-pill" data-i18n="meta1">General & special inspection levels</span>
+          <span class="meta-pill" data-i18n="meta2">CSV / PDF export</span>
+          <span class="meta-pill" data-i18n="meta3">Local history on this browser</span>
+        </div>
+      </div>
+
+      <aside class="summary-panel" aria-label="Dashboard summary">
+        <div class="kpi">
+          <span data-i18n="kpiTotal">Total checks</span>
+          <strong id="kpiTotal">0</strong>
+          <small data-i18n="kpiTotalHint">Saved inspections</small>
+        </div>
+        <div class="kpi">
+          <span data-i18n="kpiAccept">Accept rate</span>
+          <strong id="kpiAccept">-</strong>
+          <small data-i18n="kpiAcceptHint">From history</small>
+        </div>
+        <div class="kpi">
+          <span data-i18n="kpiReject">Reject rate</span>
+          <strong id="kpiReject">-</strong>
+          <small data-i18n="kpiRejectHint">From history</small>
+        </div>
+        <div class="kpi">
+          <span data-i18n="kpiDefect">Avg defects</span>
+          <strong id="kpiDefect">0</strong>
+          <small data-i18n="kpiDefectHint">Per inspection</small>
+        </div>
+      </aside>
+    </section>
+
+    <section class="workspace">
+      <section class="panel" aria-labelledby="setupTitle">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title" id="setupTitle" data-i18n="setupTitle">Inspection setup</h2>
+            <p class="panel-sub" data-i18n="setupSub">Fill in the lot information and defect count after inspection.</p>
+          </div>
+        </div>
+        <div class="panel-body">
+          <form id="inspectionForm">
+            <div class="form-grid">
+              <div class="field full">
+                <label for="industry"><span data-i18n="industry">Industry preset</span><span class="hint" data-i18n="industryHint">optional</span></label>
+                <select id="industry">
+                  <option value="" data-i18n="selectIndustry">Select industry</option>
+                  <option value="food" data-i18n="indFood">Food & beverage</option>
+                  <option value="pharma" data-i18n="indPharma">Pharmaceutical</option>
+                  <option value="medical" data-i18n="indMedical">Medical device</option>
+                  <option value="auto" data-i18n="indAuto">Automotive</option>
+                  <option value="electronics" data-i18n="indElectronics">Electronics</option>
+                  <option value="textile" data-i18n="indTextile">Textile / garment</option>
+                  <option value="consumer" data-i18n="indConsumer">Consumer goods</option>
+                  <option value="cosmetic" data-i18n="indCosmetic">Cosmetics</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="company"><span data-i18n="company">Company</span></label>
+                <input id="company" type="text" autocomplete="organization">
+              </div>
+              <div class="field">
+                <label for="department"><span data-i18n="department">Department</span></label>
+                <input id="department" type="text" autocomplete="organization-title">
+              </div>
+              <div class="field">
+                <label for="inspector"><span data-i18n="inspector">Inspector</span></label>
+                <input id="inspector" type="text" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="product"><span data-i18n="product">Product / model</span></label>
+                <input id="product" type="text">
+              </div>
+              <div class="field">
+                <label for="aql"><span data-i18n="aql">AQL</span><span class="hint" data-i18n="aqlHint">major defect</span></label>
+                <select id="aql" required>
+                  <option value="0.065">0.065</option>
+                  <option value="0.10">0.10</option>
+                  <option value="0.15">0.15</option>
+                  <option value="0.25">0.25</option>
+                  <option value="0.40" selected>0.40</option>
+                  <option value="0.65">0.65</option>
+                  <option value="1.0">1.0</option>
+                  <option value="1.5">1.5</option>
+                  <option value="2.5">2.5</option>
+                  <option value="4.0">4.0</option>
+                  <option value="6.5">6.5</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="inspectionLevel"><span data-i18n="inspectionLevel">Inspection level</span></label>
+                <select id="inspectionLevel" required>
+                  <option value="S1">S-1</option>
+                  <option value="S2">S-2</option>
+                  <option value="S3">S-3</option>
+                  <option value="S4">S-4</option>
+                  <option value="I">General I</option>
+                  <option value="II" selected>General II</option>
+                  <option value="III">General III</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="lotSize"><span data-i18n="lotSize">Lot size</span></label>
+                <input id="lotSize" type="number" min="2" step="1" inputmode="numeric" required>
+              </div>
+              <div class="field">
+                <label for="defects"><span data-i18n="defects">Defects found</span></label>
+                <input id="defects" type="number" min="0" step="1" inputmode="numeric" value="0" required>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn-primary" type="submit" data-i18n="calculate">Calculate</button>
+              <button class="btn btn-muted" type="button" id="clearBtn" data-i18n="clear">Clear</button>
+            </div>
+          </form>
+
+          <section class="result-card" id="resultCard" aria-live="polite">
+            <div class="decision pending" id="decisionBox">
+              <div>
+                <span data-i18n="decisionLabel">Decision</span>
+                <strong id="decisionText">-</strong>
+              </div>
+              <span class="badge" id="decisionBadge">-</span>
+            </div>
+            <div class="result-grid">
+              <div class="metric">
+                <span data-i18n="sampleSize">Sample size</span>
+                <strong id="sampleSize">-</strong>
+              </div>
+              <div class="metric">
+                <span data-i18n="codeLetter">Code letter</span>
+                <strong id="codeLetter">-</strong>
+              </div>
+              <div class="metric">
+                <span data-i18n="acceptNo">Accept Ac</span>
+                <strong id="acceptNo">-</strong>
+              </div>
+              <div class="metric">
+                <span data-i18n="rejectNo">Reject Re</span>
+                <strong id="rejectNo">-</strong>
+              </div>
+              <div class="metric">
+                <span data-i18n="defectRate">Defect rate</span>
+                <strong id="defectRate">-</strong>
+              </div>
+              <div class="metric">
+                <span data-i18n="actualSample">Actual sample</span>
+                <strong id="actualSample">-</strong>
+              </div>
+              <div class="metric">
+                <span data-i18n="lotCoverage">Lot coverage</span>
+                <strong id="lotCoverage">-</strong>
+              </div>
+              <div class="metric">
+                <span data-i18n="planType">Plan type</span>
+                <strong id="planType">Normal</strong>
+              </div>
+            </div>
+            <div class="result-actions">
+              <button class="btn btn-success" type="button" id="saveBtn" data-i18n="saveHistory">Save result</button>
+              <button class="btn btn-ghost" type="button" id="pdfBtn" data-i18n="exportPdf">Export PDF</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="statsTitle">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title" id="statsTitle" data-i18n="statsTitle">Quality statistics</h2>
+            <p class="panel-sub" data-i18n="statsSub">Charts are calculated from saved inspection history.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Statistics tabs">
+            <button class="tab active" type="button" data-tab="overview" data-i18n="overview">Overview</button>
+            <button class="tab" type="button" data-tab="trend" data-i18n="trend">Trend</button>
+            <button class="tab" type="button" data-tab="productTab" data-i18n="byProduct">Product</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="overview" class="tab-content active">
+            <div class="chart-box"><canvas id="decisionChart" aria-label="Decision distribution"></canvas></div>
+          </div>
+          <div id="trend" class="tab-content">
+            <div class="chart-box"><canvas id="trendChart" aria-label="Defect trend"></canvas></div>
+          </div>
+          <div id="productTab" class="tab-content">
+            <div class="chart-box"><canvas id="productChart" aria-label="Product rejection count"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel history-panel" aria-labelledby="historyTitle">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title" id="historyTitle" data-i18n="historyTitle">Inspection history</h2>
+            <p class="panel-sub" data-i18n="historySub">Saved locally in this browser. Export before clearing browser data.</p>
+          </div>
+          <div class="history-tools">
+            <span class="count-pill" id="historyCount">0 records</span>
+            <button class="btn btn-ghost" type="button" id="csvBtn" data-i18n="exportCsv">Export CSV</button>
+            <button class="btn btn-muted" type="button" id="clearHistoryBtn" data-i18n="clearHistory">Clear history</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="thDate">Date</th>
+                <th data-i18n="thCompany">Company</th>
+                <th data-i18n="thProduct">Product</th>
+                <th data-i18n="thLot">Lot</th>
+                <th data-i18n="thSample">Sample</th>
+                <th data-i18n="thDefects">Defects</th>
+                <th data-i18n="thAql">AQL</th>
+                <th data-i18n="thDecision">Decision</th>
+                <th data-i18n="thAction">Action</th>
+              </tr>
+            </thead>
+            <tbody id="historyRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const i18n = {
+      th: {
+        appTitle: "AQL Sampling Dashboard",
+        appSubtitle: "เครื่องมือวางแผนสุ่มตรวจคุณภาพตามแนวทาง ANSI/ASQ Z1.4",
+        eyebrow: "Quality control decision tool",
+        heroTitle: "สุ่มตรวจสินค้าอย่างเป็นระบบ พร้อมสรุปผล Accept / Reject ในหน้าเดียว",
+        heroCopy: "เลือกอุตสาหกรรม ระดับการตรวจ AQL และขนาดล็อต แล้วให้ระบบคำนวณ code letter, sample size, Ac/Re และบันทึกประวัติการตรวจเพื่อดูแนวโน้มคุณภาพย้อนหลัง",
+        meta1: "รองรับ General และ Special level",
+        meta2: "ส่งออก CSV / PDF",
+        meta3: "บันทึกประวัติในเครื่อง",
+        kpiTotal: "รายการตรวจ",
+        kpiTotalHint: "ผลที่บันทึกไว้",
+        kpiAccept: "Accept rate",
+        kpiAcceptHint: "จากประวัติ",
+        kpiReject: "Reject rate",
+        kpiRejectHint: "จากประวัติ",
+        kpiDefect: "Avg defects",
+        kpiDefectHint: "ต่อรายการตรวจ",
+        setupTitle: "ตั้งค่าการสุ่มตรวจ",
+        setupSub: "กรอกข้อมูลล็อตและจำนวนตำหนิที่พบหลังตรวจตัวอย่าง",
+        industry: "Preset อุตสาหกรรม",
+        industryHint: "ไม่บังคับ",
+        selectIndustry: "เลือกอุตสาหกรรม",
+        indFood: "อาหารและเครื่องดื่ม",
+        indPharma: "ยาและเวชภัณฑ์",
+        indMedical: "เครื่องมือแพทย์",
+        indAuto: "ยานยนต์",
+        indElectronics: "อิเล็กทรอนิกส์",
+        indTextile: "สิ่งทอ / เสื้อผ้า",
+        indConsumer: "สินค้าอุปโภคบริโภค",
+        indCosmetic: "เครื่องสำอาง",
+        company: "บริษัท",
+        department: "แผนก",
+        inspector: "ผู้ตรวจ",
+        product: "สินค้า / รุ่น",
+        aql: "AQL",
+        aqlHint: "major defect",
+        inspectionLevel: "Inspection level",
+        lotSize: "Lot size",
+        defects: "Defects found",
+        calculate: "คำนวณ",
+        clear: "ล้างฟอร์ม",
+        decisionLabel: "ผลการตัดสิน",
+        sampleSize: "Sample size",
+        codeLetter: "Code letter",
+        acceptNo: "Accept Ac",
+        rejectNo: "Reject Re",
+        defectRate: "Defect rate",
+        actualSample: "Actual sample",
+        lotCoverage: "Lot coverage",
+        planType: "Plan type",
+        saveHistory: "บันทึกผล",
+        exportPdf: "Export PDF",
+        statsTitle: "สถิติคุณภาพ",
+        statsSub: "กราฟคำนวณจากประวัติการตรวจที่บันทึกไว้",
+        overview: "ภาพรวม",
+        trend: "แนวโน้ม",
+        byProduct: "สินค้า",
+        historyTitle: "ประวัติการตรวจ",
+        historySub: "ข้อมูลบันทึกอยู่ในเบราว์เซอร์นี้ ควร export ก่อนล้างข้อมูลเครื่อง",
+        exportCsv: "Export CSV",
+        clearHistory: "ล้างประวัติ",
+        thDate: "วันที่",
+        thCompany: "บริษัท",
+        thProduct: "สินค้า",
+        thLot: "ล็อต",
+        thSample: "ตัวอย่าง",
+        thDefects: "ตำหนิ",
+        thAql: "AQL",
+        thDecision: "ผล",
+        thAction: "จัดการ",
+        noRecords: "ยังไม่มีประวัติการตรวจ",
+        records: "รายการ",
+        required: "กรุณาเลือก AQL และกรอก Lot size ตั้งแต่ 2 ชิ้นขึ้นไป",
+        invalidDefect: "จำนวนตำหนิต้องไม่ติดลบและไม่มากกว่าจำนวนตัวอย่าง",
+        saved: "บันทึกผลแล้ว",
+        deleted: "ลบรายการแล้ว",
+        cleared: "ล้างข้อมูลแล้ว",
+        csvEmpty: "ยังไม่มีข้อมูลสำหรับ export",
+        pdfReady: "ส่งออก PDF แล้ว",
+        accept: "ACCEPT",
+        reject: "REJECT",
+        between: "BETWEEN",
+        normalPlan: "Normal",
+        hundredPercent: "100% check",
+        delete: "ลบ"
+      },
+      en: {
+        appTitle: "AQL Sampling Dashboard",
+        appSubtitle: "Professional quality inspection planner for ANSI/ASQ Z1.4 style sampling.",
+        eyebrow: "Quality control decision tool",
+        heroTitle: "Plan inspection sampling and decide Accept / Reject in one focused workspace",
+        heroCopy: "Choose an industry preset, inspection level, AQL and lot size. The dashboard calculates code letter, sample size, Ac/Re and stores inspection history for trend analysis.",
+        meta1: "General & special inspection levels",
+        meta2: "CSV / PDF export",
+        meta3: "Local history on this browser",
+        kpiTotal: "Total checks",
+        kpiTotalHint: "Saved inspections",
+        kpiAccept: "Accept rate",
+        kpiAcceptHint: "From history",
+        kpiReject: "Reject rate",
+        kpiRejectHint: "From history",
+        kpiDefect: "Avg defects",
+        kpiDefectHint: "Per inspection",
+        setupTitle: "Inspection setup",
+        setupSub: "Fill in lot information and defect count after inspection.",
+        industry: "Industry preset",
+        industryHint: "optional",
+        selectIndustry: "Select industry",
+        indFood: "Food & beverage",
+        indPharma: "Pharmaceutical",
+        indMedical: "Medical device",
+        indAuto: "Automotive",
+        indElectronics: "Electronics",
+        indTextile: "Textile / garment",
+        indConsumer: "Consumer goods",
+        indCosmetic: "Cosmetics",
+        company: "Company",
+        department: "Department",
+        inspector: "Inspector",
+        product: "Product / model",
+        aql: "AQL",
+        aqlHint: "major defect",
+        inspectionLevel: "Inspection level",
+        lotSize: "Lot size",
+        defects: "Defects found",
+        calculate: "Calculate",
+        clear: "Clear",
+        decisionLabel: "Decision",
+        sampleSize: "Sample size",
+        codeLetter: "Code letter",
+        acceptNo: "Accept Ac",
+        rejectNo: "Reject Re",
+        defectRate: "Defect rate",
+        actualSample: "Actual sample",
+        lotCoverage: "Lot coverage",
+        planType: "Plan type",
+        saveHistory: "Save result",
+        exportPdf: "Export PDF",
+        statsTitle: "Quality statistics",
+        statsSub: "Charts are calculated from saved inspection history.",
+        overview: "Overview",
+        trend: "Trend",
+        byProduct: "Product",
+        historyTitle: "Inspection history",
+        historySub: "Saved locally in this browser. Export before clearing browser data.",
+        exportCsv: "Export CSV",
+        clearHistory: "Clear history",
+        thDate: "Date",
+        thCompany: "Company",
+        thProduct: "Product",
+        thLot: "Lot",
+        thSample: "Sample",
+        thDefects: "Defects",
+        thAql: "AQL",
+        thDecision: "Decision",
+        thAction: "Action",
+        noRecords: "No inspection history yet",
+        records: "records",
+        required: "Select AQL and enter a lot size of at least 2 pieces.",
+        invalidDefect: "Defects must be zero or more and cannot exceed sample size.",
+        saved: "Result saved",
+        deleted: "Record deleted",
+        cleared: "History cleared",
+        csvEmpty: "No data to export",
+        pdfReady: "PDF exported",
+        accept: "ACCEPT",
+        reject: "REJECT",
+        between: "BETWEEN",
+        normalPlan: "Normal",
+        hundredPercent: "100% check",
+        delete: "Delete"
+      }
+    };
+
+    const industryPresets = {
+      food: "0.40",
+      pharma: "0.25",
+      medical: "0.25",
+      auto: "0.25",
+      electronics: "0.40",
+      textile: "1.0",
+      consumer: "2.5",
+      cosmetic: "2.5"
+    };
+
+    const lotCodeTable = [
+      { min: 2, max: 8, codes: { S1: "A", S2: "A", S3: "A", S4: "A", I: "A", II: "A", III: "B" } },
+      { min: 9, max: 15, codes: { S1: "A", S2: "A", S3: "A", S4: "A", I: "A", II: "B", III: "C" } },
+      { min: 16, max: 25, codes: { S1: "A", S2: "A", S3: "B", S4: "B", I: "B", II: "C", III: "D" } },
+      { min: 26, max: 50, codes: { S1: "A", S2: "B", S3: "B", S4: "C", I: "C", II: "D", III: "E" } },
+      { min: 51, max: 90, codes: { S1: "B", S2: "B", S3: "C", S4: "C", I: "C", II: "E", III: "F" } },
+      { min: 91, max: 150, codes: { S1: "B", S2: "B", S3: "C", S4: "D", I: "D", II: "F", III: "G" } },
+      { min: 151, max: 280, codes: { S1: "B", S2: "C", S3: "D", S4: "E", I: "E", II: "G", III: "H" } },
+      { min: 281, max: 500, codes: { S1: "B", S2: "C", S3: "D", S4: "E", I: "F", II: "H", III: "J" } },
+      { min: 501, max: 1200, codes: { S1: "C", S2: "C", S3: "E", S4: "F", I: "G", II: "J", III: "K" } },
+      { min: 1201, max: 3200, codes: { S1: "C", S2: "D", S3: "E", S4: "G", I: "H", II: "K", III: "L" } },
+      { min: 3201, max: 10000, codes: { S1: "C", S2: "D", S3: "F", S4: "G", I: "J", II: "L", III: "M" } },
+      { min: 10001, max: 35000, codes: { S1: "C", S2: "D", S3: "F", S4: "H", I: "K", II: "M", III: "N" } },
+      { min: 35001, max: 150000, codes: { S1: "D", S2: "E", S3: "G", S4: "J", I: "L", II: "N", III: "P" } },
+      { min: 150001, max: 500000, codes: { S1: "D", S2: "E", S3: "G", S4: "J", I: "M", II: "P", III: "Q" } },
+      { min: 500001, max: Infinity, codes: { S1: "D", S2: "E", S3: "H", S4: "K", I: "N", II: "Q", III: "R" } }
+    ];
+
+    const sampleSizes = {
+      A: 2, B: 3, C: 5, D: 8, E: 13, F: 20, G: 32, H: 50, J: 80, K: 125, L: 200, M: 315, N: 500, P: 800, Q: 1250, R: 2000
+    };
+
+    const acReTable = {
+      A: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [0,1], "0.65": [0,1], "1.0": [0,1], "1.5": [0,1], "2.5": [0,1], "4.0": [0,1], "6.5": [0,1] },
+      B: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [0,1], "0.65": [0,1], "1.0": [0,1], "1.5": [0,1], "2.5": [0,1], "4.0": [0,1], "6.5": [0,1] },
+      C: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [0,1], "0.65": [0,1], "1.0": [0,1], "1.5": [0,1], "2.5": [0,1], "4.0": [1,2], "6.5": [1,2] },
+      D: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [0,1], "0.65": [0,1], "1.0": [0,1], "1.5": [0,1], "2.5": [1,2], "4.0": [1,2], "6.5": [2,3] },
+      E: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [0,1], "0.65": [0,1], "1.0": [0,1], "1.5": [1,2], "2.5": [1,2], "4.0": [2,3], "6.5": [3,4] },
+      F: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [0,1], "0.65": [0,1], "1.0": [1,2], "1.5": [1,2], "2.5": [2,3], "4.0": [3,4], "6.5": [5,6] },
+      G: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [0,1], "0.65": [1,2], "1.0": [1,2], "1.5": [2,3], "2.5": [3,4], "4.0": [5,6], "6.5": [7,8] },
+      H: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [0,1], "0.40": [1,2], "0.65": [1,2], "1.0": [2,3], "1.5": [3,4], "2.5": [5,6], "4.0": [7,8], "6.5": [10,11] },
+      J: { "0.065": [0,1], "0.10": [0,1], "0.15": [0,1], "0.25": [1,2], "0.40": [1,2], "0.65": [2,3], "1.0": [3,4], "1.5": [5,6], "2.5": [7,8], "4.0": [10,11], "6.5": [14,15] },
+      K: { "0.065": [0,1], "0.10": [0,1], "0.15": [1,2], "0.25": [1,2], "0.40": [2,3], "0.65": [3,4], "1.0": [5,6], "1.5": [7,8], "2.5": [10,11], "4.0": [14,15], "6.5": [21,22] },
+      L: { "0.065": [0,1], "0.10": [1,2], "0.15": [1,2], "0.25": [2,3], "0.40": [3,4], "0.65": [5,6], "1.0": [7,8], "1.5": [10,11], "2.5": [14,15], "4.0": [21,22], "6.5": [21,22] },
+      M: { "0.065": [1,2], "0.10": [1,2], "0.15": [2,3], "0.25": [3,4], "0.40": [5,6], "0.65": [7,8], "1.0": [10,11], "1.5": [14,15], "2.5": [21,22], "4.0": [21,22], "6.5": [21,22] },
+      N: { "0.065": [1,2], "0.10": [2,3], "0.15": [3,4], "0.25": [5,6], "0.40": [7,8], "0.65": [10,11], "1.0": [14,15], "1.5": [21,22], "2.5": [21,22], "4.0": [21,22], "6.5": [21,22] },
+      P: { "0.065": [2,3], "0.10": [3,4], "0.15": [5,6], "0.25": [7,8], "0.40": [10,11], "0.65": [14,15], "1.0": [21,22], "1.5": [21,22], "2.5": [21,22], "4.0": [21,22], "6.5": [21,22] },
+      Q: { "0.065": [3,4], "0.10": [5,6], "0.15": [7,8], "0.25": [10,11], "0.40": [14,15], "0.65": [21,22], "1.0": [21,22], "1.5": [21,22], "2.5": [21,22], "4.0": [21,22], "6.5": [21,22] },
+      R: { "0.065": [5,6], "0.10": [7,8], "0.15": [10,11], "0.25": [14,15], "0.40": [21,22], "0.65": [21,22], "1.0": [21,22], "1.5": [21,22], "2.5": [21,22], "4.0": [21,22], "6.5": [21,22] }
+    };
+
+    const els = {
+      form: document.getElementById("inspectionForm"),
+      industry: document.getElementById("industry"),
+      aql: document.getElementById("aql"),
+      inspectionLevel: document.getElementById("inspectionLevel"),
+      company: document.getElementById("company"),
+      department: document.getElementById("department"),
+      inspector: document.getElementById("inspector"),
+      product: document.getElementById("product"),
+      lotSize: document.getElementById("lotSize"),
+      defects: document.getElementById("defects"),
+      resultCard: document.getElementById("resultCard"),
+      decisionBox: document.getElementById("decisionBox"),
+      decisionText: document.getElementById("decisionText"),
+      decisionBadge: document.getElementById("decisionBadge"),
+      sampleSize: document.getElementById("sampleSize"),
+      codeLetter: document.getElementById("codeLetter"),
+      acceptNo: document.getElementById("acceptNo"),
+      rejectNo: document.getElementById("rejectNo"),
+      defectRate: document.getElementById("defectRate"),
+      actualSample: document.getElementById("actualSample"),
+      lotCoverage: document.getElementById("lotCoverage"),
+      planType: document.getElementById("planType"),
+      historyRows: document.getElementById("historyRows"),
+      historyCount: document.getElementById("historyCount"),
+      toast: document.getElementById("toast")
+    };
+
+    let lang = localStorage.getItem("aqlLang") || "th";
+    let history = JSON.parse(localStorage.getItem("aqlHistoryPro") || "[]");
+    let lastResult = null;
+    let decisionChart = null;
+    let trendChart = null;
+    let productChart = null;
+
+    function t(key) {
+      return i18n[lang][key] || i18n.en[key] || key;
+    }
+
+    function formatNumber(value) {
+      return new Intl.NumberFormat(lang === "th" ? "th-TH" : "en-US").format(value);
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => els.toast.classList.remove("show"), 2400);
+    }
+
+    function setLanguage(nextLang) {
+      lang = nextLang;
+      localStorage.setItem("aqlLang", lang);
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        node.textContent = t(node.dataset.i18n);
+      });
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+      els.company.placeholder = lang === "th" ? "เช่น Salee Industry" : "e.g. Salee Industry";
+      els.department.placeholder = lang === "th" ? "เช่น QC Incoming" : "e.g. QC Incoming";
+      els.inspector.placeholder = lang === "th" ? "ชื่อผู้ตรวจ" : "Inspector name";
+      els.product.placeholder = lang === "th" ? "เช่น Bottle cap model A" : "e.g. Bottle cap model A";
+      els.lotSize.placeholder = lang === "th" ? "เช่น 1000" : "e.g. 1000";
+      renderHistory();
+      updateStats();
+      if (lastResult) paintResult(lastResult);
+    }
+
+    function getCodeLetter(lot, level) {
+      const row = lotCodeTable.find((item) => lot >= item.min && lot <= item.max);
+      return row ? row.codes[level] : "R";
+    }
+
+    function calculateResult() {
+      const lot = Number.parseInt(els.lotSize.value, 10);
+      const defects = Number.parseInt(els.defects.value || "0", 10);
+      const aql = els.aql.value;
+      const level = els.inspectionLevel.value;
+
+      if (!aql || Number.isNaN(lot) || lot < 2) {
+        showToast(t("required"));
+        return null;
+      }
+
+      const code = getCodeLetter(lot, level);
+      const plannedSample = sampleSizes[code];
+      const actualSample = Math.min(plannedSample, lot);
+
+      if (Number.isNaN(defects) || defects < 0 || defects > actualSample) {
+        showToast(t("invalidDefect"));
+        return null;
+      }
+
+      const [ac, re] = acReTable[code][aql];
+      const defectRate = actualSample === 0 ? 0 : (defects / actualSample) * 100;
+      const coverage = (actualSample / lot) * 100;
+      const decision = defects <= ac ? "accept" : defects >= re ? "reject" : "pending";
+
+      return {
+        id: Date.now(),
+        timestamp: new Date().toISOString(),
+        company: els.company.value.trim() || "-",
+        department: els.department.value.trim() || "-",
+        inspector: els.inspector.value.trim() || "-",
+        product: els.product.value.trim() || "-",
+        industry: els.industry.value || "-",
+        aql,
+        level,
+        lot,
+        code,
+        plannedSample,
+        actualSample,
+        ac,
+        re,
+        defects,
+        defectRate,
+        coverage,
+        decision,
+        planType: actualSample >= lot ? "hundredPercent" : "normalPlan"
+      };
+    }
+
+    function paintResult(result) {
+      els.resultCard.classList.add("show");
+      els.decisionBox.className = `decision ${result.decision}`;
+      els.decisionText.textContent = t(result.decision);
+      els.decisionBadge.textContent = result.decision.toUpperCase();
+      els.sampleSize.textContent = formatNumber(result.plannedSample);
+      els.codeLetter.textContent = result.code;
+      els.acceptNo.textContent = formatNumber(result.ac);
+      els.rejectNo.textContent = formatNumber(result.re);
+      els.defectRate.textContent = `${result.defectRate.toFixed(2)}%`;
+      els.actualSample.textContent = formatNumber(result.actualSample);
+      els.lotCoverage.textContent = `${result.coverage.toFixed(1)}%`;
+      els.planType.textContent = t(result.planType);
+    }
+
+    function saveHistory() {
+      if (!lastResult) return;
+      history.unshift({ ...lastResult, id: Date.now(), timestamp: new Date().toISOString() });
+      history = history.slice(0, 250);
+      localStorage.setItem("aqlHistoryPro", JSON.stringify(history));
+      renderHistory();
+      updateStats();
+      showToast(t("saved"));
+    }
+
+    function renderHistory() {
+      els.historyRows.innerHTML = "";
+      els.historyCount.textContent = `${formatNumber(history.length)} ${t("records")}`;
+      if (!history.length) {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td colspan="9"><div class="empty">${t("noRecords")}</div></td>`;
+        els.historyRows.appendChild(row);
+        return;
+      }
+
+      history.slice(0, 60).forEach((record) => {
+        const row = document.createElement("tr");
+        const date = new Intl.DateTimeFormat(lang === "th" ? "th-TH" : "en-US", { dateStyle: "medium", timeStyle: "short" }).format(new Date(record.timestamp));
+        row.innerHTML = `
+          <td>${date}</td>
+          <td>${escapeHtml(record.company)}</td>
+          <td>${escapeHtml(record.product)}</td>
+          <td>${formatNumber(record.lot)}</td>
+          <td>${formatNumber(record.actualSample)} <span style="color:#64748b">(${record.code})</span></td>
+          <td>${formatNumber(record.defects)}</td>
+          <td>${record.aql}</td>
+          <td><span class="status ${record.decision}">${t(record.decision)}</span></td>
+          <td><button class="btn btn-danger" style="min-height:30px;padding:6px 9px;font-size:12px" type="button" data-delete="${record.id}">${t("delete")}</button></td>
+        `;
+        els.historyRows.appendChild(row);
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+    }
+
+    function updateStats() {
+      const total = history.length;
+      const accept = history.filter((r) => r.decision === "accept").length;
+      const reject = history.filter((r) => r.decision === "reject").length;
+      const avgDefects = total ? history.reduce((sum, r) => sum + Number(r.defects || 0), 0) / total : 0;
+
+      document.getElementById("kpiTotal").textContent = formatNumber(total);
+      document.getElementById("kpiAccept").textContent = total ? `${((accept / total) * 100).toFixed(1)}%` : "-";
+      document.getElementById("kpiReject").textContent = total ? `${((reject / total) * 100).toFixed(1)}%` : "-";
+      document.getElementById("kpiDefect").textContent = avgDefects.toFixed(1);
+      updateCharts();
+    }
+
+    function chartDefaults() {
+      if (!window.Chart) return;
+      Chart.defaults.font.family = 'Inter, "Noto Sans Thai", sans-serif';
+      Chart.defaults.color = "#64748b";
+      Chart.defaults.plugins.legend.labels.usePointStyle = true;
+    }
+
+    function updateCharts() {
+      if (!window.Chart) return;
+      chartDefaults();
+
+      const accept = history.filter((r) => r.decision === "accept").length;
+      const reject = history.filter((r) => r.decision === "reject").length;
+      const pending = history.length - accept - reject;
+
+      if (decisionChart) decisionChart.destroy();
+      decisionChart = new Chart(document.getElementById("decisionChart"), {
+        type: "doughnut",
+        data: {
+          labels: [t("accept"), t("reject"), t("between")],
+          datasets: [{ data: [accept, reject, pending], backgroundColor: ["#12805c", "#c83333", "#b7791f"], borderWidth: 0 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, cutout: "68%" }
+      });
+
+      const recent = history.slice(0, 15).reverse();
+      if (trendChart) trendChart.destroy();
+      trendChart = new Chart(document.getElementById("trendChart"), {
+        type: "line",
+        data: {
+          labels: recent.map((_, index) => index + 1),
+          datasets: [{
+            label: "Defect %",
+            data: recent.map((r) => Number(r.defectRate || 0).toFixed(2)),
+            borderColor: "#175cd3",
+            backgroundColor: "rgba(23, 92, 211, 0.12)",
+            borderWidth: 3,
+            pointRadius: 4,
+            tension: 0.35,
+            fill: true
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+      });
+
+      const productRejects = history.reduce((map, r) => {
+        const product = r.product || "-";
+        if (!map[product]) map[product] = { product, reject: 0, total: 0 };
+        map[product].total += 1;
+        if (r.decision === "reject") map[product].reject += 1;
+        return map;
+      }, {});
+      const productRows = Object.values(productRejects).sort((a, b) => b.reject - a.reject || b.total - a.total).slice(0, 8);
+
+      if (productChart) productChart.destroy();
+      productChart = new Chart(document.getElementById("productChart"), {
+        type: "bar",
+        data: {
+          labels: productRows.map((r) => r.product),
+          datasets: [
+            { label: t("reject"), data: productRows.map((r) => r.reject), backgroundColor: "#c83333", borderRadius: 6 },
+            { label: "Total", data: productRows.map((r) => r.total), backgroundColor: "#175cd3", borderRadius: 6 }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+      });
+    }
+
+    function exportCsv() {
+      if (!history.length) {
+        showToast(t("csvEmpty"));
+        return;
+      }
+      const header = ["Timestamp","Company","Department","Inspector","Product","Industry","AQL","Inspection Level","Lot","Code Letter","Planned Sample","Actual Sample","Ac","Re","Defects","Defect Rate %","Coverage %","Decision"];
+      const rows = history.map((r) => [
+        r.timestamp, r.company, r.department, r.inspector, r.product, r.industry, r.aql, r.level, r.lot, r.code, r.plannedSample, r.actualSample, r.ac, r.re, r.defects, r.defectRate.toFixed(2), r.coverage.toFixed(2), r.decision.toUpperCase()
+      ]);
+      const csv = [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\n");
+      downloadBlob("\uFEFF" + csv, `AQL_History_${new Date().toISOString().slice(0,10)}.csv`, "text/csv;charset=utf-8");
+    }
+
+    function csvCell(value) {
+      return `"${String(value ?? "").replace(/"/g, '""')}"`;
+    }
+
+    function downloadBlob(content, filename, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportPdf() {
+      if (!lastResult || !window.jspdf) return;
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const r = lastResult;
+      let y = 18;
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text("AQL Sampling Report", 105, y, { align: "center" });
+      y += 12;
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Generated: ${new Date().toLocaleString("en-US")}`, 15, y);
+      y += 10;
+
+      const lines = [
+        ["Company", r.company],
+        ["Department", r.department],
+        ["Inspector", r.inspector],
+        ["Product", r.product],
+        ["AQL", r.aql],
+        ["Inspection level", r.level],
+        ["Lot size", r.lot],
+        ["Code letter", r.code],
+        ["Planned sample", r.plannedSample],
+        ["Actual sample", r.actualSample],
+        ["Ac / Re", `${r.ac} / ${r.re}`],
+        ["Defects found", r.defects],
+        ["Defect rate", `${r.defectRate.toFixed(2)}%`],
+        ["Decision", r.decision.toUpperCase()]
+      ];
+
+      lines.forEach(([label, value]) => {
+        doc.setFont("helvetica", "bold");
+        doc.text(`${label}:`, 18, y);
+        doc.setFont("helvetica", "normal");
+        doc.text(String(value), 65, y);
+        y += 7;
+      });
+
+      const color = r.decision === "accept" ? [18, 128, 92] : r.decision === "reject" ? [200, 51, 51] : [183, 121, 31];
+      doc.setFillColor(...color);
+      doc.roundedRect(15, y + 4, 180, 16, 2, 2, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(14);
+      doc.text(r.decision.toUpperCase(), 105, y + 15, { align: "center" });
+      doc.save(`AQL_Report_${new Date().toISOString().slice(0,10)}.pdf`);
+      showToast(t("pdfReady"));
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+    });
+
+    els.industry.addEventListener("change", () => {
+      const preset = industryPresets[els.industry.value];
+      if (preset) els.aql.value = preset;
+    });
+
+    els.form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const result = calculateResult();
+      if (!result) return;
+      lastResult = result;
+      paintResult(result);
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      els.form.reset();
+      els.aql.value = "0.40";
+      els.inspectionLevel.value = "II";
+      els.defects.value = "0";
+      els.resultCard.classList.remove("show");
+      lastResult = null;
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", saveHistory);
+    document.getElementById("pdfBtn").addEventListener("click", exportPdf);
+    document.getElementById("csvBtn").addEventListener("click", exportCsv);
+
+    document.getElementById("clearHistoryBtn").addEventListener("click", () => {
+      history = [];
+      localStorage.removeItem("aqlHistoryPro");
+      renderHistory();
+      updateStats();
+      showToast(t("cleared"));
+    });
+
+    els.historyRows.addEventListener("click", (event) => {
+      const btn = event.target.closest("[data-delete]");
+      if (!btn) return;
+      const id = Number(btn.dataset.delete);
+      history = history.filter((record) => record.id !== id);
+      localStorage.setItem("aqlHistoryPro", JSON.stringify(history));
+      renderHistory();
+      updateStats();
+      showToast(t("deleted"));
+    });
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach((node) => node.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach((node) => node.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+        updateCharts();
+      });
+    });
+
+    setLanguage(lang);
+  </script>
+</body>
+</html>
