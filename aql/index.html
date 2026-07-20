@@ -1220,7 +1220,7 @@
       document.querySelectorAll(".lang-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.lang === lang);
       });
-      els.company.placeholder = lang === "th" ? "เช่น Salee Industry" : "e.g. Salee Industry";
+      els.company.placeholder = lang === "th" ? "เช่น บริษัท ABC อุตสาหกรรม จำกัด" : "e.g. ABC Industry Co., Ltd.";
       els.department.placeholder = lang === "th" ? "เช่น QC Incoming" : "e.g. QC Incoming";
       els.inspector.placeholder = lang === "th" ? "ชื่อผู้ตรวจ" : "Inspector name";
       els.product.placeholder = lang === "th" ? "เช่น Bottle cap model A" : "e.g. Bottle cap model A";
