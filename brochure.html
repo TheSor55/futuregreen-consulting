@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FutureGreen Consulting — Service Brochure (PDF / A4)</title>
+<title id="pageTitle">FutureGreen Consulting — Executive Service Brochure (A4 / PDF)</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Serif+Thai:wght@600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -32,7 +32,7 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   height: 297mm;
   margin: 20px auto;
   background: #ffffff;
-  padding: 16mm 16mm 14mm 16mm;
+  padding: 15mm 16mm 14mm 16mm;
   box-shadow: 0 10px 30px rgba(0,0,0,.15);
   display: flex;
   flex-direction: column;
@@ -47,13 +47,14 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   .no-print { display: none !important; }
 }
 
-/* FLOATING PRINT BUTTON */
+/* FLOATING BAR */
 .print-btn-bar {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 .btn-print {
@@ -62,7 +63,7 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 14px;
-  padding: 12px 24px;
+  padding: 12px 22px;
   border: none;
   border-radius: 100px;
   cursor: pointer;
@@ -74,27 +75,33 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
 }
 .btn-print:hover { background: var(--leaf); transform: translateY(-2px); }
 
+.lang-toggle { position: relative; display: flex; background: rgba(13,61,43,.12); border: 1px solid var(--line); border-radius: 100px; padding: 3px; }
+.lang-toggle-bg { position: absolute; top: 3px; left: 3px; width: calc(50% - 3px); height: calc(100% - 6px); background: var(--forest); border-radius: 100px; transition: transform .28s cubic-bezier(.3,.8,.3,1); z-index: 0; }
+.lang-toggle[data-active="en"] .lang-toggle-bg { transform: translateX(100%); }
+.lang-btn { position: relative; z-index: 1; font-family: var(--font-mono); font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 100px; background: transparent; border: none; color: var(--ink-soft); cursor: pointer; transition: color .25s; }
+.lang-btn.active { color: var(--cream); }
+
 /* BROCHURE HEADER */
 .b-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid var(--gold);
-  padding-bottom: 12px;
-  margin-bottom: 14px;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
 }
 .b-brand { display: flex; align-items: center; gap: 12px; }
 .b-brand img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
-.b-brand-name { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--forest); line-height: 1; }
-.b-brand-sub { font-size: 12px; font-weight: 500; color: var(--ink-soft); letter-spacing: .02em; margin-top: 3px; }
+.b-brand-name { font-family: var(--font-display); font-size: 25px; font-weight: 700; color: var(--forest); line-height: 1; }
+.b-brand-sub { font-size: 11.5px; font-weight: 500; color: var(--ink-soft); letter-spacing: .01em; margin-top: 3px; }
 
 .b-badge {
   background: var(--forest-deep);
   color: var(--gold-pale);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 100px;
   border: 1px solid var(--gold);
 }
@@ -103,26 +110,26 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
 .b-consultant {
   background: var(--cream-warm);
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   border-left: 4px solid var(--leaf);
 }
-.c-info h1 { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--forest); }
-.c-info p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.4; }
-.c-creds { text-align: right; font-family: var(--font-mono); font-size: 11px; color: var(--forest); font-weight: 600; line-height: 1.5; }
+.c-info h1 { font-family: var(--font-display); font-size: 17.5px; font-weight: 700; color: var(--forest); }
+.c-info p { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+.c-creds { text-align: right; font-family: var(--font-mono); font-size: 10.5px; color: var(--forest); font-weight: 600; line-height: 1.45; }
 
 /* SERVICES GRID (4 COLUMNS / 2x2) */
-.section-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--forest); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.section-title { font-family: var(--font-display); font-size: 14.5px; font-weight: 700; color: var(--forest); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .section-title::after { content: ''; flex-grow: 1; height: 1px; background: var(--line); }
 
 .services-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .s-box {
   background: #ffffff;
@@ -130,10 +137,10 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   border-radius: 10px;
   padding: 10px 12px;
 }
-.s-code { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; color: var(--leaf); background: rgba(31,138,92,.08); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
-.s-title { font-family: var(--font-display); font-size: 13.5px; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
-.s-desc { font-size: 11px; color: var(--ink-soft); line-height: 1.4; margin-bottom: 6px; }
-.s-list { list-style: none; font-size: 10.5px; color: var(--ink); line-height: 1.45; }
+.s-code { font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: var(--leaf); background: rgba(31,138,92,.08); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 4px; }
+.s-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
+.s-desc { font-size: 11px; color: var(--ink-soft); line-height: 1.38; margin-bottom: 6px; }
+.s-list { list-style: none; font-size: 10.5px; color: var(--ink); line-height: 1.42; }
 .s-list li { display: flex; align-items: flex-start; gap: 4px; }
 .s-list li::before { content: '▸'; color: var(--leaf); font-weight: bold; flex-shrink: 0; }
 
@@ -146,19 +153,19 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
-.t-text h3 { font-family: var(--font-display); font-size: 14px; color: var(--gold-pale); font-weight: 600; margin-bottom: 2px; }
-.t-text p { font-size: 11px; color: rgba(247,244,236,.8); }
+.t-text h3 { font-family: var(--font-display); font-size: 13.5px; color: var(--gold-pale); font-weight: 600; margin-bottom: 2px; }
+.t-text p { font-size: 10.5px; color: rgba(247,244,236,.8); }
 .t-tags { display: flex; gap: 6px; }
-.t-tag { font-family: var(--font-mono); font-size: 10px; background: rgba(47,174,118,.2); color: var(--leaf-bright); border: 1px solid var(--leaf-bright); padding: 3px 8px; border-radius: 100px; }
+.t-tag { font-family: var(--font-mono); font-size: 9.5px; background: rgba(47,174,118,.2); color: var(--leaf-bright); border: 1px solid var(--leaf-bright); padding: 3px 8px; border-radius: 100px; }
 
 /* WHY CHOOSE US */
 .why-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .why-card {
   background: var(--cream);
@@ -168,8 +175,8 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   text-align: center;
 }
 .why-icon { font-size: 16px; margin-bottom: 3px; }
-.why-title { font-size: 11.5px; font-weight: 700; color: var(--forest); margin-bottom: 2px; }
-.why-desc { font-size: 10px; color: var(--ink-soft); line-height: 1.35; }
+.why-title { font-size: 11px; font-weight: 700; color: var(--forest); margin-bottom: 2px; }
+.why-desc { font-size: 9.5px; color: var(--ink-soft); line-height: 1.35; }
 
 /* BROCHURE FOOTER / CONTACT */
 .b-footer {
@@ -181,21 +188,27 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   justify-content: space-between;
   align-items: center;
 }
-.f-contact { display: flex; flex-direction: column; gap: 3px; font-size: 11px; }
-.f-contact strong { color: var(--forest); font-size: 12px; }
+.f-contact { display: flex; flex-direction: column; gap: 3px; font-size: 10.5px; }
+.f-contact strong { color: var(--forest); font-size: 11.5px; }
 .f-contact span { color: var(--ink-soft); }
 .f-contact a { color: var(--forest); font-weight: 600; text-decoration: none; }
 
-.f-qr { text-align: center; font-size: 10px; color: var(--ink-soft); font-family: var(--font-mono); }
+.f-qr { text-align: center; font-size: 9.5px; color: var(--ink-soft); font-family: var(--font-mono); }
 .f-qr-box { background: #fff; padding: 4px; border-radius: 6px; border: 1px solid var(--line); display: inline-block; margin-bottom: 2px; }
-.f-qr-box img { width: 52px; height: 52px; display: block; }
+.f-qr-box img { width: 50px; height: 50px; display: block; }
 </style>
 </head>
 <body>
 
+<!-- FLOATING CONTROL BAR -->
 <div class="print-btn-bar no-print">
-  <button class="btn-print" onclick="window.print()">🖨️ พิมพ์ / บันทึกเป็น PDF (Print / Save PDF)</button>
-  <a href="index.html" class="btn-print" style="background:var(--leaf);text-decoration:none;">← กลับหน้าแรก</a>
+  <div class="lang-toggle" id="langToggle" data-active="th">
+    <div class="lang-toggle-bg"></div>
+    <button class="lang-btn active" data-lang="th">TH</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+  <button class="btn-print" onclick="window.print()" data-th="🖨️ พิมพ์ / บันทึกเป็น PDF (Print PDF)" data-en="🖨️ Print / Save as PDF">🖨️ พิมพ์ / บันทึกเป็น PDF (Print PDF)</button>
+  <a href="index.html" class="btn-print" style="background:var(--leaf);text-decoration:none;" data-th="← กลับหน้าแรก" data-en="← Back to Home">← กลับหน้าแรก</a>
 </div>
 
 <div class="page-container">
@@ -206,7 +219,7 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
       <img src="assets/img/favicon.png" alt="FutureGreen Logo">
       <div>
         <div class="b-brand-name">FutureGreen Consulting</div>
-        <div class="b-brand-sub">ที่ปรึกษาความยั่งยืน และระบบมาตรฐานโรงงานอุตสาหกรรม (Industrial Sustainability Advisory)</div>
+        <div class="b-brand-sub" data-th="ที่ปรึกษาความยั่งยืน และระบบมาตรฐานโรงงานอุตสาหกรรม (Industrial Sustainability Advisory)" data-en="Industrial Sustainability Advisory &amp; Quality Systems">ที่ปรึกษาความยั่งยืน และระบบมาตรฐานโรงงานอุตสาหกรรม (Industrial Sustainability Advisory)</div>
       </div>
     </div>
     <div class="b-badge">EXECUTIVE SUMMARY</div>
@@ -215,10 +228,10 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   <!-- CONSULTANT PROFILE -->
   <section class="b-consultant">
     <div class="c-info">
-      <h1>สรวิศ สุวรรณรงค์ | Sorawit Suwannarong</h1>
-      <p>ที่ปรึกษาอิสระด้าน ISO, Carbon Footprint (CFO/CFP), ESG Strategy และการยกระดับโรงงานสีเขียวดิจิทัล</p>
+      <h1 data-th="สรวิศ สุวรรณรงค์ | Sorawit Suwannarong" data-en="Sorawit Suwannarong | สรวิศ สุวรรณรงค์">สรวิศ สุวรรณรงค์ | Sorawit Suwannarong</h1>
+      <p data-th="ที่ปรึกษาอิสระด้าน ISO, Carbon Footprint (CFO/CFP), ESG Strategy และการยกระดับโรงงานสีเขียวดิจิทัล" data-en="Independent Industrial Consultant: ISO Systems, Carbon Footprint (CFO/CFP), ESG Strategy &amp; Digital Green Factory Upgrades">ที่ปรึกษาอิสระด้าน ISO, Carbon Footprint (CFO/CFP), ESG Strategy และการยกระดับโรงงานสีเขียวดิจิทัล</p>
     </div>
-    <div class="c-creds">
+    <div class="c-creds" data-th="🏭 25+ ปี ประสบการณ์โรงงาน&lt;br&gt;📜 Lead Auditor ISO 9001/14001&lt;br&gt;📍 ฐานปฏิบัติการ: ศรีราชา, ชลบุรี (EEC)" data-en="🏭 25+ Years Shopfloor Exp.&lt;br&gt;📜 Lead Auditor ISO 9001/14001&lt;br&gt;📍 Base: Sriracha, Chonburi (EEC)">
       🏭 25+ ปี ประสบการณ์โรงงาน<br>
       📜 Lead Auditor ISO 9001/14001<br>
       📍 ฐานปฏิบัติการ: ศรีราชา, ชลบุรี (EEC)
@@ -226,7 +239,7 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   </section>
 
   <!-- SERVICES TITLE -->
-  <div class="section-title">บริการหลักเพื่อโรงงานอุตสาหกรรม (Core Advisory Services)</div>
+  <div class="section-title" data-th="บริการหลักเพื่อโรงงานอุตสาหกรรม (Core Advisory Services)" data-en="Core Factory Advisory Services">บริการหลักเพื่อโรงงานอุตสาหกรรม (Core Advisory Services)</div>
 
   <!-- SERVICES GRID -->
   <section class="services-grid">
@@ -235,11 +248,11 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
     <div class="s-box">
       <span class="s-code">SERVICE 01</span>
       <h2 class="s-title">Carbon Footprint for Organization (CFO)</h2>
-      <p class="s-desc">ประเมินและจัดทำรายงานปริมาณก๊าซเรือนกระจกองค์กร Scope 1, 2, 3 ตามมาตรฐาน TGO</p>
+      <p class="s-desc" data-th="ประเมินและจัดทำรายงานปริมาณก๊าซเรือนกระจกองค์กร Scope 1, 2, 3 ตามมาตรฐาน TGO" data-en="Assess &amp; prepare Organization GHG emissions reports (Scope 1, 2, 3) per TGO standards">ประเมินและจัดทำรายงานปริมาณก๊าซเรือนกระจกองค์กร Scope 1, 2, 3 ตามมาตรฐาน TGO</p>
       <ul class="s-list">
-        <li>จัดรวบรวมข้อมูลกิจกรรม (Activity Data) 12 เดือนย้อนหลัง</li>
-        <li>คำนวณ tCO2e ด้วย Emission Factor ฉบับล่าสุด</li>
-        <li>จัดทำรายงานและเอกสารพร้อมรับการตรวจทวนสอบ</li>
+        <li data-th="จัดรวบรวมข้อมูลกิจกรรม (Activity Data) 12 เดือนย้อนหลัง" data-en="Compile 12-month Activity Data per standard guidelines">จัดรวบรวมข้อมูลกิจกรรม (Activity Data) 12 เดือนย้อนหลัง</li>
+        <li data-th="คำนวณ tCO2e ด้วย Emission Factor ฉบับล่าสุด" data-en="Calculate carbon emissions (tCO2e) using latest official EFs">คำนวณ tCO2e ด้วย Emission Factor ฉบับล่าสุด</li>
+        <li data-th="จัดทำรายงานและเอกสารพร้อมรับการตรวจทวนสอบ" data-en="Draft compliance reports &amp; documentation ready for verification">จัดทำรายงานและเอกสารพร้อมรับการตรวจทวนสอบ</li>
       </ul>
     </div>
 
@@ -247,11 +260,11 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
     <div class="s-box">
       <span class="s-code">SERVICE 02</span>
       <h2 class="s-title">Carbon Footprint of Product (CFP)</h2>
-      <p class="s-desc">ประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตลอดวัฏจักรชีวิต (Life Cycle Assessment - LCA)</p>
+      <p class="s-desc" data-th="ประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตลอดวัฏจักรชีวิต (Life Cycle Assessment - LCA)" data-en="Evaluate Product Carbon Footprints across full Life Cycle Assessment (LCA)">ประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ตลอดวัฏจักรชีวิต (Life Cycle Assessment - LCA)</p>
       <ul class="s-list">
-        <li>เก็บข้อมูล LCI ตั้งแต่วัตถุดิบ การผลิต จนถึงซาก</li>
-        <li>คำนวณปริมาณคาร์บอนต่อหน่วยสินค้า (gCO2e / piece)</li>
-        <li>ยื่นขอขึ้นทะเบียนฉลากคาร์บอนฟุตพริ้นท์ TGO</li>
+        <li data-th="เก็บข้อมูล LCI ตั้งแต่วัตถุดิบ การผลิต จนถึงซาก" data-en="Compile LCI data from raw material to manufacturing &amp; disposal">เก็บข้อมูล LCI ตั้งแต่วัตถุดิบ การผลิต จนถึงซาก</li>
+        <li data-th="คำนวณปริมาณคาร์บอนต่อหน่วยสินค้า (gCO2e / piece)" data-en="Analyze carbon intensity per functional unit (gCO2e/piece)">คำนวณปริมาณคาร์บอนต่อหน่วยสินค้า (gCO2e / piece)</li>
+        <li data-th="ยื่นขอขึ้นทะเบียนฉลากคาร์บอนฟุตพริ้นท์ TGO" data-en="Submit registration for official TGO Carbon Footprint Label">ยื่นขอขึ้นทะเบียนฉลากคาร์บอนฟุตพริ้นท์ TGO</li>
       </ul>
     </div>
 
@@ -259,11 +272,11 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
     <div class="s-box">
       <span class="s-code">SERVICE 03</span>
       <h2 class="s-title">ISO 9001 / ISO 14001 / ISO 50001</h2>
-      <p class="s-desc">จัดทำและเปลี่ยนผ่านระบบคุณภาพ สิ่งแวดล้อม และพลังงาน สู่เวอร์ชันใหม่ 2026</p>
+      <p class="s-desc" data-th="จัดทำและเปลี่ยนผ่านระบบคุณภาพ สิ่งแวดล้อม และพลังงาน สู่เวอร์ชันใหม่ 2026" data-en="Implement &amp; transition Quality, Environmental, &amp; Energy systems to 2026 standards">จัดทำและเปลี่ยนผ่านระบบคุณภาพ สิ่งแวดล้อม และพลังงาน สู่เวอร์ชันใหม่ 2026</p>
       <ul class="s-list">
-        <li>Initial Review & Gap Analysis ประเมินสถานะระบบเดิม</li>
-        <li>จัดทำคู่มือ SOP และเป้าหมายสิ่งแวดล้อม/พลังงาน</li>
-        <li>ฝึกอบรมข้อกำหนด & Internal Audit จนผ่านรับรอง CB</li>
+        <li data-th="Initial Review &amp; Gap Analysis ประเมินสถานะระบบเดิม" data-en="Perform Initial Review &amp; Gap Analysis on existing systems">Initial Review & Gap Analysis ประเมินสถานะระบบเดิม</li>
+        <li data-th="จัดทำคู่มือ SOP และเป้าหมายสิ่งแวดล้อม/พลังงาน" data-en="Draft SOPs, environmental aspects, &amp; energy baselines">จัดทำคู่มือ SOP และเป้าหมายสิ่งแวดล้อม/พลังงาน</li>
+        <li data-th="ฝึกอบรมข้อกำหนด &amp; Internal Audit จนผ่านรับรอง CB" data-en="Conduct Internal Audit training until successful CB certification">ฝึกอบรมข้อกำหนด & Internal Audit จนผ่านรับรอง CB</li>
       </ul>
     </div>
 
@@ -271,11 +284,11 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
     <div class="s-box">
       <span class="s-code">SERVICE 04</span>
       <h2 class="s-title">In-house Training & Gap Analysis</h2>
-      <p class="s-desc">บริการประเมินความพร้อมและฝึกอบรมบุคลากรภายในโรงงาน (Customized Workshop)</p>
+      <p class="s-desc" data-th="บริการประเมินความพร้อมและฝึกอบรมบุคลากรภายในโรงงาน (Customized Workshop)" data-en="Factory readiness assessment &amp; customized internal staff workshops">บริการประเมินความพร้อมและฝึกอบรมบุคลากรภายในโรงงาน (Customized Workshop)</p>
       <ul class="s-list">
-        <li>เข้าประเมิน Gap Analysis หน้างานพร้อมสรุป Action Plan</li>
-        <li>หลักสูตรอบรม ISO, CFO/CFP, SPC หน้างาน 1-2 วัน</li>
-        <li>มอบใบรับรองผ่านการอบรม (Completion Certificate)</li>
+        <li data-th="เข้าประเมิน Gap Analysis หน้างานพร้อมสรุป Action Plan" data-en="On-site Gap Analysis audit with actionable roadmap summary">เข้าประเมิน Gap Analysis หน้างานพร้อมสรุป Action Plan</li>
+        <li data-th="หลักสูตรอบรม ISO, CFO/CFP, SPC หน้างาน 1-2 วัน" data-en="1-2 day customized in-house training for ISO, CFO, &amp; SPC">หลักสูตรอบรม ISO, CFO/CFP, SPC หน้างาน 1-2 วัน</li>
+        <li data-th="มอบใบรับรองผ่านการอบรม (Completion Certificate)" data-en="Award official Training Completion Certificates">มอบใบรับรองผ่านการอบรม (Completion Certificate)</li>
       </ul>
     </div>
 
@@ -284,8 +297,8 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   <!-- DIGITAL TOOLS BANNER -->
   <section class="tools-banner">
     <div class="t-text">
-      <h3>💻 นวัตกรรมเครื่องมือดิจิทัลฟรี (Digital QC & Sustainability Tools)</h3>
-      <p>เพิ่มมูลค่าบริการด้วยซอฟต์แวร์ช่วยงาน QC หน้างานแบบเรียลไทม์ เปิดใช้งานผ่านเว็บบราวเซอร์ได้ทันที ไม่ต้องติดตั้ง</p>
+      <h3 data-th="💻 นวัตกรรมเครื่องมือดิจิทัลฟรี (Digital QC &amp; Sustainability Tools)" data-en="💻 Free Digital Innovation Tools (Shopfloor QC &amp; Sustainability Web Apps)">💻 นวัตกรรมเครื่องมือดิจิทัลฟรี (Digital QC & Sustainability Tools)</h3>
+      <p data-th="เพิ่มมูลค่าบริการด้วยซอฟต์แวร์ช่วยงาน QC หน้างานแบบเรียลไทม์ เปิดใช้งานผ่านเว็บบราวเซอร์ได้ทันที ไม่ต้องติดตั้ง" data-en="Real-time web applications for shopfloor QC logging &amp; carbon estimation — instant browser access with zero installation">เพิ่มมูลค่าบริการด้วยซอฟต์แวร์ช่วยงาน QC หน้างานแบบเรียลไทม์ เปิดใช้งานผ่านเว็บบราวเซอร์ได้ทันที ไม่ต้องติดตั้ง</p>
     </div>
     <div class="t-tags">
       <span class="t-tag">SPC Quality Analytics</span>
@@ -295,48 +308,73 @@ body { font-family: var(--font-body); background: #e0e0e0; color: var(--ink); -w
   </section>
 
   <!-- WHY CHOOSE US -->
-  <div class="section-title">ทำไมโรงงานชั้นนำถึงเลือก FutureGreen Consulting</div>
+  <div class="section-title" data-th="ทำไมโรงงานชั้นนำถึงเลือก FutureGreen Consulting" data-en="Why Leading Factories Choose FutureGreen Consulting">ทำไมโรงงานชั้นนำถึงเลือก FutureGreen Consulting</div>
   <section class="why-grid">
     <div class="why-card">
       <div class="why-icon">🏭</div>
-      <div class="why-title">ประสบการณ์หน้างาน 25+ ปี</div>
-      <div class="why-desc">เข้าใจกระบวนการผลิต ปัญหาจริง และภาษาคนโรงงานอย่างลึกซึ้ง</div>
+      <div class="why-title" data-th="ประสบการณ์หน้างาน 25+ ปี" data-en="25+ Years Shopfloor Exp.">ประสบการณ์หน้างาน 25+ ปี</div>
+      <div class="why-desc" data-th="เข้าใจกระบวนการผลิต ปัญหาจริง และภาษาคนโรงงานอย่างลึกซึ้ง" data-en="Deep understanding of manufacturing processes &amp; shopfloor realities">เข้าใจกระบวนการผลิต ปัญหาจริง และภาษาคนโรงงานอย่างลึกซึ้ง</div>
     </div>
     <div class="why-card">
       <div class="why-icon">⚡</div>
-      <div class="why-title">โซลูชันดิจิทัลเสริม</div>
-      <div class="why-desc">มีแอป SPC/AQL ช่วยคำนวณสด ไม่ใช่แค่ที่ปรึกษาบนกระดาษ</div>
+      <div class="why-title" data-th="โซลูชันดิจิทัลเสริม" data-en="Integrated Web Apps">โซลูชันดิจิทัลเสริม</div>
+      <div class="why-desc" data-th="มีแอป SPC/AQL ช่วยคำนวณสด ไม่ใช่แค่ที่ปรึกษาบนกระดาษ" data-en="Equipped with live SPC/AQL web apps, not just paper consulting">มีแอป SPC/AQL ช่วยคำนวณสด ไม่ใช่แค่ที่ปรึกษาบนกระดาษ</div>
     </div>
     <div class="why-card">
       <div class="why-icon">🤝</div>
-      <div class="why-title">ยืดหยุ่น & คุ้มค่า</div>
-      <div class="why-desc">บริการแบบที่ปรึกษาอิสระ งบประมาณสมเหตุสมผล ปรับตาม SME</div>
+      <div class="why-title" data-th="ยืดหยุ่น &amp; คุ้มค่า" data-en="Agile &amp; Cost-Effective">ยืดหยุ่น & คุ้มค่า</div>
+      <div class="why-desc" data-th="บริการแบบที่ปรึกษาอิสระ งบประมาณสมเหตุสมผล ปรับตาม SME" data-en="Freelance flexibility with tailored SME-friendly budgets">บริการแบบที่ปรึกษาอิสระ งบประมาณสมเหตุสมผล ปรับตาม SME</div>
     </div>
     <div class="why-card">
       <div class="why-icon">📍</div>
-      <div class="why-title">พื้นที่ EEC & ชลบุรี</div>
-      <div class="why-desc">ฐานปฏิบัติการศรีราชา เดินทางเข้าพบและสนับสนุนหน้างานได้รวดเร็ว</div>
+      <div class="why-title" data-th="พื้นที่ EEC &amp; ชลบุรี" data-en="EEC &amp; Eastern Zone Base">พื้นที่ EEC & ชลบุรี</div>
+      <div class="why-desc" data-th="ฐานปฏิบัติการศรีราชา เดินทางเข้าพบและสนับสนุนหน้างานได้รวดเร็ว" data-en="Sriracha base for rapid on-site support across EEC industrial parks">ฐานปฏิบัติการศรีราชา เดินทางเข้าพบและสนับสนุนหน้างานได้รวดเร็ว</div>
     </div>
   </section>
 
   <!-- FOOTER / CONTACT -->
   <footer class="b-footer">
     <div class="f-contact">
-      <strong>📞 ติดต่อขอใบเสนอราคา & ประเมินขอบเขตงานฟรี (Free 30-min Consultation)</strong>
-      <span>คุณสรวิศ สุวรรณรงค์ (Sorawit Suwannarong) — Industrial Sustainability Consultant</span>
+      <strong data-th="📞 ติดต่อขอใบเสนอราคา &amp; ประเมินขอบเขตงานฟรี (Free 30-min Consultation)" data-en="📞 Contact for Quotation &amp; Free 30-min Initial Consultation">📞 ติดต่อขอใบเสนอราคา & ประเมินขอบเขตงานฟรี (Free 30-min Consultation)</strong>
+      <span data-th="คุณสรวิศ สุวรรณรงค์ (Sorawit Suwannarong) — Industrial Sustainability Consultant" data-en="Sorawit Suwannarong — Industrial Sustainability Consultant">คุณสรวิศ สุวรรณรงค์ (Sorawit Suwannarong) — Industrial Sustainability Consultant</span>
       <span>📧 Email: <a href="mailto:sorawit@futuregreennet.com">sorawit@futuregreennet.com</a> | 🌐 Web: <a href="https://futuregreennet.com" target="_blank">https://futuregreennet.com</a></span>
-      <span>💬 LINE Official Account: <strong>@137xvimh</strong> | 📍 ศรีราชา, ชลบุรี (พื้นที่ภาคตะวันออก & EEC)</span>
+      <span data-th="💬 LINE Official Account: &lt;strong&gt;@137xvimh&lt;/strong&gt; | 📍 ศรีราชา, ชลบุรี (พื้นที่ภาคตะวันออก &amp; EEC)" data-en="💬 LINE Official Account: &lt;strong&gt;@137xvimh&lt;/strong&gt; | 📍 Sriracha, Chonburi (EEC Industrial Zone)">💬 LINE Official Account: <strong>@137xvimh</strong> | 📍 ศรีราชา, ชลบุรี (พื้นที่ภาคตะวันออก & EEC)</span>
     </div>
     <div class="f-qr">
       <div class="f-qr-box">
-        <!-- Google Chart API QR Code generation for futuregreennet.com/contact.html -->
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://futuregreennet.com/contact.html" alt="QR Code">
       </div>
-      <div>สแกนขอใบเสนอราคา</div>
+      <div data-th="สแกนขอใบเสนอราคา" data-en="Scan for Quotation">สแกนขอใบเสนอราคา</div>
     </div>
   </footer>
 
 </div>
+
+<script>
+  const LANG_KEY = 'fg_lang';
+  const langToggle = document.getElementById('langToggle');
+
+  function applyLanguage(lang) {
+    localStorage.setItem(LANG_KEY, lang);
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-th]').forEach(el => {
+      const val = lang === 'en' ? (el.getAttribute('data-en') || el.getAttribute('data-th')) : el.getAttribute('data-th');
+      el.innerHTML = val;
+    });
+    if (langToggle) {
+      langToggle.dataset.active = lang;
+      langToggle.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    }
+  }
+
+  if (langToggle) {
+    langToggle.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+    });
+  }
+
+  applyLanguage(localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'th');
+</script>
 
 </body>
 </html>
