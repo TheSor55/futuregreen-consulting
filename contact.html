@@ -184,11 +184,13 @@ img { max-width: 100%; display: block; }
           <div class="form-group">
             <label class="form-label" data-th="หัวข้อบริการที่สนใจ / Service Interest" data-en="Service Interest">หัวข้อบริการที่สนใจ / Service Interest</label>
             <select name="service" id="serviceSelect" class="form-select">
-              <option value="cfo">Carbon Footprint for Organization (CFO)</option>
-              <option value="cfp">Carbon Footprint of Product (CFP)</option>
-              <option value="iso">ISO 14001 / ISO 50001 System</option>
-              <option value="spc">SPC Quality Analytics / Digital Tools</option>
-              <option value="other">อื่นๆ / General Advisory</option>
+              <option value="cfo" data-th="Carbon Footprint for Organization (CFO)" data-en="Carbon Footprint for Organization (CFO)">Carbon Footprint for Organization (CFO)</option>
+              <option value="cfp" data-th="Carbon Footprint of Product (CFP)" data-en="Carbon Footprint of Product (CFP)">Carbon Footprint of Product (CFP)</option>
+              <option value="iso9001_14001" data-th="ISO 9001 / ISO 14001 / ISO 50001 System" data-en="ISO 9001 / ISO 14001 / ISO 50001 System">ISO 9001 / ISO 14001 / ISO 50001 System</option>
+              <option value="gap_analysis" data-th="Initial Audit &amp; Gap Analysis (ประเมินสถานะระบบเดิม)" data-en="Initial Audit &amp; Gap Analysis (System Review)">Initial Audit & Gap Analysis (ประเมินสถานะระบบเดิม)</option>
+              <option value="training" data-th="In-house Training &amp; Workshops (อบรมบุคลากรภายในโรงงาน)" data-en="In-house Training &amp; Workshops (Staff Training)">In-house Training & Workshops (อบรมบุคลากรภายในโรงงาน)</option>
+              <option value="spc" data-th="SPC Quality Analytics / Digital Tools" data-en="SPC Quality Analytics / Digital Tools">SPC Quality Analytics / Digital Tools</option>
+              <option value="other" data-th="อื่นๆ / General Advisory" data-en="Other / General Advisory">อื่นๆ / General Advisory</option>
             </select>
           </div>
 
@@ -319,8 +321,16 @@ img { max-width: 100%; display: block; }
 
     if (svc === 'cfp') {
       rec = isEn ? 'Product Life Cycle Assessment (LCA) + TGO Carbon Label registration' : 'ประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ (LCA) เพื่อเตรียมขอฉลากคาร์บอน TGO';
-    } else if (svc === 'iso') {
-      rec = isEn ? 'Initial Gap Analysis + Standard Operating Procedures (SOPs) + Internal Audit Training' : 'ประเมิน Gap Analysis + จัดทำคู่มือ SOP และจัดอบรมผู้ตรวจประเมินภายใน';
+    } else if (svc === 'iso9001_14001') {
+      rec = isEn ? 'ISO 9001:2026 / ISO 14001:2026 Transition Roadmap + Manual/SOP drafting + CB Audit Prep' : 'แผนเปลี่ยนผ่าน ISO 9001/14001:2026 + จัดทำคู่มือ SOP และดูแลจนผ่านการรับรองจาก CB';
+    } else if (svc === 'gap_analysis') {
+      days = isEn ? '5 – 10 Working Days' : '5 – 10 วันทำการ';
+      docs = isEn ? 'Current Quality Manual, Environmental Aspects, Energy Baseline, and Compliance register' : 'คู่มือระบบเดิม, รายการประเด็นสิ่งแวดล้อม/พลังงาน, และทะเบียนกฎหมาย';
+      rec = isEn ? 'On-site Initial Review & Audit + Gap Analysis Report & Action Plan' : 'เข้าประเมินสถานะหน้างานจริง + สรุปรายงาน Gap Analysis และจัดทำ Action Plan';
+    } else if (svc === 'training') {
+      days = isEn ? '1 – 3 Working Days' : '1 – 3 วันทำการ';
+      docs = isEn ? 'Trainee list, current process flowchart, and target quality/sustainability KPIs' : 'รายชื่อผู้เข้าร่วมอบรม, ผังกระบวนการผลิต, และเป้าหมาย KPI ที่ต้องการยกระดับ';
+      rec = isEn ? 'Customized In-house Training Workshop + Post-test & Completion Certificates' : 'หลักสูตรอบรม In-house เฉพาะโรงงานคุณ + กิจกรรม Workshop และใบรับรอง';
     } else if (svc === 'spc') {
       days = isEn ? '7 – 15 Working Days' : '7 – 15 วันทำการ';
       docs = isEn ? 'Inspection check sheets, tolerance limits (LSL/USL), and shopfloor test logs' : 'แบบฟอร์มบันทึกการสุ่มตรวจ ค่าพิกัดความคลาดเคลื่อน (LSL/USL) หน้างาน';
