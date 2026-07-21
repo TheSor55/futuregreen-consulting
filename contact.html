@@ -183,7 +183,7 @@ img { max-width: 100%; display: block; }
           </div>
           <div class="form-group">
             <label class="form-label" data-th="หัวข้อบริการที่สนใจ / Service Interest" data-en="Service Interest">หัวข้อบริการที่สนใจ / Service Interest</label>
-            <select name="service" class="form-select">
+            <select name="service" id="serviceSelect" class="form-select">
               <option value="cfo">Carbon Footprint for Organization (CFO)</option>
               <option value="cfp">Carbon Footprint of Product (CFP)</option>
               <option value="iso">ISO 14001 / ISO 50001 System</option>
@@ -191,9 +191,59 @@ img { max-width: 100%; display: block; }
               <option value="other">อื่นๆ / General Advisory</option>
             </select>
           </div>
+
+          <!-- SMART ESTIMATE FORM -->
+          <div class="smart-estimate-box" style="background: var(--cream-warm); border: 1.5px solid var(--gold); border-radius: 16px; padding: 20px; margin: 24px 0;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
+              <span style="background: var(--forest); color: var(--gold-pale); font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; letter-spacing:.04em;">SMART ESTIMATOR</span>
+              <h3 style="font-family: var(--font-display); font-size: 17px; color: var(--forest); font-weight: 600;" data-th="ประเมินขอบเขตงานและกรอบเวลาเบื้องต้น" data-en="Initial Scope &amp; Timeline Estimator">ประเมินขอบเขตงานและกรอบเวลาเบื้องต้น</h3>
+            </div>
+            <p style="font-size: 13px; color: var(--ink-soft); margin-bottom: 16px; line-height: 1.5;" data-th="ระบุประเภทโรงงานและจำนวนพนักงานเพื่อประเมินระยะเวลาดำเนินงานและเอกสารที่ต้องจัดเตรียมโดยอัตโนมัติ" data-en="Select your factory parameters below to calculate estimated duration and required audit documents.">ระบุประเภทโรงงานและจำนวนพนักงานเพื่อประเมินระยะเวลาดำเนินงานและเอกสารที่ต้องจัดเตรียมโดยอัตโนมัติ</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+              <div>
+                <label class="form-label" style="font-size: 12px; margin-bottom: 4px;" data-th="1. ประเภทอุตสาหกรรม" data-en="1. Industry Sector">1. ประเภทอุตสาหกรรม</label>
+                <select id="estIndustry" name="industry" class="form-select" style="font-size: 13px; padding: 10px 12px; background:#fff;">
+                  <option value="plastics" data-th="พลาสติก &amp; ขึ้นรูป" data-en="Plastics &amp; Molding">พลาสติก & ขึ้นรูป</option>
+                  <option value="packaging" data-th="บรรจุภัณฑ์ &amp; สิ่งพิมพ์" data-en="Packaging &amp; Printing">บรรจุภัณฑ์ & สิ่งพิมพ์</option>
+                  <option value="automotive" data-th="ชิ้นส่วนยานยนต์ &amp; โลหะ" data-en="Automotive &amp; Metal Parts">ชิ้นส่วนยานยนต์ & โลหะ</option>
+                  <option value="food" data-th="อาหาร เครื่องดื่ม &amp; ยา" data-en="Food, Beverage &amp; Pharma">อาหาร เครื่องดื่ม & ยา</option>
+                  <option value="electronics" data-th="อิเล็กทรอนิกส์ &amp; เครื่องใช้ไฟฟ้า" data-en="Electronics &amp; Appliances">อิเล็กทรอนิกส์ & เครื่องใช้ไฟฟ้า</option>
+                  <option value="other" data-th="อุตสาหกรรมอื่นๆ" data-en="Other Manufacturing">อุตสาหกรรมอื่นๆ</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label" style="font-size: 12px; margin-bottom: 4px;" data-th="2. จำนวนพนักงาน" data-en="2. Workforce Size">2. จำนวนพนักงาน</label>
+                <select id="estWorkforce" name="workforce" class="form-select" style="font-size: 13px; padding: 10px 12px; background:#fff;">
+                  <option value="small" data-th="น้อยกว่า 50 คน (SME เล็ก)" data-en="< 50 employees (Small SME)">น้อยกว่า 50 คน (SME เล็ก)</option>
+                  <option value="medium" selected data-th="51 - 200 คน (SME กลาง)" data-en="51 - 200 employees (Medium SME)">51 - 200 คน (SME กลาง)</option>
+                  <option value="large" data-th="201 - 500 คน (โรงงานขนาดใหญ่)" data-en="201 - 500 employees (Large Factory)">201 - 500 คน (โรงงานขนาดใหญ่)</option>
+                  <option value="enterprise" data-th="มากกว่า 500 คน (Enterprise)" data-en="> 500 employees (Enterprise)">มากกว่า 500 คน (Enterprise)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- LIVE ESTIMATE DISPLAY RESULT BOX -->
+            <div id="estResultBox" style="background: #ffffff; border: 1px solid rgba(201,162,75,.4); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px dashed var(--line); padding-bottom: 8px;">
+                <span style="font-size: 12.5px; font-weight: 600; color: var(--forest);" data-th="⏱ ระยะเวลาดำเนินงานประมาณ:" data-en="⏱ Estimated Timeline:">⏱ ระยะเวลาดำเนินงานประมาณ:</span>
+                <span id="estDaysText" style="font-size: 13.5px; font-weight: 700; color: var(--leaf); font-family: var(--font-mono);">30 – 45 วันทำการ</span>
+              </div>
+              <div style="font-size: 12px; color: var(--ink-soft); line-height: 1.5;">
+                <strong data-th="📄 เอกสารหลักที่ต้องเตรียม:" data-en="📄 Key Required Data:">📄 เอกสารหลักที่ต้องเตรียม:</strong>
+                <span id="estDocsText">บิลค่าไฟฟ้าประเมิน 12 เดือน, บิลน้ำมันเชื้อเพลิง Scope 1, และข้อมูลวัตถุดิบ</span>
+              </div>
+              <div style="font-size: 12px; color: var(--ink-soft); line-height: 1.5;">
+                <strong data-th="🎯 ข้อแนะนำแพ็กเกจ:" data-en="🎯 Recommendation:">🎯 ข้อแนะนำแพ็กเกจ:</strong>
+                <span id="estRecText">เหมาะสำหรับการประเมิน CFO Scope 1 &amp; 2 ควบคู่กับการอบรมพนักงาน 1 วัน</span>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="form-label" data-th="รายละเอียดเพิ่มเติม / Message" data-en="Additional Message &amp; Requirements">รายละเอียดเพิ่มเติม / Message</label>
-            <textarea name="message" rows="4" class="form-textarea" placeholder="Describe your product type, workforce size, or consultation goals..."></textarea>
+            <textarea name="message" id="messageTextarea" rows="4" class="form-textarea" placeholder="Describe your product type, workforce size, or consultation goals..."></textarea>
           </div>
           <button type="submit" class="btn-submit" data-th="ส่งข้อความขอใบเสนอราคา →" data-en="Send Quotation Request →">ส่งข้อความขอใบเสนอราคา →</button>
         </form>
@@ -244,6 +294,50 @@ img { max-width: 100%; display: block; }
   const LANG_KEY = 'fg_lang';
   const langToggle = document.getElementById('langToggle');
 
+  const estIndustry = document.getElementById('estIndustry');
+  const estWorkforce = document.getElementById('estWorkforce');
+  const serviceSelect = document.getElementById('serviceSelect');
+
+  function updateEstimate() {
+    const isEn = (localStorage.getItem(LANG_KEY) === 'en');
+    const wf = estWorkforce.value;
+    const svc = serviceSelect.value;
+    const ind = estIndustry.options[estIndustry.selectedIndex];
+    const indText = isEn ? (ind.getAttribute('data-en') || ind.textContent) : (ind.getAttribute('data-th') || ind.textContent);
+
+    let days = isEn ? '30 – 45 Working Days' : '30 – 45 วันทำการ';
+    let docs = isEn ? '12-month electricity bills, Scope 1 fuel records, and raw material LCI' : 'บิลค่าไฟฟ้าประเมิน 12 เดือน, บิลน้ำมันเชื้อเพลิง Scope 1, และข้อมูลวัตถุดิบ';
+    let rec = isEn ? 'Focus on CFO Scope 1 & 2 + 1-day internal staff training' : 'เน้นการทำประเมิน CFO Scope 1 & 2 ควบคู่การอบรมทีมงาน 1 วัน';
+
+    if (wf === 'small') {
+      days = isEn ? '15 – 30 Working Days' : '15 – 30 วันทำการ';
+    } else if (wf === 'large' || wf === 'enterprise') {
+      days = isEn ? '45 – 75 Working Days' : '45 – 75 วันทำการ';
+      docs = isEn ? 'Multi-site energy logs, Scope 1-3 activity data, and logistics records' : 'ข้อมูลการใช้พลังงานย่อยตามสาขา/แผนก, ข้อมูลขนส่ง Scope 3, และบิลเชื้อเพลิงย้อนหลัง';
+      rec = isEn ? 'Full Scope 1, 2, 3 verification preparation + ISO Gap Analysis' : 'จัดทำรายงาน CFO ครอบคลุม Scope 1, 2, 3 พร้อมเตรียมการตรวจทวนสอบยกระดับ ISO';
+    }
+
+    if (svc === 'cfp') {
+      rec = isEn ? 'Product Life Cycle Assessment (LCA) + TGO Carbon Label registration' : 'ประเมินคาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ (LCA) เพื่อเตรียมขอฉลากคาร์บอน TGO';
+    } else if (svc === 'iso') {
+      rec = isEn ? 'Initial Gap Analysis + Standard Operating Procedures (SOPs) + Internal Audit Training' : 'ประเมิน Gap Analysis + จัดทำคู่มือ SOP และจัดอบรมผู้ตรวจประเมินภายใน';
+    } else if (svc === 'spc') {
+      days = isEn ? '7 – 15 Working Days' : '7 – 15 วันทำการ';
+      docs = isEn ? 'Inspection check sheets, tolerance limits (LSL/USL), and shopfloor test logs' : 'แบบฟอร์มบันทึกการสุ่มตรวจ ค่าพิกัดความคลาดเคลื่อน (LSL/USL) หน้างาน';
+      rec = isEn ? 'Web App shopfloor deployment + AQL table configuration + Tablet setup' : 'ติดตั้งเปิดใช้งาน Web App หน้างาน + ตั้งค่าตารางสุ่มตรวจ AQL บนแท็บเล็ต';
+    }
+
+    document.getElementById('estDaysText').textContent = days;
+    document.getElementById('estDocsText').textContent = docs;
+    document.getElementById('estRecText').textContent = rec;
+  }
+
+  if (estIndustry && estWorkforce && serviceSelect) {
+    estIndustry.addEventListener('change', updateEstimate);
+    estWorkforce.addEventListener('change', updateEstimate);
+    serviceSelect.addEventListener('change', updateEstimate);
+  }
+
   function applyLanguage(lang) {
     localStorage.setItem(LANG_KEY, lang);
     document.documentElement.lang = lang;
@@ -255,6 +349,7 @@ img { max-width: 100%; display: block; }
       langToggle.dataset.active = lang;
       langToggle.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
     }
+    updateEstimate();
   }
 
   if (langToggle) {
