@@ -646,6 +646,10 @@ function applyLanguage(lang) {
   document.getElementById('noResultsTitle').textContent = T.noResultsTitle;
   document.getElementById('noResultsSub').textContent = T.noResultsSub;
   document.getElementById('lbHint').innerHTML = T.lbHint;
+  document.querySelectorAll('[data-th]').forEach(el => {
+    const val = lang === 'en' ? (el.getAttribute('data-en') || el.getAttribute('data-th')) : el.getAttribute('data-th');
+    el.innerHTML = val;
+  });
   langToggle.dataset.active = lang;
   langToggle.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
   renderStats();
