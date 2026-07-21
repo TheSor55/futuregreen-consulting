@@ -9,6 +9,20 @@
 <meta name="author" content="Sorawit Suwannarong">
 <meta name="robots" content="index, follow">
 
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="assets/img/favicon.png">
+
+<!-- Google Analytics 4 (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X8Z9L4X7Q9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X8Z9L4X7Q9');
+</script>
+
 <!-- Canonical URL -->
 <link rel="canonical" href="https://futuregreennet.com/">
 
@@ -637,16 +651,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--leaf-bright); o
 <!-- NAV -->
 <nav class="nav" id="nav">
   <div class="wrap nav-inner">
-    <div class="nav-brand">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 0 20A10 10 0 0 1 12 2"/><path d="M12 6v6l4 2"/></svg>
-      FutureGreen
-    </div>
+    <a href="index.html" class="nav-brand" style="text-decoration:none;">
+      <img src="assets/img/favicon.png" alt="FutureGreen Logo" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">
+      <span>FutureGreen</span>
+    </a>
     <div class="nav-right">
-      <a href="index.html" class="nav-link" style="color:var(--forest);font-weight:600;">หน้าแรก</a>
-      <a href="services.html" class="nav-link">บริการของเรา</a>
-      <a href="tools.html" class="nav-link">เครื่องมือดิจิทัล</a>
-      <a href="knowledge.html" class="nav-link">คลังความรู้</a>
-      <a href="contact.html" class="nav-link">ติดต่อเรา</a>
+      <a href="index.html" class="nav-link" data-th="หน้าแรก" data-en="Home" style="color:var(--forest);font-weight:600;">หน้าแรก</a>
+      <a href="services.html" class="nav-link" data-th="บริการของเรา" data-en="Services">บริการของเรา</a>
+      <a href="tools.html" class="nav-link" data-th="เครื่องมือดิจิทัล" data-en="Digital Tools">เครื่องมือดิจิทัล</a>
+      <a href="knowledge.html" class="nav-link" data-th="คลังความรู้" data-en="Knowledge Hub">คลังความรู้</a>
+      <a href="contact.html" class="nav-link" data-th="ติดต่อเรา" data-en="Contact">ติดต่อเรา</a>
       <div class="lang-toggle" id="langToggle" data-active="th">
         <div class="lang-toggle-bg"></div>
         <button class="lang-btn active" data-lang="th">TH</button>
