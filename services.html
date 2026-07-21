@@ -153,9 +153,10 @@ img { max-width: 100%; display: block; }
 }
 .nav-mobile-link span.icon { font-size: 16px; color: var(--gold); }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .nav-links { display: none !important; }
-  .nav-hamburger { display: flex; }
+  .nav-cta { display: none !important; }
+  .nav-hamburger { display: flex !important; }
   .nav-mobile-menu { display: flex; }
 }
 
@@ -219,6 +220,7 @@ img { max-width: 100%; display: block; }
 
   <!-- MOBILE NAVIGATION DRAWER -->
   <div class="nav-mobile-menu" id="navMobileMenu">
+    <a href="contact.html" class="btn-submit" style="text-align:center;text-decoration:none;margin-bottom:6px;display:block;background:var(--leaf);" data-th="📞 ปรึกษาฟรี 30 นาที / ขอใบเสนอราคา" data-en="📞 Free 30-min Consult / Request Quote">📞 ปรึกษาฟรี 30 นาที / ขอใบเสนอราคา</a>
     <a href="index.html" class="nav-mobile-link"><span data-th="🏠 หน้าแรก" data-en="🏠 Home">🏠 หน้าแรก</span><span class="icon">›</span></a>
     <a href="services.html" class="nav-mobile-link active"><span data-th="🛠️ บริการของเรา (CFO/ISO/มอก.)" data-en="🛠️ Services (CFO/ISO/TISI)">🛠️ บริการของเรา (CFO/ISO/มอก.)</span><span class="icon">›</span></a>
     <a href="tools.html" class="nav-mobile-link"><span data-th="💻 เครื่องมือกิจิทัล (SPC / AQL)" data-en="💻 Digital Tools (SPC / AQL)">💻 เครื่องมือกิจิทัล (SPC / AQL)</span><span class="icon">›</span></a>
