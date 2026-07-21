@@ -108,28 +108,22 @@ img { max-width: 100%; display: block; }
 
 .nav-mobile-menu {
   display: none;
-  position: fixed;
-  top: 60px;
+  position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
-  background: rgba(10,20,16,.96);
+  background: rgba(10,20,16,.97);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   padding: 16px 20px;
   border-bottom: 2px solid var(--gold);
-  box-shadow: 0 20px 40px rgba(0,0,0,.35);
-  z-index: 49;
+  box-shadow: 0 20px 40px rgba(0,0,0,.4);
+  z-index: 999;
   flex-direction: column;
   gap: 8px;
-  opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
-  transition: opacity .25s ease, transform .25s ease;
 }
 .nav-mobile-menu.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  display: flex !important;
 }
 .nav-mobile-link {
   display: flex;
@@ -475,17 +469,24 @@ img { max-width: 100%; display: block; }
     const navHamburger = document.getElementById('navHamburger');
     const navMobileMenu = document.getElementById('navMobileMenu');
     if (navHamburger && navMobileMenu) {
-      navHamburger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        navMobileMenu.classList.toggle('active');
-        navHamburger.classList.toggle('active');
-      });
+      function toggleMenu(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        const isAct = navMobileMenu.classList.toggle('active');
+        navHamburger.classList.toggle('active', isAct);
+      }
+
+      navHamburger.addEventListener('click', toggleMenu);
+
       document.addEventListener('click', function(e) {
         if (!navMobileMenu.contains(e.target) && !navHamburger.contains(e.target)) {
           navMobileMenu.classList.remove('active');
           navHamburger.classList.remove('active');
         }
       });
+
       navMobileMenu.querySelectorAll('a').forEach(function(link) {
         link.addEventListener('click', function() {
           navMobileMenu.classList.remove('active');
