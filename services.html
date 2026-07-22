@@ -413,5 +413,280 @@ img { max-width: 100%; display: block; }
     });
   })();
 </script>
+
+<!-- ============================================================================
+     FutureGreen Chat Widget
+     ============================================================================ -->
+<style>
+  :root{
+    --fg-green-900:#0D3D2B; --fg-green-800:#0A1410; --fg-green-700:#1F8A5C;
+    --fg-green-600:#2FAE76; --fg-green-100:#F2E6C8; --fg-cream:#F7F4EC;
+    --fg-gold:#C9A24B; --fg-line:#06C755;
+  }
+
+  #fg-chat-btn{
+    position:fixed; bottom:24px; right:24px; width:60px; height:60px;
+    border-radius:50%; background:var(--fg-green-700); color:#fff;
+    border:none; font-size:26px; cursor:pointer; z-index:9999;
+    box-shadow:0 6px 20px rgba(27,67,50,.35);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .2s ease, background .2s ease;
+  }
+  #fg-chat-btn:hover{ background:var(--fg-green-600); transform:translateY(-2px); }
+  #fg-chat-btn:focus-visible{ outline:3px solid var(--fg-gold); outline-offset:2px; }
+  #fg-chat-btn.fg-pulse{ animation:fgPulse 1.6s ease-out 2; }
+  @keyframes fgPulse{
+    0%{ box-shadow:0 0 0 0 rgba(82,183,136,.55); }
+    100%{ box-shadow:0 0 0 16px rgba(82,183,136,0); }
+  }
+
+  #fg-chat-teaser{
+    position:fixed; bottom:34px; right:96px; max-width:230px;
+    background:#fff; color:var(--fg-green-900); font-family:'IBM Plex Sans Thai', sans-serif;
+    font-size:13.5px; line-height:1.45; padding:10px 14px; border-radius:14px 14px 4px 14px;
+    box-shadow:0 8px 24px rgba(0,0,0,.18); z-index:9998;
+    opacity:0; transform:translateY(8px) scale(.96); pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  #fg-chat-teaser.fg-show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  #fg-chat-teaser .fg-teaser-close{
+    position:absolute; top:-7px; right:-7px; width:20px; height:20px; border-radius:50%;
+    background:var(--fg-green-900); color:#fff; border:none; font-size:11px; line-height:1;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  @media (max-width:480px){
+    #fg-chat-teaser{ right:14px; bottom:96px; max-width:180px; }
+  }
+
+  #fg-chat-panel{
+    position:fixed; bottom:96px; right:24px; width:360px; max-width:92vw;
+    height:520px; max-height:75vh; background:var(--fg-cream);
+    border-radius:16px; box-shadow:0 16px 48px rgba(0,0,0,.25);
+    display:flex; flex-direction:column; overflow:hidden; z-index:9999;
+    font-family:'IBM Plex Sans Thai', sans-serif;
+    opacity:0; transform:translateY(16px) scale(.97); pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  #fg-chat-panel.fg-open{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+
+  #fg-chat-head{
+    background:var(--fg-green-900); color:#fff; padding:14px 16px;
+    display:flex; align-items:center; gap:10px; flex-shrink:0;
+  }
+  #fg-chat-head .fg-title{ font-weight:600; font-size:15px; display:block; }
+  #fg-chat-head .fg-sub{ font-size:11px; color:var(--fg-green-100); display:block; margin-top:2px; }
+  #fg-chat-head-text{ flex:1; min-width:0; }
+  #fg-chat-head a, #fg-chat-head button{
+    background:none; border:none; color:#fff; cursor:pointer; font-size:18px;
+    flex-shrink:0; line-height:1; padding:4px;
+  }
+  #fg-chat-head .fg-line-link{ color:var(--fg-line); font-size:20px; text-decoration:none; }
+
+  #fg-chat-body{
+    flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column;
+    gap:10px; background:#fff;
+  }
+  .fg-msg{
+    max-width:82%; padding:9px 13px; border-radius:14px; font-size:14px;
+    line-height:1.5; white-space:pre-wrap; word-wrap:break-word;
+  }
+  .fg-msg.bot{ background:var(--fg-green-100); color:var(--fg-green-900); align-self:flex-start; border-bottom-left-radius:4px; }
+  .fg-msg.user{ background:var(--fg-gold); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+  .fg-typing{ align-self:flex-start; color:var(--fg-green-700); font-size:13px; padding:0 4px; }
+
+  #fg-chat-foot{ display:flex; gap:8px; padding:10px; border-top:1px solid #eee; background:#fff; flex-shrink:0; }
+  #fg-chat-input{
+    flex:1; border:1.5px solid #ddd; border-radius:20px; padding:9px 14px;
+    font-size:16px;
+    font-family:inherit; outline:none; min-width:0;
+  }
+  #fg-chat-input:focus{ border-color:var(--fg-green-600); }
+  #fg-chat-send{
+    background:var(--fg-green-700); color:#fff; border:none; border-radius:50%;
+    width:38px; height:38px; cursor:pointer; font-size:16px; flex-shrink:0;
+  }
+  #fg-chat-send:disabled{ opacity:.5; cursor:default; }
+
+  @media (max-width:480px){
+    #fg-chat-panel{ right:12px; left:12px; width:auto; bottom:88px; height:70vh; }
+    #fg-chat-btn{ right:16px; bottom:16px; }
+  }
+</style>
+
+<div id="fg-chat-teaser">
+  <button class="fg-teaser-close" id="fg-teaser-close" aria-label="ปิด">✕</button>
+  <span id="fg-teaser-text">💬 มีคำถามเรื่อง ISO/Carbon Footprint? ถามผู้ช่วยได้เลย</span>
+</div>
+<button id="fg-chat-btn" class="fg-pulse" aria-label="เปิดแชทถาม FutureGreen Assistant">🌿</button>
+
+<div id="fg-chat-panel" role="dialog" aria-label="FutureGreen chat assistant" aria-hidden="true">
+  <div id="fg-chat-head">
+    <div id="fg-chat-head-text">
+      <span class="fg-title" id="fg-title-text">FutureGreen Assistant</span>
+      <span class="fg-sub" id="fg-sub-text">ถาม-ตอบ ISO / ESG / Carbon Footprint</span>
+    </div>
+    <a class="fg-line-link" href="https://line.me/R/ti/p/@137xvimh" target="_blank" rel="noopener" title="คุยกับสรวิศทาง LINE" aria-label="เปิด LINE">💬</a>
+    <button id="fg-chat-close" aria-label="ปิดแชท">✕</button>
+  </div>
+  <div id="fg-chat-body"></div>
+  <div id="fg-chat-foot">
+    <input id="fg-chat-input" type="text" maxlength="500" placeholder="พิมพ์คำถาม..." />
+    <button id="fg-chat-send" aria-label="ส่งข้อความ">➤</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const WORKER_URL = 'https://futuregreen-chatbot.the-sor.workers.dev/chat';
+
+  const T_ALL = {
+    th: {
+      title: 'FutureGreen Assistant',
+      sub: 'ถาม-ตอบ ISO / ESG / Carbon Footprint',
+      placeholder: 'พิมพ์คำถาม...',
+      teaser: '💬 มีคำถามเรื่อง ISO/Carbon Footprint? ถามผู้ช่วยได้เลย',
+      greeting: 'สวัสดีค่ะ 🌿 ดิฉันเป็นผู้ช่วยของ FutureGreen Consulting ถามเรื่อง ISO 9001/14001/45001/50001, Carbon Footprint, GP Audit หรือบริการอื่นๆ ได้เลยค่ะ หรือลองใช้ "Carbon Readiness Check" ฟรีเพื่อเริ่มต้นได้นะคะ',
+      error: 'ขออภัยค่ะ ระบบขัดข้องชั่วคราว รบกวนกดไอคอน LINE ด้านบนเพื่อคุยกับทีมงานโดยตรงนะคะ 🙏',
+      typing: 'กำลังพิมพ์…'
+    },
+    en: {
+      title: 'FutureGreen Assistant',
+      sub: 'Ask about ISO / ESG / Carbon Footprint',
+      placeholder: 'Type your question...',
+      teaser: "💬 Questions about ISO/Carbon Footprint? Ask our assistant",
+      greeting: "Hi 🌿 I'm the FutureGreen Consulting assistant. Ask about ISO 9001/14001/45001/50001, Carbon Footprint, GP Audit, or try our free Carbon Readiness Check to get started.",
+      error: 'Sorry, the assistant is temporarily unavailable. Please reach us on LINE for direct help.',
+      typing: 'Typing…'
+    }
+  };
+
+  let currentLang = (localStorage.getItem('fg_lang') === 'en') ? 'en' : 'th';
+
+  const btn = document.getElementById('fg-chat-btn');
+  const panel = document.getElementById('fg-chat-panel');
+  const body = document.getElementById('fg-chat-body');
+  const input = document.getElementById('fg-chat-input');
+  const send = document.getElementById('fg-chat-send');
+  const closeBtn = document.getElementById('fg-chat-close');
+
+  document.getElementById('fg-title-text').textContent = T_ALL[currentLang].title;
+  document.getElementById('fg-sub-text').textContent = T_ALL[currentLang].sub;
+  input.placeholder = T_ALL[currentLang].placeholder;
+
+  const teaser = document.getElementById('fg-chat-teaser');
+  const teaserText = document.getElementById('fg-teaser-text');
+  const teaserClose = document.getElementById('fg-teaser-close');
+  teaserText.textContent = T_ALL[currentLang].teaser;
+
+  let teaserTimer = setTimeout(function(){ teaser.classList.add('fg-show'); }, 1200);
+  let teaserAutoHide = setTimeout(function(){ teaser.classList.remove('fg-show'); }, 9000);
+
+  function dismissTeaser(){
+    clearTimeout(teaserTimer); clearTimeout(teaserAutoHide);
+    teaser.classList.remove('fg-show');
+  }
+  teaserClose.addEventListener('click', function(e){ e.stopPropagation(); dismissTeaser(); });
+
+  let history = [];
+  let opened = false;
+
+  function addMsg(text, who){
+    const div = document.createElement('div');
+    div.className = 'fg-msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function setTyping(on){
+    let el = document.getElementById('fg-typing-el');
+    if(on && !el){
+      el = document.createElement('div');
+      el.id = 'fg-typing-el';
+      el.className = 'fg-typing';
+      el.textContent = T_ALL[currentLang].typing;
+      body.appendChild(el);
+      body.scrollTop = body.scrollHeight;
+    } else if(!on && el){
+      el.remove();
+    }
+  }
+
+  async function sendMessage(){
+    const text = input.value.trim();
+    if(!text) return;
+    addMsg(text, 'user');
+    input.value = '';
+    input.disabled = true; send.disabled = true;
+    setTyping(true);
+
+    try{
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history, lang: currentLang })
+      });
+      if(!res.ok) throw new Error('bad response');
+      const data = await res.json();
+      setTyping(false);
+      addMsg(data.reply, 'bot');
+      history.push({ role:'user', content:text }, { role:'assistant', content:data.reply });
+      history = history.slice(-6);
+    }catch(e){
+      setTyping(false);
+      addMsg(T_ALL[currentLang].error, 'bot');
+    }finally{
+      input.disabled = false; send.disabled = false; input.focus();
+    }
+  }
+
+  btn.addEventListener('click', function(){
+    dismissTeaser();
+    opened = !opened;
+    panel.classList.toggle('fg-open', opened);
+    panel.setAttribute('aria-hidden', String(!opened));
+    btn.classList.remove('fg-pulse');
+    if(opened && body.children.length === 0){
+      addMsg(T_ALL[currentLang].greeting, 'bot');
+    }
+    if(opened) input.focus();
+  });
+
+  closeBtn.addEventListener('click', function(){
+    opened = false;
+    panel.classList.remove('fg-open');
+    panel.setAttribute('aria-hidden', 'true');
+    btn.focus();
+  });
+
+  send.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') sendMessage();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && opened){
+      opened = false;
+      panel.classList.remove('fg-open');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  const siteLangButtons = document.querySelectorAll('#langToggle .lang-btn');
+  if(siteLangButtons.length){
+    siteLangButtons.forEach(function(siteBtn){
+      siteBtn.addEventListener('click', function(){
+        const newLang = siteBtn.dataset.lang === 'en' ? 'en' : 'th';
+        const NT = T_ALL[newLang];
+        document.getElementById('fg-title-text').textContent = NT.title;
+        document.getElementById('fg-sub-text').textContent = NT.sub;
+        input.placeholder = NT.placeholder;
+        teaserText.textContent = NT.teaser;
+        currentLang = newLang;
+      });
+    });
+  }
+})();
+</script>
 </body>
 </html>
